@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "FadeManager.h"
 #include "Enemy/EnemyManager/EnemyManager.h"
+#include "Enemy/Blast/Blast.h"
 
 
 class TitleScene : public IScene {
@@ -53,12 +54,23 @@ public:
 	/// </summary>
 	void AddPlayerBullets(shared_ptr<IPlayerBullet> bullet) override { bullet; }
 
+
+
+private:
 	/// <summary>
-	/// カメラの動き
+	/// カメラの動きを管理する関数
 	/// </summary>
 	void CameraMove();
 
+	/// <summary>
+	/// カメラが一定の位置についたら透明度を戻す関数
+	/// </summary>
 	void SpriteMove();
+
+	/// <summary>
+	/// シーン遷移のためのBlastの動きを管理する関数
+	/// </summary>
+	void fadeBlastMove();
 
 private:
 
@@ -97,4 +109,6 @@ private:
 	bool isCameraInPosition_;
 
 	Vector4 spriteColor_{};
+
+	std::unique_ptr<Blast> fadeBlast_;
 };

@@ -64,6 +64,7 @@ public:
     int GetAttack() { return param.power; }
     void SetAttack(int atk) { param.power = atk; }
 
+
     void SpawnMove();
 
     void TitleMove();

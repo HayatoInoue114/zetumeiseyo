@@ -50,6 +50,8 @@ public:
 	Vector3 GetRotate() override { return this->worldTransform_.rotate; }
 
 	void SetBlast(bool isBlast) { isBlast_ = isBlast; }
+	void SetPos(Vector3 pos) { this->worldTransform_.translate = pos; }
+
 
 	OBBCollider* GetOBBCollider() override { return this; }
 

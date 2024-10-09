@@ -56,6 +56,10 @@ void TitleScene::Initialize()
 	pushASp_->SetColor({ 1,1,1,0 });
 
 	spriteColor_ = { 1,0,0,0 };
+
+	fadeBlast_ = std::make_unique<Blast>();
+	fadeBlast_->Initialize(camera_->GetWorldPos(), 1);
+	fadeBlast_->isSpawn = true;
 }
 
 
@@ -74,6 +78,8 @@ void TitleScene::Update(GameManager* state)
 	
 
 	enemyManager_.TitleUpdate();
+
+	fadeBlastMove();
 	/* ----- Skydome 天球 ----- */
 	Skydome::GetInstance()->Update();
 
@@ -83,10 +89,6 @@ void TitleScene::Update(GameManager* state)
 	/* ----- GameCamera ゲームカメラ----- */
 	camera_->UpdateMatrix();
 	CameraMove();
-	/*camera_->translate.z += 0.05f;
-	if (camera_->translate.z >= 50.0f) {
-		camera_->translate.z = -50.0f;
-	}*/
 
 	SpriteMove();
 
@@ -109,7 +111,7 @@ void TitleScene::Update(GameManager* state)
 
 		if (FadeManager::IsFadeIn()) {
 			Audio::StopOnSound(BGM_);
-			state->ChangeSceneState(new SelectScene());
+			//state->ChangeSceneState(new SelectScene());
 		}
 	}
 
@@ -136,6 +138,8 @@ void TitleScene::ModelDraw()
 {
 	enemyManager_.Draw(camera_.get());
 
+	fadeBlast_->Draw(camera_.get());
+
 	/* ----- Skydome 天球 ----- */
 	Skydome::GetInstance()->Draw(camera_.get());
 
@@ -159,10 +163,11 @@ void TitleScene::FrontSpriteDraw()
 	if (change_ % 2 == 0) {
 		pushASp_->Draw(pushATexHD_, pushAWt_, camera_.get());
 	}
-
+	
+	
 
 	/* ----- FadeManager フェードマネージャー ----- */
-	FadeManager::Draw(camera_.get());
+	//FadeManager::Draw(camera_.get());
 }
 
 void TitleScene::CameraMove() {
@@ -199,10 +204,22 @@ void TitleScene::CameraMove() {
 
 void TitleScene::SpriteMove()
 {
+	//スプライトの透明度
 	if(isCameraInPosition_ && spriteColor_.w <= 1.0f){
 		spriteColor_.w += 0.01f;
 	}
 
 	titleSp_->SetColor(spriteColor_);
 	pushASp_->SetColor(spriteColor_);
+}
+
+void TitleScene::fadeBlastMove()
+{
+	if (isFadeFunc_) {
+		fadeBlast_->SetPos(camera_->translate);
+	}
+
+	ImGui::Begin("fade");
+	ImGui::Text("%f", fadeBlast_->GetPos().x);
+	ImGui::End();
 }
