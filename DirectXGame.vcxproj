@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Demo|x64">
+      <Configuration>Demo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{bbb01052-5c93-4cad-afb4-5e2e4ad836b3}</ProjectGuid>
+    <RootNamespace>DirectXGame</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Demo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Demo|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>絶命せよ！！</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">
+    <TargetName>絶命せよ！！</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>絶命せよ！！</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;USE_IMGUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ProjectDir)Tsumi;$(ProjectDir)Tsumi\2D;$(ProjectDir)Tsumi\2D\Sprite;$(ProjectDir)Tsumi\2D\Sprite\state;$(ProjectDir)Tsumi\2D\Sprite\state\SpriteBoxState;$(ProjectDir)Tsumi\3D;$(ProjectDir)Tsumi\3D\DrawSystem;$(ProjectDir)Tsumi\3D\Model;$(ProjectDir)Tsumi\3D\Model\ModelManager;$(ProjectDir)Tsumi\3D\Model\ModelObj;$(ProjectDir)Tsumi\3D\Model\ModelObj\ObjDataResource;$(ProjectDir)Tsumi\3D\Model\ModelPlane;$(ProjectDir)Tsumi\3D\Model\ModelSphere;$(ProjectDir)Tsumi\Audio;$(ProjectDir)Tsumi\Audio\AudioDataResource;$(ProjectDir)Tsumi\Base;$(ProjectDir)Tsumi\Base\WinApp;$(ProjectDir)Tsumi\Base\DXCommon;$(ProjectDir)Tsumi\CreateResource;$(ProjectDir)Tsumi\DebugTools;$(ProjectDir)Tsumi\DebugTools\DebugCamera;$(ProjectDir)Tsumi\DebugTools\HowToUseEngine;$(ProjectDir)Tsumi\DescriptorManager;$(ProjectDir)Tsumi\Graphic;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Normal;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Sprite;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Light;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Lambert;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Phong;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\PhongNormalMap;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Particle;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Line;$(ProjectDir)Tsumi\Graphic\PipelineStateObject;$(ProjectDir)Tsumi\Graphic\ShaderManager;$(ProjectDir)Tsumi\Input;$(ProjectDir)Tsumi\Particle;$(ProjectDir)Tsumi\Particle\BaseParticle;$(ProjectDir)Tsumi\Particle\ParticleArray;$(ProjectDir)Tsumi\Particle\ParticleEmitter;$(ProjectDir)Tsumi\Particle\ParticleManager;$(ProjectDir)Tsumi\Particle\ParticlePlane;$(ProjectDir)Tsumi\Particle\ParticleRenderer;$(ProjectDir)Tsumi\Particle\ParticleSystem;$(ProjectDir)Tsumi\TextureManager;$(ProjectDir)Tsumi\TextureManager\TextureDataResource;$(ProjectDir)Tsumi\Transform;$(ProjectDir)Tsumi\Transform\SpriteTransform;$(ProjectDir)Tsumi\Transform\ViewProjection;$(ProjectDir)Tsumi\Transform\WorldTransform;$(ProjectDir)Tsumi\Utilities;$(ProjectDir)Tsumi\Utilities\ImGuiManager;$(ProjectDir)Tsumi\Utilities\CollisionManager;$(ProjectDir)Tsumi\Utilities\CollisionManager\Collider;$(ProjectDir)Tsumi\Utilities\CollisionManager\CollisionStructures;$(ProjectDir)Tsumi\Utilities\CollisionManager\GeometryCollision;$(ProjectDir)Tsumi\Utilities\CollisionManager\IsCollision;$(ProjectDir)Tsumi\Utilities\FadeManager;$(ProjectDir)Tsumi\Utilities\RandomGenerator;$(ProjectDir)Tsumi\Utilities\TextLog;$(ProjectDir)Tsumi\Utilities\TimedCall;$(ProjectDir)Project;$(ProjectDir)Project\GameManager;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\GameObject\Camera;$(ProjectDir)Project\GameObject\Effect;$(ProjectDir)Project\GameObject\Character;$(ProjectDir)Project\GameObject\Others;$(ProjectDir)Project\GameObject\Terrain;$(ProjectDir)Project\Math;$(ProjectDir)Project\Math\MathEasing;$(ProjectDir)Project\Math\MathFunction;$(ProjectDir)Project\Math\MathGeometry;$(ProjectDir)Project\Math\MathOperations;$(ProjectDir)Project\Math\MathStructure;$(ProjectDir)Project\Math\MathStructure\Matrix;$(ProjectDir)Project\Math\MathStructure\Vector;$(ProjectDir)Project\Math\MathQuaternion;$(ProjectDir)Project\Math\MyParlinNoise;$(ProjectDir)Project\Scene;$(ProjectDir)Project\Scene\SceneState;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\imgui\font;$(ProjectDir)externals\DirectXtex</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
+copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ProjectDir)Tsumi;$(ProjectDir)Tsumi\2D;$(ProjectDir)Tsumi\2D\Sprite;$(ProjectDir)Tsumi\2D\Sprite\state;$(ProjectDir)Tsumi\2D\Sprite\state\SpriteBoxState;$(ProjectDir)Tsumi\3D;$(ProjectDir)Tsumi\3D\DrawSystem;$(ProjectDir)Tsumi\3D\Model;$(ProjectDir)Tsumi\3D\Model\ModelManager;$(ProjectDir)Tsumi\3D\Model\ModelObj;$(ProjectDir)Tsumi\3D\Model\ModelObj\ObjDataResource;$(ProjectDir)Tsumi\3D\Model\ModelPlane;$(ProjectDir)Tsumi\3D\Model\ModelSphere;$(ProjectDir)Tsumi\Audio;$(ProjectDir)Tsumi\Audio\AudioDataResource;$(ProjectDir)Tsumi\Base;$(ProjectDir)Tsumi\Base\WinApp;$(ProjectDir)Tsumi\Base\DXCommon;$(ProjectDir)Tsumi\CreateResource;$(ProjectDir)Tsumi\DebugTools;$(ProjectDir)Tsumi\DebugTools\DebugCamera;$(ProjectDir)Tsumi\DebugTools\HowToUseEngine;$(ProjectDir)Tsumi\DescriptorManager;$(ProjectDir)Tsumi\Graphic;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Normal;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Sprite;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Light;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Lambert;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Phong;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\PhongNormalMap;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Particle;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Line;$(ProjectDir)Tsumi\Graphic\PipelineStateObject;$(ProjectDir)Tsumi\Graphic\ShaderManager;$(ProjectDir)Tsumi\Input;$(ProjectDir)Tsumi\Particle;$(ProjectDir)Tsumi\Particle\BaseParticle;$(ProjectDir)Tsumi\Particle\ParticleArray;$(ProjectDir)Tsumi\Particle\ParticleEmitter;$(ProjectDir)Tsumi\Particle\ParticleManager;$(ProjectDir)Tsumi\Particle\ParticlePlane;$(ProjectDir)Tsumi\Particle\ParticleRenderer;$(ProjectDir)Tsumi\Particle\ParticleSystem;$(ProjectDir)Tsumi\TextureManager;$(ProjectDir)Tsumi\TextureManager\TextureDataResource;$(ProjectDir)Tsumi\Transform;$(ProjectDir)Tsumi\Transform\SpriteTransform;$(ProjectDir)Tsumi\Transform\ViewProjection;$(ProjectDir)Tsumi\Transform\WorldTransform;$(ProjectDir)Tsumi\Utilities;$(ProjectDir)Tsumi\Utilities\ImGuiManager;$(ProjectDir)Tsumi\Utilities\CollisionManager;$(ProjectDir)Tsumi\Utilities\CollisionManager\Collider;$(ProjectDir)Tsumi\Utilities\CollisionManager\CollisionStructures;$(ProjectDir)Tsumi\Utilities\CollisionManager\GeometryCollision;$(ProjectDir)Tsumi\Utilities\CollisionManager\IsCollision;$(ProjectDir)Tsumi\Utilities\FadeManager;$(ProjectDir)Tsumi\Utilities\RandomGenerator;$(ProjectDir)Tsumi\Utilities\TextLog;$(ProjectDir)Tsumi\Utilities\TimedCall;$(ProjectDir)Project;$(ProjectDir)Project\GameManager;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\GameObject\Camera;$(ProjectDir)Project\GameObject\Effect;$(ProjectDir)Project\GameObject\Character;$(ProjectDir)Project\GameObject\Others;$(ProjectDir)Project\GameObject\Terrain;$(ProjectDir)Project\Math;$(ProjectDir)Project\Math\MathEasing;$(ProjectDir)Project\Math\MathFunction;$(ProjectDir)Project\Math\MathGeometry;$(ProjectDir)Project\Math\MathOperations;$(ProjectDir)Project\Math\MathStructure;$(ProjectDir)Project\Math\MathStructure\Matrix;$(ProjectDir)Project\Math\MathStructure\Vector;$(ProjectDir)Project\Math\MathQuaternion;$(ProjectDir)Project\Math\MyParlinNoise;$(ProjectDir)Project\Scene;$(ProjectDir)Project\Scene\SceneState;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\imgui\font;$(ProjectDir)externals\DirectXtex</AdditionalIncludeDirectories>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
+copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;USE_IMGUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ProjectDir)Tsumi;$(ProjectDir)Tsumi\2D;$(ProjectDir)Tsumi\2D\Sprite;$(ProjectDir)Tsumi\2D\Sprite\state;$(ProjectDir)Tsumi\2D\Sprite\state\SpriteBoxState;$(ProjectDir)Tsumi\3D;$(ProjectDir)Tsumi\3D\DrawSystem;$(ProjectDir)Tsumi\3D\Model;$(ProjectDir)Tsumi\3D\Model\ModelManager;$(ProjectDir)Tsumi\3D\Model\ModelObj;$(ProjectDir)Tsumi\3D\Model\ModelObj\ObjDataResource;$(ProjectDir)Tsumi\3D\Model\ModelPlane;$(ProjectDir)Tsumi\3D\Model\ModelSphere;$(ProjectDir)Tsumi\Audio;$(ProjectDir)Tsumi\Audio\AudioDataResource;$(ProjectDir)Tsumi\Base;$(ProjectDir)Tsumi\Base\WinApp;$(ProjectDir)Tsumi\Base\DXCommon;$(ProjectDir)Tsumi\CreateResource;$(ProjectDir)Tsumi\DebugTools;$(ProjectDir)Tsumi\DebugTools\DebugCamera;$(ProjectDir)Tsumi\DebugTools\HowToUseEngine;$(ProjectDir)Tsumi\DescriptorManager;$(ProjectDir)Tsumi\Graphic;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Normal;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Sprite;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Light;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Lambert;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Phong;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\PhongNormalMap;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Particle;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager\Line;$(ProjectDir)Tsumi\Graphic\PipelineStateObject;$(ProjectDir)Tsumi\Graphic\ShaderManager;$(ProjectDir)Tsumi\Input;$(ProjectDir)Tsumi\Particle;$(ProjectDir)Tsumi\Particle\BaseParticle;$(ProjectDir)Tsumi\Particle\ParticleArray;$(ProjectDir)Tsumi\Particle\ParticleEmitter;$(ProjectDir)Tsumi\Particle\ParticleManager;$(ProjectDir)Tsumi\Particle\ParticlePlane;$(ProjectDir)Tsumi\Particle\ParticleRenderer;$(ProjectDir)Tsumi\Particle\ParticleSystem;$(ProjectDir)Tsumi\TextureManager;$(ProjectDir)Tsumi\TextureManager\TextureDataResource;$(ProjectDir)Tsumi\Transform;$(ProjectDir)Tsumi\Transform\SpriteTransform;$(ProjectDir)Tsumi\Transform\ViewProjection;$(ProjectDir)Tsumi\Transform\WorldTransform;$(ProjectDir)Tsumi\Utilities;$(ProjectDir)Tsumi\Utilities\ImGuiManager;$(ProjectDir)Tsumi\Utilities\CollisionManager;$(ProjectDir)Tsumi\Utilities\CollisionManager\Collider;$(ProjectDir)Tsumi\Utilities\CollisionManager\CollisionStructures;$(ProjectDir)Tsumi\Utilities\CollisionManager\GeometryCollision;$(ProjectDir)Tsumi\Utilities\CollisionManager\IsCollision;$(ProjectDir)Tsumi\Utilities\FadeManager;$(ProjectDir)Tsumi\Utilities\RandomGenerator;$(ProjectDir)Tsumi\Utilities\TextLog;$(ProjectDir)Tsumi\Utilities\TimedCall;$(ProjectDir)Project;$(ProjectDir)Project\GameManager;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\GameObject\Camera;$(ProjectDir)Project\GameObject\Effect;$(ProjectDir)Project\GameObject\Character;$(ProjectDir)Project\GameObject\Others;$(ProjectDir)Project\GameObject\Terrain;$(ProjectDir)Project\Math;$(ProjectDir)Project\Math\MathEasing;$(ProjectDir)Project\Math\MathFunction;$(ProjectDir)Project\Math\MathGeometry;$(ProjectDir)Project\Math\MathOperations;$(ProjectDir)Project\Math\MathStructure;$(ProjectDir)Project\Math\MathStructure\Matrix;$(ProjectDir)Project\Math\MathStructure\Vector;$(ProjectDir)Project\Math\MathQuaternion;$(ProjectDir)Project\Math\MyParlinNoise;$(ProjectDir)Project\Scene;$(ProjectDir)Project\Scene\SceneState;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\imgui\font;$(ProjectDir)externals\DirectXtex</AdditionalIncludeDirectories>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
+copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Project\GameObject\Effect\MorterShadow\MorterShadow.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\None\None.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\Manual\Manual.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\BackArrow\BackArrow.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\BackScreen\BackScreen.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\BulletLavel\BulletLavel.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\DrawCost\DrawCost.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\DrawEnergy\DrawEnergy.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\HpBar\HpBar.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\LevelCount\LevelCount.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\OperationUI\OperationUI.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\PageSelect\PageSelect.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\DrawUI\SelectFrame\SelectFrame.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\PlayerLevelUpPrope\PlayerLevelUpPrope.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\PlayerSound\PlayerSound.cpp" />
+    <ClCompile Include="Project\GameObject\Effect\BlastParticle\BlastParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\Boss\Boss.cpp" />
+    <ClCompile Include="Project\GameObject\Effect\BulletCollisionParticle\BulletCollisionParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Effect\BulletHitParticle\BulletHitParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Effect\DeadFuncParticle\DeadFuncParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Effect\PlayerDashParticle\PlayerDashParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Effect\MortarParticle\MorterParticle.cpp" />
+    <ClCompile Include="Project\GameObject\FPSCounter\FPSCounter.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\EnemyManager\EnemyManager.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\Fire\Fire.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\Bullet\EnemyBullet.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\Blast\Blast.cpp" />
+    <ClCompile Include="externals\imgui\imgui.cpp" />
+    <ClCompile Include="externals\imgui\imgui_demo.cpp" />
+    <ClCompile Include="externals\imgui\imgui_draw.cpp" />
+    <ClCompile Include="externals\imgui\imgui_impl_dx12.cpp" />
+    <ClCompile Include="externals\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="externals\imgui\imgui_tables.cpp" />
+    <ClCompile Include="externals\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\IEnemy\IEnemy.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Project\GameManager\GameManager.cpp" />
+    <ClCompile Include="Project\GameObject\Camera\Camera.cpp" />
+    <ClCompile Include="Project\GameObject\Camera\MainCamera\MainCamera.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\Mortar\Mortar.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\Player.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\PlayerBaseStatus\PlayerBaseStatus.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\PlayerBullet\IPlayerBullet.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\PlayerBullet\NormalBullet\NormalBullet.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\PlayerBullet\PenetrationBullet\PenetrationBullet.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\PlayerBullet\Shotgun\Shotgun.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\PlayerReticle\PlayerReticle.cpp" />
+    <ClCompile Include="Project\GameObject\Others\GameTimeCount\GameTimeCount.cpp" />
+    <ClCompile Include="Project\GameObject\Others\LevelManager\LevelManager.cpp" />
+    <ClCompile Include="Project\GameObject\Others\ResultUI\ResultUI.cpp" />
+    <ClCompile Include="Project\GameObject\Others\SaveValue\SaveValue.cpp" />
+    <ClCompile Include="Project\GameObject\Others\TotalLevelUI\TotalLevelUI.cpp" />
+    <ClCompile Include="Project\GameObject\Others\WaveCountUI\WaveCountUI.cpp" />
+    <ClCompile Include="Project\GameObject\Terrain\Field\Field.cpp" />
+    <ClCompile Include="Project\GameObject\Terrain\Ground\Ground.cpp" />
+    <ClCompile Include="Project\GameObject\Terrain\Skydome\Skydome.cpp" />
+    <ClCompile Include="Project\Math\MathEasing\MathEasing.cpp" />
+    <ClCompile Include="Project\Math\MathFunction\MathFunction.cpp" />
+    <ClCompile Include="Project\Math\MathQuaternion\MathQuaternion.cpp" />
+    <ClCompile Include="Project\Math\MathStructure\Matrix\Matrix.cpp" />
+    <ClCompile Include="Project\Math\MathStructure\Vector\Vector.cpp" />
+    <ClCompile Include="Project\Math\MyParlinNoise\ParlinNoise.cpp" />
+    <ClCompile Include="Project\Scene\IScene.cpp" />
+    <ClCompile Include="Project\Scene\SceneState\ClearScene\ClearScene.cpp" />
+    <ClCompile Include="Project\Scene\SceneState\DebugScene\DebugScene.cpp" />
+    <ClCompile Include="Project\Scene\SceneState\GameScene\GameScene.cpp" />
+    <ClCompile Include="Project\Scene\SceneState\ManualScene\ManualScene.cpp" />
+    <ClCompile Include="Project\Scene\SceneState\OverScene\OverScene.cpp" />
+    <ClCompile Include="Project\Scene\SceneState\SelectScene\SelectScene.cpp" />
+    <ClCompile Include="Project\Scene\SceneState\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\Trace\Trace.cpp" />
+    <ClCompile Include="Tsumi\3D\DrawSystem\DrawSystem.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Line\LineGraphicPipeline.cpp" />
+    <ClCompile Include="Tsumi\Particle\BaseParticle\BaseParticle.cpp" />
+    <ClCompile Include="Tsumi\Particle\NormalParticle\NormalParticle.cpp" />
+    <ClCompile Include="Tsumi\Particle\ParticleArray\ParticleArray.cpp" />
+    <ClCompile Include="Tsumi\Particle\ParticleEmitter\ParticleEmitter.cpp" />
+    <ClCompile Include="Tsumi\Particle\ParticleManager\ParticleManager.cpp" />
+    <ClCompile Include="Tsumi\Particle\ParticleRenderer\ParticleRenderer.cpp" />
+    <ClCompile Include="Tsumi\Particle\ParticleSystem\ParticleSystem.cpp" />
+    <ClCompile Include="Tsumi\Utilities\TextLog\TextLog.cpp" />
+    <ClCompile Include="Tsumi\2D\Sprite\Sprite.cpp" />
+    <ClCompile Include="Tsumi\2D\Sprite\state\SpriteBoxState\SpriteBoxState.cpp" />
+    <ClCompile Include="Tsumi\3D\Model\Model.cpp" />
+    <ClCompile Include="Tsumi\3D\Model\ModelManager\ModelManager.cpp" />
+    <ClCompile Include="Tsumi\3D\Model\ModelObj\ModelObjState.cpp" />
+    <ClCompile Include="Tsumi\3D\Model\ModelObj\ObjDataResource\ObjDataResource.cpp" />
+    <ClCompile Include="Tsumi\3D\Model\ModelPlane\ModelPlaneState.cpp" />
+    <ClCompile Include="Tsumi\3D\Model\ModelSphere\ModelSphereState.cpp" />
+    <ClCompile Include="Tsumi\Audio\Audio.cpp" />
+    <ClCompile Include="Tsumi\Audio\AudioDataResource\AudioDataResource.cpp" />
+    <ClCompile Include="Tsumi\Base\DXCommon\DirectXCommon.cpp" />
+    <ClCompile Include="Tsumi\Base\WinApp\WinApp.cpp" />
+    <ClCompile Include="Tsumi\CreateResource\CreateResource.cpp" />
+    <ClCompile Include="Tsumi\DebugTools\DebugCamera\DebugCamera.cpp" />
+    <ClCompile Include="Tsumi\DebugTools\HowToUseEngine\EngineManual.cpp" />
+    <ClCompile Include="Tsumi\DescriptorManager\DescriptorManager.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineManager.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Lambert\LambertGraphicPipeline.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Light\LightGraphicPipeline.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Normal\NormalGraphicPipeline.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Particle\ParticleGraphicPipeline.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\PhongNormalMap\PhongNormalMap.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Phong\PhongGraphicPipeline.cpp" />
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Sprite\SpriteGraphicPipeline.cpp" />
+    <ClCompile Include="Tsumi\Graphic\ShaderManager\ShaderManager.cpp" />
+    <ClCompile Include="Tsumi\Input\Input.cpp" />
+    <ClCompile Include="Tsumi\Particle\Particle.cpp" />
+    <ClCompile Include="Tsumi\Particle\ParticlePlane\ParticlePlane.cpp" />
+    <ClCompile Include="Tsumi\TextureManager\TextureDataResource\TextureDataResource.cpp" />
+    <ClCompile Include="Tsumi\TextureManager\TextureManager.cpp" />
+    <ClCompile Include="Tsumi\Transform\SpriteTransform\SpriteTransform.cpp" />
+    <ClCompile Include="Tsumi\Transform\ViewProjection\ViewProjection.cpp" />
+    <ClCompile Include="Tsumi\Transform\WorldTransform\WorldTransform.cpp" />
+    <ClCompile Include="Tsumi\Tsumi.cpp" />
+    <ClCompile Include="Tsumi\Utilities\CollisionManager\CollisionManager.cpp" />
+    <ClCompile Include="Tsumi\Utilities\CollisionManager\GeometryCollision\GeometryCollision.cpp" />
+    <ClCompile Include="Tsumi\Utilities\CollisionManager\IsCollision\IsCollision.cpp" />
+    <ClCompile Include="Tsumi\Utilities\FadeManager\FadeManager.cpp" />
+    <ClCompile Include="Tsumi\Utilities\ImGuiManager\ImGuiManager.cpp" />
+    <ClCompile Include="Tsumi\Utilities\TimedCall\TimedCall.cpp" />
+    <ClCompile Include="Tsumi\Utilities\Timer\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Project\GameObject\Effect\MorterShadow\MorterShadow.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\None\None.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\Manual\Manual.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\BackArrow\BackArrow.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\BackScreen\BackScreen.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\BulletLavel\BulletLavel.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\DrawCost\DrawCost.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\DrawEnergy\DrawEnergy.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\HpBar\HpBar.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\LevelCount\LevelCount.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\OperationUI\OperationUI.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\PageSelect\PageSelect.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\DrawUI\SelectFrame\SelectFrame.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\PlayerLevelUpPrope\PlayerLevelUpPrope.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\Boss\Boss.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\PlayerSound\PlayerSound.h" />
+    <ClInclude Include="Project\GameObject\Effect\BlastParticle\BlastParticle.h" />
+    <ClInclude Include="Project\GameObject\Effect\BulletCollisionParticle\BulletCollisionParticle.h" />
+    <ClInclude Include="Project\GameObject\Effect\BulletHitParticle\BulletHitParticle.h" />
+    <ClInclude Include="Project\GameObject\Effect\DeadFuncParticle\DeadFuncParticle.h" />
+    <ClInclude Include="Project\GameObject\Effect\PlayerDashParticle\PlayerDashParticle.h" />
+    <ClInclude Include="Project\GameObject\Effect\MortarParticle\MorterParticle.h" />
+    <ClInclude Include="Project\GameObject\FPSCounter\FPSCounter.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\Fire\Fire.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\EnemyManager\EnemyManager.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\Bullet\EnemyBullet.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\Blast\Blast.h" />
+    <ClInclude Include="externals\imgui\imconfig.h" />
+    <ClInclude Include="externals\imgui\imgui.h" />
+    <ClInclude Include="externals\imgui\imgui_impl_dx12.h" />
+    <ClInclude Include="externals\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="externals\imgui\imgui_internal.h" />
+    <ClInclude Include="externals\imgui\imstb_rectpack.h" />
+    <ClInclude Include="externals\imgui\imstb_textedit.h" />
+    <ClInclude Include="externals\imgui\imstb_truetype.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\IEnemy\IEnemy.h" />
+    <ClInclude Include="Project\GameManager\GameManager.h" />
+    <ClInclude Include="Project\GameObject\Camera\Camera.h" />
+    <ClInclude Include="Project\GameObject\Camera\MainCamera\MainCamera.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\Mortar\Mortar.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\Player.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\PlayerBaseStatus\PlayerBaseStatus.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\PlayerBullet\IPlayerBullet.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\PlayerBullet\NormalBullet\NormalBullet.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\PlayerBullet\PenetrationBullet\PenetrationBullet.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\PlayerBullet\Shotgun\Shotgun.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\PlayerReticle\PlayerReticle.h" />
+    <ClInclude Include="Project\GameObject\GameObject.h" />
+    <ClInclude Include="Project\GameObject\Others\GameTimeCount\GameTimeCount.h" />
+    <ClInclude Include="Project\GameObject\Others\LevelManager\LevelManager.h" />
+    <ClInclude Include="Project\GameObject\Others\ResultUI\ResultUI.h" />
+    <ClInclude Include="Project\GameObject\Others\SaveValue\SaveValue.h" />
+    <ClInclude Include="Project\GameObject\Others\TotalLevelUI\TotalLevelUI.h" />
+    <ClInclude Include="Project\GameObject\Others\WaveCountUI\WaveCountUI.h" />
+    <ClInclude Include="Project\GameObject\Terrain\Field\Field.h" />
+    <ClInclude Include="Project\GameObject\Terrain\Ground\Ground.h" />
+    <ClInclude Include="Project\GameObject\Terrain\Skydome\Skydome.h" />
+    <ClInclude Include="Project\Math\MathEasing\MathEasing.h" />
+    <ClInclude Include="Project\Math\MathFunction\MathFunction.h" />
+    <ClInclude Include="Project\Math\MathGeometry\MathGeometry.h" />
+    <ClInclude Include="Project\Math\MathOperations\MathOperations.h" />
+    <ClInclude Include="Project\Math\MathQuaternion\MathQuaternion.h" />
+    <ClInclude Include="Project\Math\MathStructure\Matrix\Matrix.h" />
+    <ClInclude Include="Project\Math\MathStructure\Vector\Vector.h" />
+    <ClInclude Include="Project\Math\MyMath.h" />
+    <ClInclude Include="Project\Math\MyParlinNoise\ParlinNoise.h" />
+    <ClInclude Include="Project\math\Struct.h" />
+    <ClInclude Include="Project\Scene\IScene.h" />
+    <ClInclude Include="Project\Scene\SceneState\ClearScene\ClearScene.h" />
+    <ClInclude Include="Project\Scene\SceneState\DebugScene\DebugScene.h" />
+    <ClInclude Include="Project\Scene\SceneState\GameScene\GameScene.h" />
+    <ClInclude Include="Project\Scene\SceneState\ManualScene\ManualScene.h" />
+    <ClInclude Include="Project\Scene\SceneState\OverScene\OverScene.h" />
+    <ClInclude Include="Project\Scene\SceneState\SelectScene\SelectScene.h" />
+    <ClInclude Include="Project\Scene\SceneState\TitleScene\TitleScene.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\Trace\Trace.h" />
+    <ClInclude Include="Tsumi\2D\Sprite\Sprite.h" />
+    <ClInclude Include="Tsumi\2D\Sprite\state\ISpriteState.h" />
+    <ClInclude Include="Tsumi\2D\Sprite\state\SpriteBoxState\SpriteBoxState.h" />
+    <ClInclude Include="Tsumi\3D\DrawSystem\DrawSystem.h" />
+    <ClInclude Include="Tsumi\3D\Model\IModelState.h" />
+    <ClInclude Include="Tsumi\3D\Model\Model.h" />
+    <ClInclude Include="Tsumi\3D\Model\ModelManager\ModelManager.h" />
+    <ClInclude Include="Tsumi\3D\Model\ModelObj\ModelObjState.h" />
+    <ClInclude Include="Tsumi\3D\Model\ModelObj\ObjDataResource\ObjDataResource.h" />
+    <ClInclude Include="Tsumi\3D\Model\ModelPlane\ModelPlaneState.h" />
+    <ClInclude Include="Tsumi\3D\Model\ModelSphere\ModelSphereState.h" />
+    <ClInclude Include="Tsumi\Audio\Audio.h" />
+    <ClInclude Include="Tsumi\Audio\AudioDataResource\AudioDataResource.h" />
+    <ClInclude Include="Tsumi\Base\DXCommon\DirectXCommon.h" />
+    <ClInclude Include="Tsumi\Base\WinApp\WinApp.h" />
+    <ClInclude Include="Tsumi\CreateResource\CreateResource.h" />
+    <ClInclude Include="Tsumi\DebugTools\DebugCamera\DebugCamera.h" />
+    <ClInclude Include="Tsumi\DebugTools\HowToUseEngine\EngineManual.h" />
+    <ClInclude Include="Tsumi\DescriptorManager\DescriptorManager.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineManager.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineStructure.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Lambert\LambertGraphicPipeline.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Light\LightGraphicPipeline.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Line\LineGraphicPipeline.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Normal\NormalGraphicPipeline.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Particle\ParticleGraphicPipeline.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\PhongNormalMap\PhongNormalMap.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Phong\PhongGraphicPipeline.h" />
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Sprite\SpriteGraphicPipeline.h" />
+    <ClInclude Include="Tsumi\Graphic\ShaderManager\ShaderManager.h" />
+    <ClInclude Include="Tsumi\Input\Input.h" />
+    <ClInclude Include="Tsumi\Particle\BaseParticle\BaseParticle.h" />
+    <ClInclude Include="Tsumi\Particle\IParticle.h" />
+    <ClInclude Include="Tsumi\Particle\IParticleState.h" />
+    <ClInclude Include="Tsumi\Particle\NormalParticle\NormalParticle.h" />
+    <ClInclude Include="Tsumi\Particle\Particle.h" />
+    <ClInclude Include="Tsumi\Particle\ParticleArray\ParticleArray.h" />
+    <ClInclude Include="Tsumi\Particle\ParticleEmitter\ParticleEmitter.h" />
+    <ClInclude Include="Tsumi\Particle\ParticleManager\ParticleManager.h" />
+    <ClInclude Include="Tsumi\Particle\ParticlePlane\ParticlePlane.h" />
+    <ClInclude Include="Tsumi\Particle\ParticleRenderer\ParticleRenderer.h" />
+    <ClInclude Include="Tsumi\Particle\ParticleSystem\ParticleSystem.h" />
+    <ClInclude Include="Tsumi\TextureManager\TextureDataResource\TextureDataResource.h" />
+    <ClInclude Include="Tsumi\TextureManager\TextureManager.h" />
+    <ClInclude Include="Tsumi\Transform\SpriteTransform\SpriteTransform.h" />
+    <ClInclude Include="Tsumi\Transform\ViewProjection\ViewProjection.h" />
+    <ClInclude Include="Tsumi\Transform\WorldTransform\WorldTransform.h" />
+    <ClInclude Include="Tsumi\Tsumi.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\AABBCollider.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\CapsuleCollider.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\ColliderConfig.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\OBBCollider.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\SegmentCollider.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\SphereCollider.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\CollisionManager.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\CollisionStructures\CollisionStructures.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\GeometryCollision\GeometryCollision.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\IsCollision\IsCollision.h" />
+    <ClInclude Include="Tsumi\Utilities\FadeManager\FadeManager.h" />
+    <ClInclude Include="Tsumi\Utilities\ImGuiManager\ImGuiManager.h" />
+    <ClInclude Include="Tsumi\Utilities\ImGuiManager\JapaneseGlyphArray.h" />
+    <ClInclude Include="Tsumi\Utilities\RandomGenerator\RandomGenerator.h" />
+    <ClInclude Include="Tsumi\Utilities\TextLog\TextLog.h" />
+    <ClInclude Include="Tsumi\Utilities\TimedCall\TimedCall.h" />
+    <ClInclude Include="Tsumi\Utilities\Timer\Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resources\shaders\LambertObject.PS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LambertObject.VS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LightObject.PS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LightObject.VS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LineObject3d.PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LineObject3d.VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\NormalObject3d.PS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\NormalObject3d.VS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\ParticleObject3D.PS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\ParticleObject3D.VS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\PhongNormalMap.PS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\PhongNormalMap.VS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\PhongObject.PS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\PhongObject.VS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\SpriteObject3d.PS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\SpriteObject3d.VS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Project\externals\imgui\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
+      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+    <None Include="Resources\shaders\LambertObject.hlsli" />
+    <None Include="Resources\shaders\LightObject.hlsli">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">false</ExcludedFromBuild>
+    </None>
+    <None Include="Resources\shaders\LineObject3d.hlsli" />
+    <None Include="Resources\shaders\NormalObject3d.hlsli" />
+    <None Include="Resources\shaders\ParticleObject3D.hlsli" />
+    <None Include="Resources\shaders\PhongNormalMap.hlsli" />
+    <None Include="Resources\shaders\PhongObject.hlsli" />
+    <None Include="Resources\shaders\SpriteObject3d.hlsli" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
