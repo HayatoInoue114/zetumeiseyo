@@ -16,8 +16,8 @@ void IPlayerBullet::onCollisionWithEnemy(IEnemy* enemy)
 
 void IPlayerBullet::onCollisionWithEnemyBullet(EnemyBullet* enemy)
 {
-	int a = enemy->GetHP();
-	int b = GetHP();
+	/*int a = enemy->GetHP();
+	int b = GetHP();*/
 	SetHP(GetHP() - enemy->GetHP());
 
 	if (GetHP() <= 0) {

@@ -19,7 +19,7 @@ void IEnemy::TitleMove()
 
 	Scope scope = { 420,720 };
 
-	int jumpFlame = (int)RandomGenerator::getRandom(scope);
+	//int jumpFlame = (int)RandomGenerator::getRandom(scope);
 
 	if (flame_ % 120 == 0 && !isAnime_) {
 		isAnime_ = true;
@@ -48,7 +48,7 @@ void IEnemy::TitleMove()
 
 		worldTransform_.translate = Jump(originalPos_, jumpHeight, jumpDuration, animationTime_);
 		worldTransform_.scale = JumpScale(originalScale_, jumpHeight, jumpDuration, animationTime_);
-		Shake(originalPos_, jumpHeight, jumpDuration, animationTime_);
+		Shake(jumpDuration, animationTime_);
 
 		//worldTransform_.rotate.y += 0.1f;
 	}
@@ -79,7 +79,7 @@ void IEnemy::SelectMove()
 
 	Scope scope = { 420,720 };
 
-	int jumpFlame = (int)RandomGenerator::getRandom(scope);
+	//int jumpFlame = (int)RandomGenerator::getRandom(scope);
 
 	if (flame_ % 120 == 0 && !isAnime_) {
 		isAnime_ = true;
@@ -188,8 +188,7 @@ Vector3 IEnemy::Jump(const Vector3& initialPosition, float jumpHeight, float jum
 	return finalPosition;
 }
 
-void IEnemy::Shake(const Vector3& initialPosition, float jumpHeight, float jumpDuration, float currentTime) {
-
+void IEnemy::Shake(float jumpDuration, float currentTime) {
 	// 現在のジャンプ時間を[0, 1]の範囲に正規化する
 	float normalizedTime = (float)min(currentTime / jumpDuration, 1.0f);
 
@@ -197,7 +196,6 @@ void IEnemy::Shake(const Vector3& initialPosition, float jumpHeight, float jumpD
 	ScopeVec3 vec3 = { scope,scope,scope };
 
 	// ジャンプの進行度をイージング関数で計算する
-	float jumpProgress{};
 	if (normalizedTime < 0.5f && flame_ % 5 == 0) {
 		worldTransform_.translate += RandomGenerator::getRandom(vec3);
 		//worldTransform_.rotate += RandomGenerator::getRandom(vec3);

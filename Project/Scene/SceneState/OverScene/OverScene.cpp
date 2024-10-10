@@ -40,7 +40,7 @@ void OverScene::Initialize()
 	/* ----- TotalLevelUI トータルレベルUI ----- */
 	totalLevelUI_ = make_unique<TotalLevelUI>();
 	totalLevelUI_->Initialize();
-	int totalLv = SaveValue::GetIntValue("Total_Level");
+	//int totalLv = SaveValue::GetIntValue("Total_Level");
 
 	/* ----- FadeManager フェードマネージャー ----- */
 	FadeManager::Initialize(func_FadeOut);

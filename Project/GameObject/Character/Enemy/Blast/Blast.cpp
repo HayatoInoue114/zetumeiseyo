@@ -196,8 +196,8 @@ void Blast::DiscoverPlayer() {
 		}
 
 		worldTransform_.translate = Jump(originalPos_, jumpHeight, jumpDuration, animationTime_);
-		worldTransform_.scale = JumpScale(originalScale_, jumpHeight, jumpDuration, animationTime_);
-		Shake(originalPos_, jumpHeight, jumpDuration, animationTime_);
+		worldTransform_.scale = JumpScale(originalScale_,jumpDuration, animationTime_);
+		Shake(jumpDuration, animationTime_);
 	}
 	else {
 		animationTime_ = 0;
@@ -233,7 +233,7 @@ void Blast::Chace() {
 
 		//float dis = ToPlayerDis();
 
-		colorBlinkRange_ = (int)ToPlayerDis();
+		colorBlinkRange_ = ToPlayerDis();
 	}
 }
 
@@ -581,8 +581,7 @@ Vector3 Blast::Jump(const Vector3& initialPosition, float jumpHeight, float jump
 	return finalPosition;
 }
 
-void Blast::Shake(const Vector3& initialPosition, float jumpHeight, float jumpDuration, float currentTime) {
-
+void Blast::Shake(float jumpDuration, float currentTime) {
 	// 現在のジャンプ時間を[0, 1]の範囲に正規化する
 	float normalizedTime = (float)min(currentTime / jumpDuration, 1.0f);
 
@@ -590,13 +589,12 @@ void Blast::Shake(const Vector3& initialPosition, float jumpHeight, float jumpDu
 	ScopeVec3 vec3 = { scope,scope,scope };
 
 	// ジャンプの進行度をイージング関数で計算する
-	float jumpProgress{};
 	if (normalizedTime < 0.5f && flame_ % 5 == 0) {
 		worldTransform_.translate += RandomGenerator::getRandom(vec3);
 	}
 }
 
-Vector3 Blast::JumpScale(const Vector3& initialScale, float jumpHeight, float jumpDuration, float currentTime) {
+Vector3 Blast::JumpScale(const Vector3& initialScale, float jumpDuration, float currentTime) {
 
 	// ジャンプ後のスケールを計算
 	Vector3 finalScale = initialScale;

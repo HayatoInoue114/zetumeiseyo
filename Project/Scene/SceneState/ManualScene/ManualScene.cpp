@@ -330,6 +330,7 @@ void ManualScene::WaveUpdate()
 /// </summary>
 void ManualScene::WaveExit(GameManager* state)
 {
+	state;
 	if (GamePadInput::TriggerButton(PadData::B) || KeysInput::TriggerKey(DIK_SPACE)) {
 
 		// ウェーブ開始のフラグを立ててウェーブの初期化処理に入るようにする

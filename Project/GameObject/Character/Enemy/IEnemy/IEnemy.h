@@ -82,7 +82,7 @@ public:
 private:
     Vector3 Jump(const Vector3& initialPosition, float jumpHeight, float jumpDuration, float currentTime);
 
-    void Shake(const Vector3& initialPosition, float jumpHeight, float jumpDuration, float currentTime);
+    void Shake(float jumpDuration, float currentTime);
 
     Vector3 JumpScale(const Vector3& initialScale, float jumpHeight, float jumpDuration, float currentTime);
 

@@ -155,9 +155,9 @@ private: ///メンバ関数///
 
 	Vector3 Jump(const Vector3& initialPosition, float jumpHeight, float jumpDuration, float currentTime);
 
-	Vector3 JumpScale(const Vector3& initialScale, float jumpHeight, float jumpDuration, float currentTime);
+	Vector3 JumpScale(const Vector3& initialScale, float jumpDuration, float currentTime);
 
-	void Shake(const Vector3& initialPosition, float jumpHeight, float jumpDuration, float currentTime);
+	void Shake(float jumpDuration, float currentTime);
 
 	Vector3 calculateJumpScale(float currentTime, float jumpDuration);
 
@@ -231,13 +231,13 @@ private: ///メンバ変数///
 	Vector3 vel3_{};
 
 	//色を点滅させる
-	int count_{};
+	float count_{};
 
 	//色のフラグ
 	int isColor_{};
 
 	//色の点滅範囲
-	int colorBlinkRange_{};
+	float colorBlinkRange_{};
 
 	//爆発範囲
 	Vector3 blastRange_ = { 1,1,1 };

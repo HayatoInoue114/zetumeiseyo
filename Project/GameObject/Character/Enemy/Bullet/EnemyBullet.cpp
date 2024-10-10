@@ -152,6 +152,7 @@ void EnemyBullet::Draw(Camera* camera)
 // いらないやつ
 void EnemyBullet::OnCollision(uint32_t id)
 {
+	id;
 }
 
 //つかう

@@ -22,16 +22,16 @@ void EnemyManager::EnemySpawn(Player* player) {
 
 		Scope scope = { rad / 2,rad };
 
-		for (int i = 0; i < 4; i++) {
-			rad_[i] = RandomGenerator::getRandom(scope);
-			tmpPos_[i] = CalculateNextPosition(player->GetWorldPos(), rad_[i]);
-			tmpPos_[i].y = -30.0f;
+		for (int j = 0; j < 4; j++) {
+			rad_[j] = RandomGenerator::getRandom(scope);
+			tmpPos_[j] = CalculateNextPosition(player->GetWorldPos(), rad_[j]);
+			tmpPos_[j].y = -30.0f;
 			// 位置の限界
 			const float kMit = 100.0f;
-			tmpPos_[i].x = max(tmpPos_[i].x, -kMit);
-			tmpPos_[i].x = min(tmpPos_[i].x, +kMit);
-			tmpPos_[i].z = max(tmpPos_[i].z, -kMit);
-			tmpPos_[i].z = min(tmpPos_[i].z, +kMit);
+			tmpPos_[j].x = max(tmpPos_[j].x, -kMit);
+			tmpPos_[j].x = min(tmpPos_[j].x, +kMit);
+			tmpPos_[j].z = max(tmpPos_[j].z, -kMit);
+			tmpPos_[j].z = min(tmpPos_[j].z, +kMit);
 		}
 		////////////////////////////////////////////////  * Blast *
 		Blast* newBlast = new Blast();
@@ -77,6 +77,7 @@ void EnemyManager::EnemySpawn(Player* player) {
 
 void EnemyManager::TitleSpawn(Camera* camera)
 {
+	camera;
 	////////////////////////////////////////////////  * Blast *
 	Blast* newBlast = new Blast();
 	newBlast->SetGameScene(gameScene);

@@ -112,40 +112,40 @@ void Boss::Shoot() {
 			if (bulletVelocity.z >= 0) { //右上
 				for (int i = 1; i <= howManyExtraBullet; i++) {
 					if (i % 2 == 0) { //rightSide
-						EnemyBullet* newBullet;
-						newBullet = new EnemyBullet();
+						EnemyBullet* newRightUpBullet;
+						newRightUpBullet = new EnemyBullet();
 
 						Vector3 vel = { bulletVelocity.x + i * diffusionRate, bulletVelocity.y, bulletVelocity.z - i * diffusionRate };
-						newBullet->Initialize(worldTransform_.translate, vel, param.power);
-						bullet_.push_back(newBullet);
+						newRightUpBullet->Initialize(worldTransform_.translate, vel, param.power);
+						bullet_.push_back(newRightUpBullet);
 					}
 					else { //leftSide
-						EnemyBullet* newBullet;
-						newBullet = new EnemyBullet();
+						EnemyBullet* newLeftUpBullet;
+						newLeftUpBullet = new EnemyBullet();
 
 						Vector3 vel = { bulletVelocity.x - i * diffusionRate,bulletVelocity.y,bulletVelocity.z + i * diffusionRate };
-						newBullet->Initialize(worldTransform_.translate, vel, param.power);
-						bullet_.push_back(newBullet);
+						newLeftUpBullet->Initialize(worldTransform_.translate, vel, param.power);
+						bullet_.push_back(newLeftUpBullet);
 					}
 				}
 			}
 			else { //右下
 				for (int i = 1; i <= howManyExtraBullet; i++) {
 					if (i % 2 == 0) { //rightSide
-						EnemyBullet* newBullet;
-						newBullet = new EnemyBullet();
+						EnemyBullet* newRightDownBullet;
+						newRightDownBullet = new EnemyBullet();
 
 						Vector3 vel = { bulletVelocity.x + i * diffusionRate, bulletVelocity.y, bulletVelocity.z + i * diffusionRate };
-						newBullet->Initialize(worldTransform_.translate, vel, param.power);
-						bullet_.push_back(newBullet);
+						newRightDownBullet->Initialize(worldTransform_.translate, vel, param.power);
+						bullet_.push_back(newRightDownBullet);
 					}
 					else { //leftSide
-						EnemyBullet* newBullet;
-						newBullet = new EnemyBullet();
+						EnemyBullet* newLeftUDownBullet;
+						newLeftUDownBullet = new EnemyBullet();
 
 						Vector3 vel = { bulletVelocity.x - i * diffusionRate,bulletVelocity.y,bulletVelocity.z - i * diffusionRate };
-						newBullet->Initialize(worldTransform_.translate, vel, param.power);
-						bullet_.push_back(newBullet);
+						newLeftUDownBullet->Initialize(worldTransform_.translate, vel, param.power);
+						bullet_.push_back(newLeftUDownBullet);
 					}
 				}
 			}
@@ -154,40 +154,40 @@ void Boss::Shoot() {
 			if (bulletVelocity.z >= 0) { //左上
 				for (int i = 1; i <= howManyExtraBullet; i++) {
 					if (i % 2 == 0) { //rightSide
-						EnemyBullet* newBullet;
-						newBullet = new EnemyBullet();
+						EnemyBullet* newRightUpBullet;
+						newRightUpBullet = new EnemyBullet();
 
 						Vector3 vel = { bulletVelocity.x + i * diffusionRate, bulletVelocity.y, bulletVelocity.z + i * diffusionRate };
-						newBullet->Initialize(worldTransform_.translate, vel, param.power);
-						bullet_.push_back(newBullet);
+						newRightUpBullet->Initialize(worldTransform_.translate, vel, param.power);
+						bullet_.push_back(newRightUpBullet);
 					}
 					else { //leftSide
-						EnemyBullet* newBullet;
-						newBullet = new EnemyBullet();
+						EnemyBullet* newLeftUpBullet;
+						newLeftUpBullet = new EnemyBullet();
 
 						Vector3 vel = { bulletVelocity.x - i * diffusionRate,bulletVelocity.y,bulletVelocity.z - i * diffusionRate };
-						newBullet->Initialize(worldTransform_.translate, vel, param.power);
-						bullet_.push_back(newBullet);
+						newLeftUpBullet->Initialize(worldTransform_.translate, vel, param.power);
+						bullet_.push_back(newLeftUpBullet);
 					}
 				}
 			}
 			else { //左下
 				for (int i = 1; i <= howManyExtraBullet; i++) {
 					if (i % 2 == 0) { //rightSide
-						EnemyBullet* newBullet;
-						newBullet = new EnemyBullet();
+						EnemyBullet* newRightDownBullet;
+						newRightDownBullet = new EnemyBullet();
 
 						Vector3 vel = { bulletVelocity.x + i * diffusionRate, bulletVelocity.y, bulletVelocity.z - i * diffusionRate };
-						newBullet->Initialize(worldTransform_.translate, vel, param.power);
-						bullet_.push_back(newBullet);
+						newRightDownBullet->Initialize(worldTransform_.translate, vel, param.power);
+						bullet_.push_back(newRightDownBullet);
 					}
 					else { //leftSide
-						EnemyBullet* newBullet;
-						newBullet = new EnemyBullet();
+						EnemyBullet* newLeftUDownBullet;
+						newLeftUDownBullet = new EnemyBullet();
 
 						Vector3 vel = { bulletVelocity.x - i * diffusionRate,bulletVelocity.y,bulletVelocity.z + i * diffusionRate };
-						newBullet->Initialize(worldTransform_.translate, vel, param.power);
-						bullet_.push_back(newBullet);
+						newLeftUDownBullet->Initialize(worldTransform_.translate, vel, param.power);
+						bullet_.push_back(newLeftUDownBullet);
 					}
 				}
 			}

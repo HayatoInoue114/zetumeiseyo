@@ -66,6 +66,7 @@ void TitleScene::Initialize()
 // 更新処理
 void TitleScene::Update(GameManager* state)
 {
+	state;
 	flame_++;
 	Scope scope = { 200,300 };
 	int dom = (int)RandomGenerator::getRandom(scope);
