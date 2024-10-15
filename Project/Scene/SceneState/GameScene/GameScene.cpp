@@ -202,7 +202,7 @@ void GameScene::ModelDraw() {
 
 	/* ----- Ground 床 ----- */
 	Ground::GetInstance()->Draw(camera_.get());
-
+	
 	/* ----- Player プレイヤー ----- */
 	player_->Draw3D(camera_.get());
 	for (shared_ptr<IPlayerBullet> bullet : playerBullets_) {

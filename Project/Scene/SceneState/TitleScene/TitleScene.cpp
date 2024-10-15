@@ -112,7 +112,7 @@ void TitleScene::Update(GameManager* state)
 
 		if (FadeManager::IsFadeIn()) {
 			Audio::StopOnSound(BGM_);
-			//state->ChangeSceneState(new SelectScene());
+			state->ChangeSceneState(new SelectScene());
 		}
 	}
 
@@ -168,7 +168,7 @@ void TitleScene::FrontSpriteDraw()
 	
 
 	/* ----- FadeManager フェードマネージャー ----- */
-	//FadeManager::Draw(camera_.get());
+	FadeManager::Draw(camera_.get());
 }
 
 void TitleScene::CameraMove() {
