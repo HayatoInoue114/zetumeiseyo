@@ -118,6 +118,10 @@ private:
 	/// </summary>
 	void SaveValue();
 
+	/// <summary>
+	/// スタート演出
+	/// </summary>
+	void StartTexture();
 
 private:
 	FPSCounter fps_;
@@ -182,4 +186,18 @@ private:
 	uint32_t gameBGM_;
 	uint32_t decisionSE_;
 
+	/* ----- UI ----- */
+	uint32_t goTex_;
+	unique_ptr<Sprite> goSp_;
+	WorldTransform goWT_{};
+
+	uint32_t readyTex_;
+	unique_ptr<Sprite> readySp_;
+	WorldTransform readyWT_{};
+
+	float startAnimTime_;
+	float nowFrame_;
+	float endFrame_;
+	float animTime_;
+	Vector4 goColor_;
 };

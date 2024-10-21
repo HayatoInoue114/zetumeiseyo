@@ -104,6 +104,28 @@ void GameScene::Initialize() {
 	gameBGM_ = Audio::LoadSound("BGM/BGM2.wav");
 	Audio::PlayOnSound(gameBGM_, true, 0.02f);
 	decisionSE_ = Audio::LoadSound("SE/kettei.wav");
+
+	/* ----- UI ----- */
+	goTex_ = TextureManager::LoadTexture("GameScene/UI", "go.png");
+	goSp_ = std::make_unique<Sprite>();
+	goSp_->Initialize({ 512,512 });
+	goSp_->SetSpriteOrigin(SpriteOrigin::Center);
+	goWT_.Initialize();
+	goWT_.scale = {};
+	goWT_.translate = { 640,360,0 };
+	nowFrame_ = 0;
+	endFrame_ = 20;
+	animTime_ = 0;
+	goColor_ = { 1,1,1,1 };
+	
+	readyTex_ = TextureManager::LoadTexture("GameScene/UI", "ready.png");
+	readySp_ = std::make_unique<Sprite>();
+	readySp_->Initialize({512,512});
+	readySp_->SetSpriteOrigin(SpriteOrigin::Center);
+	readyWT_.Initialize();
+	readyWT_.scale = {};
+	readyWT_.translate = { 640,360,0 };
+
 }
 
 
@@ -240,6 +262,9 @@ void GameScene::FrontSpriteDraw() {
 
 	/* ----- Player プレイヤー ----- */
 	player_->Draw2DFront(camera_.get());
+
+	//スタート演出用
+	StartTexture();
 
 
 	/* ----- FadeManager フェードマネージャー ----- */
@@ -477,17 +502,17 @@ void GameScene::CameraStartMove()
 	cameraNowFrame_++;
 
 	// 今のフレームを終了フレームで割る
-	float startAnimTime = float(cameraNowFrame_) / float(cameraEndFrame_);
+	startAnimTime_ = float(cameraNowFrame_) / float(cameraEndFrame_);
 
 	// スタート演出処理
 	// 設定した座標まで動かす
 	camera_->translate.y =
-		cameraInitPos_.y + (cameraDiffPos_.y - cameraInitPos_.y) * Ease::OutCubic(startAnimTime);
+		cameraInitPos_.y + (cameraDiffPos_.y - cameraInitPos_.y) * Ease::OutCubic(startAnimTime_);
 	camera_->translate.z =
-		cameraInitPos_.z + (cameraDiffPos_.z - cameraInitPos_.z) * Ease::OutCubic(startAnimTime);
+		cameraInitPos_.z + (cameraDiffPos_.z - cameraInitPos_.z) * Ease::OutCubic(startAnimTime_);
 	// 設定した回転まで動かす
 	camera_->rotate.x =
-		0.0f + (cameraDiffRotate_.x - 0.0f) * Ease::OutCubic(startAnimTime);
+		0.0f + (cameraDiffRotate_.x - 0.0f) * Ease::OutCubic(startAnimTime_);
 
 	// 演出が終わっていたら終了フラグを立てておく
 	if (cameraNowFrame_ == cameraEndFrame_) {
@@ -535,5 +560,54 @@ void GameScene::SaveValue()
 	SaveValue::Save("Rate_Level", player_->GetLevel(LevelPrope::Rate));
 	SaveValue::Save("Dash_Level", player_->GetLevel(LevelPrope::Dash));
 	SaveValue::Save("Total_Level", player_->GetTotalLevel());
+}
+
+void GameScene::StartTexture()
+{
+	if (!startCameraAnimIsFinish_) {
+		float t = Ease::OutExpo(startAnimTime_);
+
+		Vector3 initialScale = { 0,0,0 };
+		Vector3 initialRotation = { 0,0,-10 };
+
+		// 最終的にスケール1に近づける
+		readyWT_.scale.x = initialScale.x + (1.0f - initialScale.x) * t;
+		readyWT_.scale.y = initialScale.y + (1.0f - initialScale.y) * t;
+
+		// 最終的にRotateを0にする
+		readyWT_.rotate.z = initialRotation.z * (1.0f - t);
+
+		readySp_->Draw(readyTex_, readyWT_, camera_.get());
+
+		readyWT_.UpdateMatrix();
+	}
+
+	if (startCameraAnimIsFinish_ && nowFrame_ <= 100) {
+		nowFrame_++;
+
+		animTime_ = nowFrame_ / endFrame_;
+
+		float t = Ease::OutExpo(animTime_);
+
+		Vector3 initialScale = { 0,0,0 };
+		Vector3 initialRotation = { 0,0,-10 };
+
+		// 最終的にスケール1に近づける
+		/*goWT_.scale.x = initialScale.x + (3.0f - initialScale.x) * t;
+		goWT_.scale.y = initialScale.y + (3.0f - initialScale.y) * t;*/
+		goWT_.scale.x += 0.1f;
+		goWT_.scale.y += 0.1f;
+
+		// 最終的にRotateを0にする
+		goWT_.rotate.z = initialRotation.z * (1.0f - t);
+
+		goColor_.w -= 0.01f;
+		goSp_->SetColor(goColor_);
+
+		goSp_->Draw(goTex_, goWT_, camera_.get());
+
+		goWT_.UpdateMatrix();
+	}
+	
 }
 
