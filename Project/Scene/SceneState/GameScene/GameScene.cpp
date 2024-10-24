@@ -126,6 +126,22 @@ void GameScene::Initialize() {
 	readyWT_.scale = {};
 	readyWT_.translate = { 640,360,0 };
 
+	//プレイヤー死んだとき用
+	pDieNowFrame_ = 0;
+	pDieEndFrame_ = 180;
+	pDieAnimTime_ = 0;
+
+	pDieWT_.Initialize();
+	Vector3 tmpCameraPos = { 0.0f, 1.5f, -4.0f };
+	pDieWT_.translate = player_->GetWorldPos() + tmpCameraPos;
+	pDieWT_.rotate = { 0.2f, 0.0f, 0.0f };
+
+	pDieTex_ = TextureManager::LoadTexture("GameScene/UI", "gameOverTex.png");
+	pDieSp_ = std::make_unique<Sprite>();
+	pDieSpriteWT_.Initialize();
+	pDieSp_->Initialize({ 3280,2720 });
+	pDieSp_->SetSpriteOrigin(SpriteOrigin::Center);
+	pDieSpriteWT_.translate = { 640,360,0 };
 }
 
 
@@ -155,6 +171,8 @@ void GameScene::Update(GameManager* state) {
 	/* ----- GameCamera ゲームカメラ----- */
 	CameraUpdate();
 
+	//プレイヤーが死んだときのカメラ演出
+	PlayerDieCmaera();
 
 	/* ----- GameWave ゲームウェーブ ----- */
 	// ウェーブ開始フラグがたっていたら初期化処理に入る
@@ -473,7 +491,6 @@ void GameScene::CameraUpdate()
 {
 	// トランスフォームの更新処理
 	camera_->UpdateMatrix();
-
 	// プレイヤーの死亡フラグが立っていたら
 	// プレイヤーへのズーム処理へ行く
 	if (player_->GetIsDead()) {
@@ -482,7 +499,7 @@ void GameScene::CameraUpdate()
 	}
 
 	// カメラの追従処理
-	if (startCameraAnimIsFinish_) {
+	if (startCameraAnimIsFinish_ && player_->GetHp() !=0) {
 
 		camera_->translate = player_->GetWorldPos() + cameraDiffPos_;
 
@@ -518,6 +535,8 @@ void GameScene::CameraStartMove()
 	if (cameraNowFrame_ == cameraEndFrame_) {
 		startCameraAnimIsFinish_ = true;
 		cameraNowFrame_ = 0;
+		//これ一時的だから消してね
+		player_->SetHP(0);
 	}
 }
 
@@ -592,9 +611,6 @@ void GameScene::StartTexture()
 		Vector3 initialScale = { 0,0,0 };
 		Vector3 initialRotation = { 0,0,-10 };
 
-		// 最終的にスケール1に近づける
-		/*goWT_.scale.x = initialScale.x + (3.0f - initialScale.x) * t;
-		goWT_.scale.y = initialScale.y + (3.0f - initialScale.y) * t;*/
 		goWT_.scale.x += 0.1f;
 		goWT_.scale.y += 0.1f;
 
@@ -609,5 +625,38 @@ void GameScene::StartTexture()
 		goWT_.UpdateMatrix();
 	}
 	
+}
+
+//プレイヤーが死んだときのカメラ演出
+void GameScene::PlayerDieCmaera()
+{
+	if (player_->GetHp() == 0) {
+		pDieNowFrame_++;
+
+		pDieAnimTime_ = pDieNowFrame_ / pDieEndFrame_;
+
+		float t = Ease::InCirc(pDieAnimTime_);
+
+		Vector3 cameraDiffPos = cameraDiffPos_ + player_->GetWorldPos();
+
+		camera_->translate.y =
+			cameraDiffPos.y + (pDieWT_.translate.y - cameraDiffPos.y) * t;
+		camera_->translate.z =
+			cameraDiffPos.z + (pDieWT_.translate.z - cameraDiffPos.z) * t;
+		// 設定した回転まで動かす
+		camera_->rotate.x =
+			cameraDiffRotate_.x + (pDieWT_.rotate.x - cameraDiffRotate_.x) * t;
+	}
+
+	if (pDieAnimTime_ >= 0.5f) {
+		pDieSpriteWT_.scale.x -= 0.5f;
+		pDieSpriteWT_.scale.y -= 0.5f;
+
+		pDieSp_->Draw(pDieTex_, pDieSpriteWT_, camera_.get());
+		pDieSpriteWT_.UpdateMatrix();
+	}
+	/*ImGui::Begin("p");
+	ImGui::Text("%f", pDieAnimTime_);
+	ImGui::End();*/
 }
 

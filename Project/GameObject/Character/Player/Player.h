@@ -96,7 +96,8 @@ public: // プレイヤー本体 : メンバ関数
 	//hp減らす関数
 	void SetDamage(int damage) { hp_ = hp_ - damage; }
 
-
+	//コンテストのために一時的に作った関数
+	void SetHP(int hp) { hp_ = hp; }
 #pragma endregion
 
 #pragma region Collider 衝突判定

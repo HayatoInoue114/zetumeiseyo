@@ -219,8 +219,4 @@ void TitleScene::fadeBlastMove()
 	if (isFadeFunc_) {
 		fadeBlast_->SetPos(camera_->translate);
 	}
-
-	ImGui::Begin("fade");
-	ImGui::Text("%f", fadeBlast_->GetPos().x);
-	ImGui::End();
 }

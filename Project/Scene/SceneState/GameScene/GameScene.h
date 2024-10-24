@@ -123,6 +123,11 @@ private:
 	/// </summary>
 	void StartTexture();
 
+	/// <summary>
+	/// プレイヤー死亡時のカメラ演出
+	/// </summary>
+	void PlayerDieCmaera();
+
 private:
 	FPSCounter fps_;
 
@@ -200,4 +205,15 @@ private:
 	float endFrame_;
 	float animTime_;
 	Vector4 goColor_;
+
+	//プレイヤーが死んだとき用
+	float pDieNowFrame_;
+	float pDieEndFrame_;
+	float pDieAnimTime_;
+
+	WorldTransform pDieWT_;
+
+	uint32_t pDieTex_;
+	unique_ptr<Sprite> pDieSp_;
+	WorldTransform pDieSpriteWT_;
 };
