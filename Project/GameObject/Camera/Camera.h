@@ -28,6 +28,12 @@ public:
 	/// </summary>
 	void UpdateMatrix();
 
+	/// <summary>
+	/// ターゲットに向くようにする関数
+	/// </summary>
+	/// <param name="targetPosition"></param>
+	void LookAt(const Vector3& targetPosition);
+
 #pragma region Get 
 
 	/// <summary>

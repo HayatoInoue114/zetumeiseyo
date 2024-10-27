@@ -1,5 +1,5 @@
 #pragma once
-
+#include <math.h>
 
 
 /// <summary>
@@ -62,6 +62,24 @@ struct Vector3 final {
 	// != 演算子のオーバーロード 
 	inline constexpr bool operator!=(const Vector3& rhs) noexcept {
 		return !(*this == rhs);
+	}
+
+	// 外積を計算するメソッド
+	Vector3 Cross(const Vector3& other) const {
+		return Vector3(
+			y * other.z - z * other.y,
+			z * other.x - x * other.z,
+			x * other.y - y * other.x
+		);
+	}
+
+	// ノーマライズを行うメソッド
+	Vector3 Normalize() const {
+		float length = sqrt(x * x + y * y + z * z);
+		if (length != 0) {
+			return Vector3(x / length, y / length, z / length);
+		}
+		return Vector3(0, 0, 0); // ゼロベクトルの場合はそのまま返す
 	}
 };
 

@@ -128,6 +128,11 @@ private:
 	/// </summary>
 	void PlayerDieCmaera();
 
+	/// <summary>
+	/// プレイヤーに追従するカメラ
+	/// </summary>
+	void PlayerCamera();
+
 private:
 	FPSCounter fps_;
 

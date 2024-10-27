@@ -1,7 +1,6 @@
 #pragma once
 
 
-
 /// <summary>
 /// 3x3行列
 /// </summary>
@@ -96,4 +95,12 @@ struct Matrix4x4 final {
 		return !(*this == rhs);
 	}
 
+	// 平行移動メソッド
+	void Translate(float tx, float ty, float tz) {
+		// 各成分に平行移動量を直接加算
+		m[3][0] += tx;
+		m[3][1] += ty;
+		m[3][2] += tz;
+	}
+	
 };

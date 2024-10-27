@@ -88,3 +88,28 @@ void Camera::TransferMatrix()
 
 	UnMap();
 }
+
+void Camera::LookAt(const Vector3& targetPosition) {
+	// カメラの方向ベクトル（ターゲットへの方向）
+	Vector3 forward = (targetPosition - translate).Normalize();
+
+	// 上方向ベクトル（ワールドのY軸を基準に設定）
+	Vector3 up = Vector3(0.0f, 1.0f, 0.0f);
+
+	// サイド方向ベクトル（上方向と前方向の外積で計算）
+	Vector3 right = up.Cross(forward).Normalize();
+
+	// カメラの新しい上方向ベクトル（前方向と右方向の外積）
+	up = forward.Cross(right);
+
+	// カメラのビュー行列を設定
+	matView = Matrix4x4(
+		right.x, right.y, right.z, 0.0f,
+		up.x, up.y, up.z, 0.0f,
+		-forward.x, -forward.y, -forward.z, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	);
+
+	// カメラ位置の平行移動を行列に適用
+	matView.Translate(-translate.x, -translate.y, -translate.z);
+}

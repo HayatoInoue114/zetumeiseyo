@@ -12,8 +12,6 @@ public:
 	/// <param name="player"></param>
 	void Initialize(Player* player, Vector3 position, int level) override;
 
-	void Initialize(Vector3 position, int level);
-
 	/// <summary>
 	/// 更新処理
 	/// </summary>
@@ -25,14 +23,14 @@ public:
 	/// <param name="view"></param>
 	void Draw(Camera* camera) override;
 
-
-
 	/// <summary>
 	///  新しいEnemyを生成する
 	/// </summary>
 	static std::unique_ptr<Blast> Spawn(Player* player, Vector3 position, int level);
 
 	WorldTransform& GetWorldTransform() { return worldTransform_; }
+
+	void Initialize(Vector3 position, int level);
 
 public:
 #pragma region Collider 衝突判定
