@@ -1,6 +1,6 @@
 #pragma once
 #include "../IEnemy/IEnemy.h"
-#include "../Effect/BulletHitParticle/BulletHitParticle.h"
+//#include "../Effect/BulletHitParticle/BulletHitParticle.h"
 
 class Mortar : public IEnemy, public OBBCollider
 {
@@ -62,6 +62,6 @@ private:
 
 	float chaseIntensity_{};
 
-	std::unique_ptr<BulletHitParticle> hitParticle_;
+	//std::unique_ptr<BulletHitParticle> hitParticle_;
 };
 

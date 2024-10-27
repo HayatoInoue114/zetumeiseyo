@@ -4,7 +4,7 @@
 #include "OBBCollider.h"
 
 #include "Enemy/Bullet/EnemyBullet.h"
-#include "BulletCollisionParticle/BulletCollisionParticle.h"
+//#include "BulletCollisionParticle/BulletCollisionParticle.h"
 
 #include <memory>
 
@@ -28,7 +28,7 @@ public: // プレイヤーバレット基底クラス : メンバ関数
 
 	// コンストラクタとデストラクタ
 	IPlayerBullet() {
-		collisionParticle_ = std::make_unique<BulletCollisionParticle>();
+		//collisionParticle_ = std::make_unique<BulletCollisionParticle>();
 		collisionParticleTexHD1_ = TextureManager::LoadTexture("EffectMtl", "prismRing.png");
 		collisionParticleTexHD2_ = TextureManager::LoadTexture("EffectMtl", "edging.png");
 	}
@@ -70,7 +70,7 @@ protected: // プレイヤーバレット基底クラス : メンバ変数
 
 protected:
 
-	std::unique_ptr<BulletCollisionParticle> collisionParticle_;
+	//std::unique_ptr<BulletCollisionParticle> collisionParticle_;
 	uint32_t collisionParticleTexHD1_ = 0;
 	uint32_t collisionParticleTexHD2_ = 0;
 

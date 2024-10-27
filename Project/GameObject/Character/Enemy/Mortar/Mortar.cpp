@@ -15,7 +15,7 @@ void Mortar::Initialize(Player* player, Vector3 position, int level) {
 
 	texture_ = TextureManager::LoadTexture("", "black2x2.png");
 
-	hitParticle_ = std::make_unique<BulletHitParticle>();
+	//hitParticle_ = std::make_unique<BulletHitParticle>();
 
 	ParameterInitialize();
 

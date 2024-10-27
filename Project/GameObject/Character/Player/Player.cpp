@@ -72,7 +72,7 @@ void Player::Initialize()
 	deadFuncTex_ = TextureManager::LoadTexture("EffectMtl", "splash.png");
 
 	// ダッシュパーティクル
-	dashParticle_ = make_unique<PlayerDashParticle>();
+	//dashParticle_ = make_unique<PlayerDashParticle>();
 	dashParticleTexHD_ = TextureManager::LoadTexture("EffectMtl", "cloud.png");
 
 	// PlayerSound

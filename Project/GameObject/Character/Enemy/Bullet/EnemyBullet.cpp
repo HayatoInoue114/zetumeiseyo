@@ -37,11 +37,11 @@ void EnemyBullet::Initialize(Vector3 pos, Vector3 vel, int atk)
 
 	particletex_ = TextureManager::LoadTexture("", "black2x2.png");
 
-	bulletHitParticle_ = std::make_unique<BulletHitParticle>();
+	//bulletHitParticle_ = std::make_unique<BulletHitParticle>();
 
-	morterParticle_ = std::make_unique<MorterParticle>();
+	//morterParticle_ = std::make_unique<MorterParticle>();
 
-	morterShadow_ = std::make_unique<MorterShadow>();
+	//morterShadow_ = std::make_unique<MorterShadow>();
 	morterShadowTex_ = TextureManager::LoadTexture("", "circle.png");
 
 	// コライダー
@@ -86,13 +86,13 @@ void EnemyBullet::InitializeMortar(Vector3 fromPos, Vector3 toPos)
 
 	particletex_ = TextureManager::LoadTexture("", "black2x2.png");
 
-	bulletHitParticle_ = std::make_unique<BulletHitParticle>();
+	//bulletHitParticle_ = std::make_unique<BulletHitParticle>();
 
-	morterParticle_ = std::make_unique<MorterParticle>();
+	//morterParticle_ = std::make_unique<MorterParticle>();
 
 	isMorterHit_ = 0;
 
-	morterShadow_ = std::make_unique<MorterShadow>();
+	//morterShadow_ = std::make_unique<MorterShadow>();
 
 	morterShadowTex_ = TextureManager::LoadTexture("", "circle.png");
 

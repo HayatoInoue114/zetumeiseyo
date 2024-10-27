@@ -144,7 +144,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Project\GameObject\Effect\MorterShadow\MorterShadow.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\MorterShadow\MorterShadow.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\None\None.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\Manual\Manual.cpp" />
     <ClCompile Include="Project\GameObject\Character\Player\DrawUI\BackArrow\BackArrow.cpp" />
@@ -159,13 +159,13 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\GameObject\Character\Player\DrawUI\SelectFrame\SelectFrame.cpp" />
     <ClCompile Include="Project\GameObject\Character\Player\PlayerLevelUpPrope\PlayerLevelUpPrope.cpp" />
     <ClCompile Include="Project\GameObject\Character\Player\PlayerSound\PlayerSound.cpp" />
-    <ClCompile Include="Project\GameObject\Effect\BlastParticle\BlastParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\BlastParticle\BlastParticle.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\Boss\Boss.cpp" />
-    <ClCompile Include="Project\GameObject\Effect\BulletCollisionParticle\BulletCollisionParticle.cpp" />
-    <ClCompile Include="Project\GameObject\Effect\BulletHitParticle\BulletHitParticle.cpp" />
-    <ClCompile Include="Project\GameObject\Effect\DeadFuncParticle\DeadFuncParticle.cpp" />
-    <ClCompile Include="Project\GameObject\Effect\PlayerDashParticle\PlayerDashParticle.cpp" />
-    <ClCompile Include="Project\GameObject\Effect\MortarParticle\MorterParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\BulletCollisionParticle\BulletCollisionParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\BulletHitParticle\BulletHitParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\DeadFuncParticle\DeadFuncParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\PlayerDashParticle\PlayerDashParticle.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\MortarParticle\MorterParticle.cpp" />
     <ClCompile Include="Project\GameObject\FPSCounter\FPSCounter.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\EnemyManager\EnemyManager.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\Fire\Fire.cpp" />
@@ -268,7 +268,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Tsumi\Utilities\Timer\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\GameObject\Effect\MorterShadow\MorterShadow.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\MorterShadow\MorterShadow.h" />
     <ClInclude Include="Project\GameObject\Character\Enemy\None\None.h" />
     <ClInclude Include="Project\GameObject\Character\Enemy\Manual\Manual.h" />
     <ClInclude Include="Project\GameObject\Character\Player\DrawUI\BackArrow\BackArrow.h" />
@@ -284,12 +284,12 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Project\GameObject\Character\Player\PlayerLevelUpPrope\PlayerLevelUpPrope.h" />
     <ClInclude Include="Project\GameObject\Character\Enemy\Boss\Boss.h" />
     <ClInclude Include="Project\GameObject\Character\Player\PlayerSound\PlayerSound.h" />
-    <ClInclude Include="Project\GameObject\Effect\BlastParticle\BlastParticle.h" />
-    <ClInclude Include="Project\GameObject\Effect\BulletCollisionParticle\BulletCollisionParticle.h" />
-    <ClInclude Include="Project\GameObject\Effect\BulletHitParticle\BulletHitParticle.h" />
-    <ClInclude Include="Project\GameObject\Effect\DeadFuncParticle\DeadFuncParticle.h" />
-    <ClInclude Include="Project\GameObject\Effect\PlayerDashParticle\PlayerDashParticle.h" />
-    <ClInclude Include="Project\GameObject\Effect\MortarParticle\MorterParticle.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\BlastParticle\BlastParticle.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\BulletCollisionParticle\BulletCollisionParticle.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\BulletHitParticle\BulletHitParticle.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\DeadFuncParticle\DeadFuncParticle.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\PlayerDashParticle\PlayerDashParticle.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\MortarParticle\MorterParticle.h" />
     <ClInclude Include="Project\GameObject\FPSCounter\FPSCounter.h" />
     <ClInclude Include="Project\GameObject\Character\Enemy\Fire\Fire.h" />
     <ClInclude Include="Project\GameObject\Character\Enemy\EnemyManager\EnemyManager.h" />

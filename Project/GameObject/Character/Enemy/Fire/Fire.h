@@ -1,7 +1,7 @@
 #pragma once
 #include "../IEnemy/IEnemy.h"
 #include "../MathFunction/MathFunction.h"
-#include "../Effect/BulletHitParticle/BulletHitParticle.h"
+//#include "../Effect/BulletHitParticle/BulletHitParticle.h"
 
 class Fire : public IEnemy, public OBBCollider
 {

@@ -538,7 +538,7 @@ void GameScene::CameraStartMove()
 		startCameraAnimIsFinish_ = true;
 		cameraNowFrame_ = 0;
 		//これ一時的だから消してね
-		player_->SetHP(0);
+		//player_->SetHP(0);
 	}
 }
 

@@ -15,7 +15,7 @@
 
 #include "NormalParticle/NormalParticle.h"
 
-#include "PlayerDashParticle/PlayerDashParticle.h"
+//#include "PlayerDashParticle/PlayerDashParticle.h"
 
 #include "OBBCollider.h"
 
@@ -319,7 +319,7 @@ private: // プレイヤーHpBar :: メンバ変数
 private: // ダッシュパーティクル :: メンバ変数
 
 	// PlayerDashParticle
-	unique_ptr<PlayerDashParticle> dashParticle_;
+	//unique_ptr<PlayerDashParticle> dashParticle_;
 	uint32_t dashParticleTexHD_;
 
 

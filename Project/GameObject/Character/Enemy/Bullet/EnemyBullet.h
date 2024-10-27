@@ -3,9 +3,9 @@
 #include "GameObject.h"
 #include "OBBCollider.h"
 #include "ColliderConfig.h"
-#include "../Effect/BulletHitParticle/BulletHitParticle.h"
-#include "../Effect/MortarParticle/MorterParticle.h"
-#include "../Effect/MorterShadow/MorterShadow.h"
+//#include "../Effect/BulletHitParticle/BulletHitParticle.h"
+//#include "../Effect/MortarParticle/MorterParticle.h"
+//#include "../Effect/MorterShadow/MorterShadow.h"
 
 
 /* PlayerBulletクラス */
@@ -137,15 +137,15 @@ private: // メンバ変数
 	//particleTexture
 	uint32_t particletex_;
 
-	std::unique_ptr<BulletHitParticle> bulletHitParticle_;
-	std::unique_ptr<MorterParticle> morterParticle_;
+	//std::unique_ptr<BulletHitParticle> bulletHitParticle_;
+	//std::unique_ptr<MorterParticle> morterParticle_;
 
 	//MorterParticle用フラグ
 	int isMorterHit_;
 
 	int hp{};
 
-	std::unique_ptr<MorterShadow> morterShadow_{};
+	//std::unique_ptr<MorterShadow> morterShadow_{};
 
 	uint32_t morterShadowTex_;
 };
