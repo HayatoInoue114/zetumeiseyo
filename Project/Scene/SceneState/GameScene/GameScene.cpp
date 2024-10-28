@@ -502,12 +502,12 @@ void GameScene::CameraUpdate()
 	if (startCameraAnimIsFinish_ && player_->GetHp() !=0) {
 
 		//camera_->translate = player_->GetWorldPos() + cameraDiffPos_;
-
 		PlayerCamera();
+		
 		// スタート演出の処理に入ってほしくないのでここでreturnを入れる
 		return;
 	}
-
+	
 	
 	// スタート時のカメラ演出
 	CameraStartMove();
@@ -664,27 +664,26 @@ void GameScene::PlayerDieCmaera()
 
 void GameScene::PlayerCamera()
 {
-	Vector3 playerPosition = player_->GetWorldPos();  // プレイヤーの位置
-	float distanceFromPlayer = 5.0f;                  // プレイヤーからの距離
-	float cameraAngle = 0.0f;                         // カメラの角度
-	float rotationSpeed = 0.05f;                      // 回転速度（スティック入力に基づく）
+	// プレイヤーの位置と回転を取得
+	Vector3 playerPosition = player_->GetWorldPos(); // プレイヤーの位置
+	float playerRotationY = player_->GetRotate().y; // プレイヤーのY軸回転（ラジアン）
 
-	// スティックの入力を取得
-	float stickInputX = GamePadInput::GetRStick().x;    // スティックのX軸入力
+	// カメラの距離
+	float cameraDistance = 5.0f; // プレイヤーからの距離
+	float cameraHeight = 2.0f;    // プレイヤーの高さからのオフセット
 
-	// カメラの角度を更新
-	cameraAngle += stickInputX * rotationSpeed;
+	// プレイヤーの向きを計算
+	Vector3 forward = {
+		cos(playerRotationY), // X成分
+		0.0f,                 // Y成分（地面に平行）
+		sin(playerRotationY)  // Z成分
+	};
 
-	// カメラの新しい位置を計算
-	camera_->translate.x = playerPosition.x + distanceFromPlayer * cos(cameraAngle);
-	camera_->translate.z = playerPosition.z + distanceFromPlayer * sin(cameraAngle);
-	camera_->translate.y = playerPosition.y + 2.0f;  // プレイヤーより少し上に配置
+	// カメラの位置を計算
+	Vector3 cameraPosition = playerPosition + forward * cameraDistance + Vector3{ 0.0f, cameraHeight, 0.0f };
 
-	// カメラがプレイヤーを見るように向きを設定
-	camera_->LookAt(playerPosition);
-
-	// カメラの行列を更新
-	camera_->UpdateMatrix();
+	// カメラの向きを設定
+	camera_->LookAt(cameraPosition, playerPosition);
 
 }
 

@@ -33,6 +33,7 @@ public:
 	/// </summary>
 	/// <param name="targetPosition"></param>
 	void LookAt(const Vector3& targetPosition);
+	void LookAt(const Vector3& targetPosition, const Vector3& up);
 
 #pragma region Get 
 

@@ -113,3 +113,35 @@ void Camera::LookAt(const Vector3& targetPosition) {
 	// カメラ位置の平行移動を行列に適用
 	matView.Translate(-translate.x, -translate.y, -translate.z);
 }
+
+void Camera::LookAt(const Vector3& targetPosition, const Vector3& up = { 0.0f, 1.0f, 0.0f }) {
+	// カメラの前方ベクトルを計算
+	Vector3 forward = (targetPosition - translate).Normalize();
+
+	// 上向きベクトルを正規化
+	Vector3 upNormalized = up.Normalize();
+
+	// 右ベクトルを計算
+	Vector3 right = upNormalized.Cross(forward).Normalize();
+
+	// 新しい上向きベクトルを計算
+	Vector3 newUp = forward.Cross(right).Normalize();
+
+	// ビュー行列を設定
+	matView.m[0][0] = right.x;     // 右ベクトルのX成分
+	matView.m[1][0] = right.y;     // 右ベクトルのY成分
+	matView.m[2][0] = right.z;     // 右ベクトルのZ成分
+	matView.m[3][0] = -right.Dot(translate); // X軸方向のオフセット
+
+	matView.m[0][1] = newUp.x;     // 新しい上向きベクトルのX成分
+	matView.m[1][1] = newUp.y;     // 新しい上向きベクトルのY成分
+	matView.m[2][1] = newUp.z;     // 新しい上向きベクトルのZ成分
+	matView.m[3][1] = -newUp.Dot(translate); // Y軸方向のオフセット
+
+	matView.m[0][2] = -forward.x;   // 前方ベクトルのX成分（逆にする）
+	matView.m[1][2] = -forward.y;   // 前方ベクトルのY成分（逆にする）
+	matView.m[2][2] = -forward.z;   // 前方ベクトルのZ成分（逆にする）
+	matView.m[3][2] = forward.Dot(translate); // Z軸方向のオフセット
+
+	matView.m[3][3] = 1.0f; // 同次座標のための設定
+}
