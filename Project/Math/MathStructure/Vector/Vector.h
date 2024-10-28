@@ -1,6 +1,6 @@
 #pragma once
 #include <math.h>
-
+#include <iostream>
 
 /// <summary>
 /// 2次元ベクトル
@@ -80,6 +80,17 @@ struct Vector3 final {
 			return Vector3(x / length, y / length, z / length);
 		}
 		return Vector3(0, 0, 0); // ゼロベクトルの場合はそのまま返す
+	}
+
+	// ドット積の計算
+	float Dot(const Vector3& other) const {
+		return x * other.x + y * other.y + z * other.z;
+	}
+
+	// ストリーム演算子のオーバーロード
+	friend std::ostream& operator<<(std::ostream& os, const Vector3& vec) {
+		os << "Vector3(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
+		return os;
 	}
 };
 
