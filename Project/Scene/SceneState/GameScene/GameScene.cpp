@@ -138,9 +138,10 @@ void GameScene::Initialize() {
 
 	pDieTex_ = TextureManager::LoadTexture("GameScene/UI", "gameOverTex.png");
 	pDieSp_ = std::make_unique<Sprite>();
-	pDieSpriteWT_.Initialize();
-	pDieSp_->Initialize({ 3280,2720 });
+	pDieSp_->Initialize({ 1280,720 });
 	pDieSp_->SetSpriteOrigin(SpriteOrigin::Center);
+	pDieSpriteWT_.Initialize();
+	pDieSpriteWT_.scale = { 5,5,5 };
 	pDieSpriteWT_.translate = { 640,360,0 };
 }
 
@@ -538,7 +539,7 @@ void GameScene::CameraStartMove()
 		startCameraAnimIsFinish_ = true;
 		cameraNowFrame_ = 0;
 		//これ一時的だから消してね
-		//player_->SetHP(0);
+		player_->SetHP(0);
 	}
 }
 
@@ -650,13 +651,14 @@ void GameScene::PlayerDieCmaera()
 			cameraDiffRotate_.x + (pDieWT_.rotate.x - cameraDiffRotate_.x) * t;
 	}
 
-	if (pDieAnimTime_ >= 0.5f) {
-		pDieSpriteWT_.scale.x -= 0.5f;
-		pDieSpriteWT_.scale.y -= 0.5f;
+	if (pDieAnimTime_ >= 0.5f && pDieSpriteWT_.scale.x >= 0) {
+		pDieSpriteWT_.scale.x -= 0.1f;
+		pDieSpriteWT_.scale.y -= 0.1f;
+		pDieSpriteWT_.UpdateMatrix();
 
 		pDieSp_->Draw(pDieTex_, pDieSpriteWT_, camera_.get());
-		pDieSpriteWT_.UpdateMatrix();
 	}
+
 	/*ImGui::Begin("p");
 	ImGui::Text("%f", pDieAnimTime_);
 	ImGui::End();*/
