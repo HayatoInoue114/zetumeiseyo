@@ -128,7 +128,7 @@ void GameScene::Initialize() {
 
 	//プレイヤー死んだとき用
 	pDieNowFrame_ = 0;
-	pDieEndFrame_ = 180;
+	pDieEndFrame_ = 150;
 	pDieAnimTime_ = 0;
 
 	pDieWT_.Initialize();
@@ -138,11 +138,19 @@ void GameScene::Initialize() {
 
 	pDieTex_ = TextureManager::LoadTexture("GameScene/UI", "gameOverTex.png");
 	pDieSp_ = std::make_unique<Sprite>();
-	pDieSp_->Initialize({ 1280,720 });
+	pDieSp_->Initialize({ 2048,2048 });
 	pDieSp_->SetSpriteOrigin(SpriteOrigin::Center);
 	pDieSpriteWT_.Initialize();
-	pDieSpriteWT_.scale = { 5,5,5 };
+	pDieSpriteWT_.scale = { 25,25,25 };
 	pDieSpriteWT_.translate = { 640,360,0 };
+
+	blackTex_ = TextureManager::LoadTexture("GameScene/UI", "backBlack.png");
+	blackSp_ = std::make_unique<Sprite>();
+	blackSp_->Initialize({ 1280,720 });
+	blackSp_->SetSpriteOrigin(SpriteOrigin::Center);
+	blackSpriteWT_.Initialize();
+	blackSpriteWT_.scale = { 15,15,15 };
+	blackSpriteWT_.translate = { 640,360,0 };
 }
 
 
@@ -285,9 +293,41 @@ void GameScene::FrontSpriteDraw() {
 	//スタート演出用
 	StartTexture();
 
+	float scaleDecayDie = 0.17f;
+	float scaleDecayBlack = 0.1f;
 
+	if (pDieSpriteWT_.scale.x > 0 && player_->GetHp() == 0) {
+		pDieSpriteWT_.scale.x -= scaleDecayDie;
+		pDieSpriteWT_.scale.y -= scaleDecayDie;
+		if (pDieSpriteWT_.scale.x < 0.1f) {
+			pDieSpriteWT_.scale.x = 0.1f;
+			pDieSpriteWT_.scale.y = 0.1f;
+		}
+		
+		pDieSpriteWT_.UpdateMatrix();
+	}
+	
+
+	if (blackSpriteWT_.scale.x > 1 && player_->GetHp() == 0) {
+		blackSpriteWT_.scale.x -= scaleDecayBlack;
+		blackSpriteWT_.scale.y -= scaleDecayBlack;
+		if (blackSpriteWT_.scale.x < 1) {
+			blackSpriteWT_.scale.x = 1;
+			blackSpriteWT_.scale.y = 1;
+		}
+		blackSpriteWT_.UpdateMatrix();	
+	}
+
+	if (player_->GetHp() == 0) {
+		blackSp_->Draw(blackTex_, blackSpriteWT_, camera_.get());
+		pDieSp_->Draw(pDieTex_, pDieSpriteWT_, camera_.get());
+	}
+	else {
 	/* ----- FadeManager フェードマネージャー ----- */
-	FadeManager::Draw(camera_.get());
+		FadeManager::Draw(camera_.get());
+	}
+
+	
 }
 
 
@@ -651,13 +691,7 @@ void GameScene::PlayerDieCmaera()
 			cameraDiffRotate_.x + (pDieWT_.rotate.x - cameraDiffRotate_.x) * t;
 	}
 
-	if (pDieAnimTime_ >= 0.5f && pDieSpriteWT_.scale.x >= 0) {
-		pDieSpriteWT_.scale.x -= 0.1f;
-		pDieSpriteWT_.scale.y -= 0.1f;
-		pDieSpriteWT_.UpdateMatrix();
-
-		pDieSp_->Draw(pDieTex_, pDieSpriteWT_, camera_.get());
-	}
+	
 
 	/*ImGui::Begin("p");
 	ImGui::Text("%f", pDieAnimTime_);

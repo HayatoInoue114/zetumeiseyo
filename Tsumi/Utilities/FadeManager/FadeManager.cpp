@@ -160,7 +160,7 @@ bool FadeManager::IsFadeOut()
 void FadeManager::FrameInit()
 {
 	FadeManager::GetInstance()->startFrame_ = 0;
-	FadeManager::GetInstance()->finishFrame_ = 120;
+	FadeManager::GetInstance()->finishFrame_ = 90;
 	FadeManager::GetInstance()->time_ = 0.0f;
 }
 

@@ -70,7 +70,7 @@ void SelectScene::Update(GameManager* state)
 	Scope scope = { 200,300 };
 	int dom = (int)RandomGenerator::getRandom(scope);
 
-	if (flame_ % dom == 0 || flame_ == 30) {
+	if (flame_ == 30) {
 		enemyManager_.TitleSpawn(camera_.get());
 	}
 

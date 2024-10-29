@@ -222,6 +222,10 @@ private:
 	unique_ptr<Sprite> pDieSp_;
 	WorldTransform pDieSpriteWT_;
 
+	uint32_t blackTex_;
+	unique_ptr<Sprite> blackSp_;
+	WorldTransform blackSpriteWT_;
+
 	float distanceFromPlayer = 5.0f;                  // プレイヤーからの距離
 	float cameraAngle = 0.0f;                         // カメラの角度
 	float rotationSpeed = 0.05f;                      // 回転速度（スティック入力に基づく）
