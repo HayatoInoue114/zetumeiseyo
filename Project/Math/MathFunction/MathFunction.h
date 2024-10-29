@@ -14,23 +14,16 @@
 #include <cassert>
 #include "imgui.h"
 #include <numbers>
+#include <type_traits>
+#include <filesystem>
 
-#include "Vector.h"
-#include "Matrix.h"
-#include "MathQuaternion.h"
-#include "MathOperations.h"
-#include "CollisionStructures.h"
-#include "WorldTransform.h"
-#include "ViewProjection.h"
-
-
-// 前方宣言
-struct ViewProjection;
-
+#include "Math/MyMath.h"
+#include "Math/Struct.h"
+#include "Transform/WorldTransform/WorldTransform.h"
 
 
 /// -------------------------------------------------------------------------
-/// ログ
+/// char , std::string
 /// -------------------------------------------------------------------------
 // string->wstring
 std::wstring ConverString(const std::string& str);
@@ -38,8 +31,30 @@ std::wstring ConverString(const std::string& str);
 std::string ConvertString(const std::wstring& str);
 // wstring->string
 void Log(const std::string& message);
+// ファイルパスから拡張子を抽出する関数
+std::string GetExtension(const std::string& path);
+// ファイルパスからファイル名を抽出する関数
+std::string RemoveExtension(const std::string& filePath);
+// 指定されたディレクトリ内のファイル名を取得
+std::vector<std::string> GetFileNamesInDirectory(const std::string& directoryPath);
+// 指定されたディレクトリ内のサブディレクトリ名を取得
+std::vector<std::string> GetSubdirectories(const std::string& directoryPath);
+// 特定の拡張子を持ったファイル名だけを取り出す
+std::string FilterFileByExtension(const std::vector<std::string>& filenames, const std::string& extension);
+// 指定された拡張子を持つ最初のファイル名を返す関数
+std::string FindFirstFileWithExtension(const std::string& directoryPath, const std::string& extension);
 
 
+
+/// -------------------------------------------------------------------------
+/// Bit
+/// -------------------------------------------------------------------------
+// ビット分割関数
+uint32_t BitSeparate32(uint32_t n);
+// モートン番号を算出する関数
+uint32_t Get2DMortonNumber(uint32_t x, uint32_t y);
+// ビット列から最上位ビットの位置を取得する関数
+uint32_t findHighestBitPosition(int bitmask);
 
 
 /// -------------------------------------------------------------------------
@@ -51,6 +66,10 @@ float Lerp(const float& start, const float& end, float t);
 float Clamp(const float& value, const float& minValue, const float& maxValue);
 // 0に近づくほど1になり、1や-1になるほど0を返す関数
 float APOneAsZeroCloser(float value);
+// 角度を度からラジアンに変換する処理
+float ToRadians(float degrees);
+// 範囲に変換
+float ConvertToRange(Vector2 input, Vector2 output, float value);
 
 
 
@@ -72,10 +91,9 @@ Vector2 Project(const Vector2& v1, const Vector2& v2);
 // 線形補間
 Vector2 Lerp(const Vector2& start, const Vector2& end, const float t);
 // Vector3 -> Vector2 への変換
-Vector2 ConvertVector(const Vector3& v, const ViewProjection& view);
+//Vector2 ConvertVector(const Vector3& v, const ViewProjection& view);
 // クランプ
 Vector2 Clamp(const Vector2& value, const Vector2& minValue, const Vector2& maxValue);
-
 
 
 /// -------------------------------------------------------------------------
@@ -98,12 +116,15 @@ Vector3 Lerp(const Vector3& start, const Vector3& end, const float t);
 // 球面線形補間
 Vector3 SLerp(const Vector3& start, const Vector3& end, const float t);
 // 最近接線
-Vector3 ClosestPoint(const Vector3& p, const Segment& s);
+//Vector3 ClosestPoint(const Vector3& p, const Segment& s);
 // 法線ベクトル
 Vector3 Perpendicular(const Vector3& v);
 // 座標変換
 Vector3 TransformByMatrix(const Vector3 v, const Matrix4x4 m);
+// Y軸周りに回転させる関数
+Vector3 YawRotation(const Vector3& vec, float angle);
 // ベクトル変換
+Vector3 TransformNormal(const Vector3& vec, const Vector3& rotation);
 Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m);
 // Vector2 -> Vector3 への変換
 //Vector3 ConvertVector(const Vector2& v);
@@ -113,7 +134,12 @@ Vector3 CreateVector3FromVector2(const Vector2& v);
 Vector3 CatmullRomInterpolation(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, float t);
 // CatmullRomスプライン曲線上の座標を得る
 Vector3 CatmullRomPosition(const std::vector<Vector3>& points, uint32_t index, float t);
-
+// Vector3にアフィン変換と透視補正を適用する
+Vector3 TransformWithPerspective(const Vector3& v, const Matrix4x4& m);
+// 角度を 0～2π の範囲に正規化
+float NormalizeAngle(float angle);
+// 最短回転角度を求める
+float ShortestAngle(float currentAngle, float targetAngle);
 
 
 /// -------------------------------------------------------------------------
@@ -181,5 +207,6 @@ Quaternion MakeRotateAxisAngleQuatenion(const Vector3& axis, float angle);
 Vector3 RotateVector(const Vector3& v, const Quaternion& q);
 // Quaternionから回転行列を求める
 Matrix4x4 MakeRotateMatrix(const Quaternion& q);
-
+// 3次元アフィン変換行列 (W = SRT)
+Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Quaternion& rotate, const Vector3& translate);
 

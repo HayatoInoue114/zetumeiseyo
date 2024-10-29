@@ -84,6 +84,8 @@ void Player::Initialize()
 
 	// Colliderのビットのセッティング
 	SettingColliderBit();
+
+	isShooting_ = false;
 }
 
 
@@ -118,6 +120,16 @@ void Player::Update(Camera* camera)
 
 		// 無敵時間処理
 		InvincibleTime();
+
+		if (isShooting_) {
+			// 射撃中はカメラの進行方向に姿勢を合わせる
+			FaceCameraDirection();
+		}
+		else {
+			// 移動方向からY軸の姿勢を合わせる
+			CalcBodyOrienation(iLStick_, stickMoveDirection_);
+			CalcBodyOrienation(iKeys_, keyMoveDirection_);
+		}
 	}
 	else {
 
@@ -256,6 +268,8 @@ void Player::Move() {
 	// velocityは0で毎フレーム初期化
 	velocity_ = Vector3::zero;
 
+	// stickの入力を取得
+	iLStick_ = GamePadInput::GetLStick();
 
 	// キーの処理
 	if (KeysInput::PressKeys(DIK_W))
@@ -650,4 +664,46 @@ Vector3 Player::CalculateRotation(const Vector3& direction) {
 void Player::LookAt(WorldTransform& playerTransform, const Vector3& position) {
 	Vector3 direction = Normalize(position - playerTransform.translate);
 	playerTransform.rotate = CalculateRotation(direction);
+}
+
+// カメラの方向に体の向きを合わせる
+void Player::FaceCameraDirection()
+{
+	// カメラの前方ベクトルを取得
+	Vector3 cameraForward = followCamera_->GetForwardVec();
+
+	// カメラのY成分を無視して水平面上の方向を計算
+	cameraForward.y = 0.0f;
+	cameraForward = Normalize(cameraForward);  // 正規化して方向ベクトルにする
+
+	// 目標の回転角度を求める（Y軸の回転）
+	float targetAngle = std::atan2(cameraForward.x, cameraForward.z);
+
+	// 現在の角度と目標角度から最短を求める
+	float shortestAngle = ShortestAngle(bodyWt_.rotate.y, targetAngle);
+
+	// 現在の角度を目標角度の間を補間
+	bodyWt_.rotate.y =
+		Lerp(bodyWt_.rotate.y, bodyWt_.rotate.y + shortestAngle, orientationLerpSpeed_);
+}
+
+
+// 移動方向からY軸の姿勢を合わせる
+void Player::CalcBodyOrienation(Vector2 input, Vector3 direction)
+{
+	if (std::abs(input.x) > DZone_ || std::abs(input.y) > DZone_)
+	{
+		// 正規化した移動方向
+		Vector3 normalizeDirection = Normalize(direction);
+
+		// 目標回転角度
+		float targetAngle = std::atan2(normalizeDirection.x, normalizeDirection.z);
+
+		// 現在の角度と目標角度から最短を求める
+		float shortestAngle = ShortestAngle(bodyWt_.rotate.y, targetAngle);
+
+		// 現在の角度を目標角度の間を補間
+		bodyWt_.rotate.y =
+			Lerp(bodyWt_.rotate.y, bodyWt_.rotate.y + shortestAngle, orientationLerpSpeed_);
+	}
 }

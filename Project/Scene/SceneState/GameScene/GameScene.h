@@ -133,6 +133,11 @@ private:
 	/// </summary>
 	void PlayerCamera();
 
+	/// <summary>
+	/// マリオの死亡演出と同じようにするための関数
+	/// </summary>
+	void MarioSprite();
+
 private:
 	FPSCounter fps_;
 

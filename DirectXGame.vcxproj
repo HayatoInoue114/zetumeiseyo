@@ -144,6 +144,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Project\GameObject\Camera\FollowCamera\FollowCamera.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\MorterShadow\MorterShadow.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\None\None.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\Manual\Manual.cpp" />
@@ -268,6 +269,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Tsumi\Utilities\Timer\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Project\GameObject\Camera\FollowCamera\FollowCamera.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\MorterShadow\MorterShadow.h" />
     <ClInclude Include="Project\GameObject\Character\Enemy\None\None.h" />
     <ClInclude Include="Project\GameObject\Character\Enemy\Manual\Manual.h" />

@@ -293,41 +293,8 @@ void GameScene::FrontSpriteDraw() {
 	//スタート演出用
 	StartTexture();
 
-	float scaleDecayDie = 0.17f;
-	float scaleDecayBlack = 0.1f;
-
-	if (pDieSpriteWT_.scale.x > 0 && player_->GetHp() == 0) {
-		pDieSpriteWT_.scale.x -= scaleDecayDie;
-		pDieSpriteWT_.scale.y -= scaleDecayDie;
-		if (pDieSpriteWT_.scale.x < 0.1f) {
-			pDieSpriteWT_.scale.x = 0.1f;
-			pDieSpriteWT_.scale.y = 0.1f;
-		}
-		
-		pDieSpriteWT_.UpdateMatrix();
-	}
-	
-
-	if (blackSpriteWT_.scale.x > 1 && player_->GetHp() == 0) {
-		blackSpriteWT_.scale.x -= scaleDecayBlack;
-		blackSpriteWT_.scale.y -= scaleDecayBlack;
-		if (blackSpriteWT_.scale.x < 1) {
-			blackSpriteWT_.scale.x = 1;
-			blackSpriteWT_.scale.y = 1;
-		}
-		blackSpriteWT_.UpdateMatrix();	
-	}
-
-	if (player_->GetHp() == 0) {
-		blackSp_->Draw(blackTex_, blackSpriteWT_, camera_.get());
-		pDieSp_->Draw(pDieTex_, pDieSpriteWT_, camera_.get());
-	}
-	else {
-	/* ----- FadeManager フェードマネージャー ----- */
-		FadeManager::Draw(camera_.get());
-	}
-
-	
+	//死亡時演出
+	MarioSprite();
 }
 
 
@@ -721,5 +688,39 @@ void GameScene::PlayerCamera()
 	// カメラの向きを設定
 	camera_->LookAt(cameraPosition, playerPosition);
 
+}
+
+void GameScene::MarioSprite()
+{
+	//GameOver用のスプライトを描画
+	float scaleDecayDie = 0.17f;
+	float scaleDecayBlack = 0.1f;
+	if (pDieSpriteWT_.scale.x > 0 && player_->GetHp() == 0) {
+		pDieSpriteWT_.scale.x -= scaleDecayDie;
+		pDieSpriteWT_.scale.y -= scaleDecayDie;
+		if (pDieSpriteWT_.scale.x < 0.1f) {
+			pDieSpriteWT_.scale.x = 0.1f;
+			pDieSpriteWT_.scale.y = 0.1f;
+		}
+
+		pDieSpriteWT_.UpdateMatrix();
+	}
+	if (blackSpriteWT_.scale.x > 1 && player_->GetHp() == 0) {
+		blackSpriteWT_.scale.x -= scaleDecayBlack;
+		blackSpriteWT_.scale.y -= scaleDecayBlack;
+		if (blackSpriteWT_.scale.x < 1) {
+			blackSpriteWT_.scale.x = 1;
+			blackSpriteWT_.scale.y = 1;
+		}
+		blackSpriteWT_.UpdateMatrix();
+	}
+	if (player_->GetHp() == 0) {
+		blackSp_->Draw(blackTex_, blackSpriteWT_, camera_.get());
+		pDieSp_->Draw(pDieTex_, pDieSpriteWT_, camera_.get());
+	}
+	else {
+		/* ----- FadeManager フェードマネージャー ----- */
+		FadeManager::Draw(camera_.get());
+	}
 }
 

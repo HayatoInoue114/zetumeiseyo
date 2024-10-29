@@ -14,7 +14,7 @@
 #include "PlayerSound/PlayerSound.h"
 
 #include "NormalParticle/NormalParticle.h"
-
+#include "FollowCamera/FollowCamera.h"
 //#include "PlayerDashParticle/PlayerDashParticle.h"
 
 #include "OBBCollider.h"
@@ -151,7 +151,11 @@ private:
 	// 衝突時無敵時間処理
 	void InvincibleTime();
 
+	// カメラの方向に体の向きを合わせる
+	void FaceCameraDirection();
 
+	// 移動方向からY軸の姿勢を合わせる
+	void CalcBodyOrienation(Vector2 input, Vector3 direction);
 private: // プレイヤー本体 : メンバ変数
 
 	// 本体
@@ -226,6 +230,27 @@ private: // プレイヤー本体 : メンバ変数
 	uint32_t invincibleNowFrame_ = 0;
 	uint32_t invincibleEndFrame_ = 60;
 	bool isInvincible_ = false;
+
+	// デッドゾーン
+	const float DZone_ = 0.2f;
+
+	// 姿勢計算の補間速度
+	float orientationLerpSpeed_ = 0.1f;
+
+	//フォローカメラ
+	FollowCamera* followCamera_ = nullptr;
+
+	// 射撃中かのフラグ
+	bool isShooting_ = false;
+
+	//Stickの入力を取得
+	Vector2 iLStick_{};
+	// Keyの入力
+	Vector2 iKeys_{};
+
+	// 移動方向
+	Vector3 stickMoveDirection_{};
+	Vector3 keyMoveDirection_{};
 
 #pragma region Dash
 

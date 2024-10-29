@@ -211,6 +211,7 @@
     <ClCompile Include="Project\GameObject\Others\WaveCountUI\WaveCountUI.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\Manual\Manual.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\None\None.cpp" />
+    <ClCompile Include="Project\GameObject\Camera\FollowCamera\FollowCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\GameObject\Character\Enemy\EnemyManager\EnemyManager.h" />
@@ -441,6 +442,7 @@
     <ClInclude Include="Project\GameObject\Character\Effect\MorterShadow\MorterShadow.h" />
     <ClInclude Include="Project\GameObject\Terrain\Field\Field.h" />
     <ClInclude Include="Project\GameObject\Others\WaveCountUI\WaveCountUI.h" />
+    <ClInclude Include="Project\GameObject\Camera\FollowCamera\FollowCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\LambertObject.hlsli" />

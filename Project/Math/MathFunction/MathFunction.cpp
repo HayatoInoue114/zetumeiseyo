@@ -1,9 +1,9 @@
 #include "MathFunction.h"
-
+namespace fs = std::filesystem;
 
 
 /// -------------------------------------------------------------------------
-/// ログ
+/// char , std::string
 /// -------------------------------------------------------------------------
 // string->wstring
 std::wstring ConverString(const std::string& str) {
@@ -42,6 +42,142 @@ void Log(const std::string& message) {
 	OutputDebugStringA(message.c_str());
 }
 
+// ファイルパスから拡張子を抽出する関数
+std::string GetExtension(const std::string& path)
+{
+	size_t dotPos = path.find_last_of('.');
+	if (dotPos == std::string::npos) {
+		return ""; // 拡張子がない場合は空文字列を返す
+	}
+	return path.substr(dotPos);
+}
+
+// ファイルパスからファイル名を抽出する関数
+std::string RemoveExtension(const std::string& filePath)
+{
+	size_t lastDotPos = filePath.find_last_of('.');
+	if (lastDotPos != std::string::npos) {
+		return filePath.substr(0, lastDotPos); // 拡張子より前の部分を返す
+	}
+	return filePath; // 拡張子がなければそのまま返す
+}
+
+// 指定されたディレクトリ内のファイル名を取得
+std::vector<std::string> GetFileNamesInDirectory(const std::string& directoryPath)
+{
+	std::vector<std::string> filenames;
+
+	for (const auto& entry : fs::directory_iterator(directoryPath)) {
+		if (entry.is_regular_file()) {
+			filenames.push_back(entry.path().filename().string());
+		}
+	}
+
+	return filenames;
+}
+
+// 指定されたディレクトリ内のサブディレクトリ名を取得
+std::vector<std::string> GetSubdirectories(const std::string& directoryPath)
+{
+	std::vector<std::string> subdirs;
+
+	for (const auto& entry : fs::directory_iterator(directoryPath)) {
+		if (entry.is_directory()) {
+			subdirs.push_back(entry.path().filename().string());
+		}
+	}
+
+	return subdirs;
+}
+
+// 特定の拡張子を持ったファイル名だけを取り出す
+std::string FilterFileByExtension(const std::vector<std::string>& filenames, const std::string& extension)
+{
+	// 拡張子の長さをキャッシュしておく
+	size_t extensionLength = extension.size();
+
+	// ファイル名の中から、指定した拡張子を持つ最初のファイルを探す
+	auto it = std::find_if(filenames.begin(), filenames.end(),
+		[extensionLength, &extension](const std::string& filename) {
+			return filename.size() >= extensionLength &&
+				filename.compare(filename.size() - extensionLength, extensionLength, extension) == 0;
+		});
+
+	// 一致するファイルが見つかった場合はそのファイル名を返す
+	if (it != filenames.end()) {
+		return *it;
+	}
+
+	// 一致するファイルが見つからなかった場合は空文字列を返す
+	return "";
+}
+
+// 指定された拡張子を持つ最初のファイル名を返す関数
+std::string FindFirstFileWithExtension(const std::string& directoryPath, const std::string& extension) {
+	std::vector<std::string> filenames;
+
+	// ディレクトリ内の全ファイル名を取得
+	for (const auto& entry : fs::directory_iterator("Resources/" + directoryPath)) {
+		if (entry.is_regular_file()) {
+			filenames.push_back(entry.path().filename().string());
+		}
+	}
+
+	// 拡張子の長さをキャッシュしておく
+	size_t extensionLength = extension.size();
+
+	// ファイル名の中から、指定した拡張子を持つ最初のファイルを探す
+	auto it = std::find_if(filenames.begin(), filenames.end(),
+		[extensionLength, &extension](const std::string& filename) {
+			return filename.size() >= extensionLength &&
+				filename.compare(filename.size() - extensionLength, extensionLength, extension) == 0;
+		});
+
+	// 一致するファイルが見つかった場合はそのファイル名を返す
+	if (it != filenames.end()) {
+		return *it;
+	}
+
+	// 一致するファイルが見つからなかった場合は空文字列を返す
+	return "";
+}
+
+
+
+
+/// -------------------------------------------------------------------------
+/// Bit
+/// -------------------------------------------------------------------------
+// ビット分割関数
+uint32_t BitSeparate32(uint32_t n)
+{
+	// 8ビット飛びにする
+	n = (n | (n << 8)) & 0x00ff00ff;
+	// 4ビット飛びにする
+	n = (n | (n << 4)) & 0x0f0f0f0f;
+	// 2ビット飛びにする
+	n = (n | (n << 2)) & 0x33333333;
+	// 1ビット飛びにする
+	return (n | (n << 1)) & 0x55555555;
+}
+
+// モートン番号を算出する関数
+uint32_t Get2DMortonNumber(uint32_t x, uint32_t y)
+{
+	return (BitSeparate32(x) | (BitSeparate32(y) << 1));
+}
+
+// ビット列から最上位ビットの位置を取得する関数
+uint32_t findHighestBitPosition(int bitmask)
+{
+	int position = 0;
+	while (bitmask != 0) {
+		bitmask >>= 1;
+		++position;
+	}
+	return position;
+}
+
 
 
 
@@ -61,6 +197,28 @@ float Clamp(const float& value, const float& minValue, const float& maxValue) {
 // 0に近づくほど1になり、1や-1になるほど0を返す関数
 float APOneAsZeroCloser(float value) {
 	return exp(-pow(value, 2.0f));
+}
+
+// 角度を度からラジアンに変換する処理
+float ToRadians(float degrees)
+{
+	return degrees * (float(M_PI) / 180.0f);
+}
+
+// 範囲に変換
+float ConvertToRange(Vector2 input, Vector2 output, float value)
+{
+	// 入力値を範囲に制限
+	//float clampedInput = std::clamp(static_cast<float>(value), input.x, input.y);
+
+	// 入力値を入力範囲に正規化
+	//float normalize = (clampedInput - input.x) / (input.y - input.x);
+	float normalize = (value - input.x) / (input.y - input.x);
+
+	// 正規化された値を出力範囲にスケーリング
+	float result = normalize * (output.y - output.x) + output.x;
+
+	return result;
 }
 
 
@@ -105,12 +263,12 @@ Vector2 Lerp(const Vector2& start, const Vector2& end, const float t) {
 }
 
 // Vector3 -> Vector2 への変換 今はそのまま対する値を送ってるだけだけど今後はもっと変換処理作っていく
-Vector2 ConvertVector(const Vector3& v, const ViewProjection& view) {
-	Vector3 worldPos = v;
-	Matrix4x4 matViewProjectionViewPort = view.matView * view.matProjection * view.matViewPort;
-	worldPos = TransformByMatrix(worldPos, matViewProjectionViewPort);
-	return { worldPos.x, worldPos.y };
-}
+//Vector2 ConvertVector(const Vector3& v, const ViewProjection& view) {
+//	Vector3 worldPos = v;
+//	Matrix4x4 matViewProjectionViewPort = view.matView * view.matProjection * view.matViewPort;
+//	worldPos = TransformByMatrix(worldPos, matViewProjectionViewPort);
+//	return { worldPos.x, worldPos.y };
+//}
 
 // クランプ
 Vector2 Clamp(const Vector2& value, const Vector2& minValue, const Vector2& maxValue)
@@ -177,14 +335,14 @@ Vector3 SLerp(const Vector3& start, const Vector3& end, const float t) {
 }
 
 // 最近接線
-Vector3 ClosestPoint(const Vector3& p, const Segment& s) {
-	float length = Length(p);
-	Vector3 normalize = Normalize(p);
-	float dist = Dot((p - s.origin), normalize);
-	dist = std::clamp(dist, 0.0f, length);
-	Vector3 proj = dist * normalize;
-	return s.origin + proj;
-}
+//Vector3 ClosestPoint(const Vector3& p, const Segment& s) {
+//	float length = Length(p);
+//	Vector3 normalize = Normalize(p);
+//	float dist = Dot((p - s.origin), normalize);
+//	dist = std::clamp(dist, 0.0f, length);
+//	Vector3 proj = dist * normalize;
+//	return s.origin + proj;
+//}
 
 // 法線ベクトル
 Vector3 Perpendicular(const Vector3& v) {
@@ -220,6 +378,32 @@ Vector3 TransformByMatrix(const Vector3 v, const Matrix4x4 m)
 	return  result;
 }
 
+// Y軸周りに回転させる関数
+Vector3 YawRotation(const Vector3& vec, float angle)
+{
+	// Y軸回転行列を適用
+	float cosYaw = std::cos(angle);
+	float sinYaw = std::sin(angle);
+
+	return {
+		vec.x * cosYaw - vec.z * sinYaw,
+		vec.y,
+		vec.x * sinYaw + vec.z * cosYaw
+	};
+}
+Vector3 TransformNormal(const Vector3& vec, const Vector3& rotation)
+{
+	// Y軸回転行列を適用
+	float cosYaw = std::cos(rotation.y);
+	float sinYaw = std::sin(rotation.y);
+
+	return {
+		vec.x * cosYaw + vec.z * sinYaw,
+		vec.y,
+		-vec.x * sinYaw + vec.z * cosYaw
+	};
+}
+
 // ベクトル変換
 Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
 	Vector3 result{};
@@ -233,11 +417,6 @@ Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
 	return result;
 }
 
-// Vector2 -> Vector3 への変換
-//Vector3 ConvertVector(const Vector2& v) {
-//	return { v.x, v.y, 0.0f };
-//}
-
 // Vector2をそのままVector3に入れる
 Vector3 CreateVector3FromVector2(const Vector2& v) {
 	return { v.x, v.y, 1.0f };
@@ -245,14 +424,6 @@ Vector3 CreateVector3FromVector2(const Vector2& v) {
 
 // CatmullRom補間
 Vector3 CatmullRomInterpolation(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, float t) {
-
-	//float s = 0.5f;
-	//float t2 = t * t;
-	//float t3 = t * t * t;
-	//Vector3 hr1 = (-p0 + (3.0f * p1) - (3.0f * p2) + p3) * t3;
-	//Vector3 hr2 = ((2.0f * p0) - (5.0f * p1) + (4.0f * p2) - p3) * t2;
-	//Vector3 hr3 = ((-p0 + p2) * t) + (2.0f + p1);
-	//return (s * (hr1 + hr2 + hr3));
 
 	float t2 = t * t;
 	float t3 = t * t * t;
@@ -283,8 +454,49 @@ Vector3 CatmullRomPosition(const std::vector<Vector3>& points, uint32_t index, f
 	Vector3 p1 = points[index1];
 	Vector3 p2 = points[index2];
 	Vector3 p3 = points[index3];
-	
+
 	return CatmullRomInterpolation(p0, p1, p2, p3, t);
+}
+
+// Vector3にアフィン変換と透視補正を適用する
+Vector3 TransformWithPerspective(const Vector3& v, const Matrix4x4& m)
+{
+	Vector3 result = {
+		(v.x * m.m[0][0]) + (v.y * m.m[1][0]) + (v.z * m.m[2][0]) + (1.0f * m.m[3][0]),
+		(v.x * m.m[0][1]) + (v.y * m.m[1][1]) + (v.z * m.m[2][1]) + (1.0f * m.m[3][1]),
+		(v.x * m.m[0][2]) + (v.y * m.m[1][2]) + (v.z * m.m[2][2]) + (1.0f * m.m[3][2])
+	};
+	float w = (v.x * m.m[0][3]) + (v.y * m.m[1][3]) + (v.z * m.m[2][3]) + (1.0f * m.m[3][3]);
+
+	//0除算を避ける
+	if (w != 0.0f) {
+		result.x /= w;
+		result.y /= w;
+		result.z /= w;
+	}
+
+	return result;
+}
+
+// 角度を 0～2π の範囲に正規化
+float NormalizeAngle(float angle)
+{
+	while (angle < -Math::PI) angle += Math::Double_PI;
+	while (angle > Math::PI) angle -= Math::Double_PI;
+	return angle;
+}
+
+// 最短回転角度を求める
+float ShortestAngle(float currentAngle, float targetAngle)
+{
+	// 角度の差を計算
+	float angleDifference = targetAngle - currentAngle;
+
+	// 角度を -π から +π の範囲に正規化する
+	while (angleDifference > Math::PI) angleDifference -= 2.0f * Math::PI;
+	while (angleDifference < -Math::PI) angleDifference += 2.0f * Math::PI;
+
+	return angleDifference; // 最短回転角度を返す
 }
 
 
@@ -888,5 +1100,26 @@ Matrix4x4 MakeRotateMatrix(const Quaternion& q) {
 	hr.m[2][1] = 2 * ((q.y * q.z) - (q.w * q.x));
 	hr.m[2][2] = powQ.w - powQ.x - powQ.y + powQ.z;
 	return hr;
+}
+
+// 3次元アフィン変換行列 (W = SRT)
+Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Quaternion& rotate, const Vector3& translate) {
+	Matrix4x4 result{};
+
+	// 拡大縮小行列
+	Matrix4x4 scaleMatrix;
+	scaleMatrix = MakeScaleMatrix(scale);
+
+	// 回転行列(all)
+	Matrix4x4 rotateMatrix;
+	rotateMatrix = MakeRotateMatrix(rotate);
+
+	// 平行移動行列
+	Matrix4x4 translateMatrix;
+	translateMatrix = MakeTranslateMatrix(translate);
+
+	result = scaleMatrix * (rotateMatrix * translateMatrix);
+
+	return result;
 }
 
