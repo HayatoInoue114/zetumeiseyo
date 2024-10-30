@@ -107,7 +107,7 @@ void Player::Update(Camera* camera)
 		Move();
 
 		// 姿勢の処理
-		CalcBodyRotate();
+		//CalcBodyRotate();
 
 		// ダッシュの処理
 		DashFunc();

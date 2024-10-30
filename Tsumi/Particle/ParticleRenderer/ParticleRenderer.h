@@ -5,7 +5,7 @@
 #include "ParticleGraphicPipeline.h"
 #include "CreateResource.h"
 #include "DescriptorManager.h"
-
+#include "Camera.h"
 
 /* ParticleRendererクラス */
 class ParticleRenderer {
