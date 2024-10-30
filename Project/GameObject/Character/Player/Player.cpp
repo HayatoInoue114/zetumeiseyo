@@ -99,6 +99,8 @@ void Player::Update(Camera* camera)
 	reticle_->Update(camera);
 
 	if (!isDead_) {
+		//入力の受け取り
+		InputFunc();
 
 		// 射撃処理
 		IsAttack();
@@ -262,7 +264,7 @@ void Player::SettingCollider()
 // 移動処理
 void Player::Move() {
 
-	//rotate
+	/*//rotate
 	LookAt(bodyWt_, reticle_->GetWorldPos());
 
 	// velocityは0で毎フレーム初期化
@@ -315,9 +317,10 @@ void Player::Move() {
 	}
 
 	// velocityに速度を掛けて座標に加算
-	bodyWt_.translate += (velocity_ * moveVector_);
+	bodyWt_.translate += (velocity_ * moveVector_);*/
 
-
+	KeyMove();
+	PadMove();
 	// 移動限界
 	const float kMoveMit = 100.0f;
 	bodyWt_.translate.x = max(bodyWt_.translate.x, -kMoveMit);
@@ -705,5 +708,78 @@ void Player::CalcBodyOrienation(Vector2 input, Vector3 direction)
 		// 現在の角度を目標角度の間を補間
 		bodyWt_.rotate.y =
 			Lerp(bodyWt_.rotate.y, bodyWt_.rotate.y + shortestAngle, orientationLerpSpeed_);
+	}
+}
+
+// 移動方向を求める
+void Player::CalcMoveDirection()
+{
+	// カメラの前方と右方
+	Vector3 forward = followCamera_->GetForwardVec();
+	Vector3 right = followCamera_->GetRightVec();
+
+	stickMoveDirection_ = {
+		(iLStick_.x * right.x) + (iLStick_.y * forward.x),
+		0.0f,
+		(iLStick_.x * right.z) + (iLStick_.y * forward.z),
+	};
+	keyMoveDirection_ = {
+		(iKeys_.x * right.x) + (iKeys_.y * forward.x),
+		0.0f,
+		(iKeys_.x * right.z) + (iKeys_.y * forward.z),
+	};
+}
+
+// 移動処理
+void Player::PadMove()
+{
+	// 移動量の計算
+	if (std::abs(iLStick_.x) > DZone_ || std::abs(iLStick_.y) > DZone_) {
+
+		// 移動量の計算(カメラの前方と右方に基づく)
+		velocity_ = stickMoveDirection_;
+
+		// 移動方向を正規化し速さを乗算
+		velocity_ = Normalize(velocity_) * moveSpeed_;
+
+		// 座標に加算
+		bodyWt_.translate += velocity_;
+	}
+}
+void Player::KeyMove()
+{
+	// 移動量の計算
+	if (std::abs(iKeys_.x) > DZone_ || std::abs(iKeys_.y) > DZone_) {
+
+		// 移動量の計算(カメラの前方と右方に基づく)
+		velocity_ = keyMoveDirection_;
+
+		// 移動方向を正規化し速さを乗算
+		velocity_ = Normalize(velocity_) * moveSpeed_;
+
+		// 座標に加算
+		bodyWt_.translate += velocity_;
+	}
+}
+
+// 入力を受け取る
+void Player::InputFunc()
+{
+	// stickの入力を取得
+	iLStick_ = GamePadInput::GetLStick();
+
+	// keyの入力を取得
+	iKeys_ = Vector2::zero;
+	if (KeysInput::PressKeys(DIK_W)) {
+		iKeys_.y = 1.0f;
+	}
+	if (KeysInput::PressKeys(DIK_S)) {
+		iKeys_.y = -1.0f;
+	}
+	if (KeysInput::PressKeys(DIK_A)) {
+		iKeys_.x = -1.0f;
+	}
+	if (KeysInput::PressKeys(DIK_D)) {
+		iKeys_.x = 1.0f;
 	}
 }

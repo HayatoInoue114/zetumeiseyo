@@ -156,6 +156,14 @@ private:
 
 	// 移動方向からY軸の姿勢を合わせる
 	void CalcBodyOrienation(Vector2 input, Vector3 direction);
+
+	// 移動方向を求める
+	void CalcMoveDirection();
+
+	void PadMove();
+	void KeyMove();
+
+	void InputFunc();
 private: // プレイヤー本体 : メンバ変数
 
 	// 本体
@@ -251,6 +259,9 @@ private: // プレイヤー本体 : メンバ変数
 	// 移動方向
 	Vector3 stickMoveDirection_{};
 	Vector3 keyMoveDirection_{};
+
+	// 移動速度
+	float moveSpeed_ = 0.3f;
 
 #pragma region Dash
 
