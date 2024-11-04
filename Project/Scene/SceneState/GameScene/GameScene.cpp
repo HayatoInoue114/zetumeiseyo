@@ -542,8 +542,8 @@ void GameScene::CameraUpdate()
 	// カメラの追従処理
 	if (startCameraAnimIsFinish_ && player_->GetHp() !=0) {
 
-		//camera_->translate = player_->GetWorldPos() + cameraDiffPos_;
-		PlayerCamera();
+		camera_->translate = player_->GetWorldPos() + cameraDiffPos_;
+		//PlayerCamera();
 		
 		// スタート演出の処理に入ってほしくないのでここでreturnを入れる
 		return;
@@ -579,7 +579,7 @@ void GameScene::CameraStartMove()
 		startCameraAnimIsFinish_ = true;
 		cameraNowFrame_ = 0;
 		//これ一時的だから消してね
-		player_->SetHP(0);
+		//player_->SetHP(0);
 	}
 }
 
