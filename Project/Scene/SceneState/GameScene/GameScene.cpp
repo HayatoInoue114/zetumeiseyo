@@ -509,8 +509,8 @@ void GameScene::CameraUpdate()
 	// カメラの追従処理
 	if (startCameraAnimIsFinish_ && player_->GetHp() !=0) {
 
-		//camera_->translate = player_->GetWorldPos() + cameraDiffPos_;
-		PlayerCamera();
+		camera_->translate = player_->GetWorldPos() + cameraDiffPos_;
+		//PlayerCamera();
 		
 		// スタート演出の処理に入ってほしくないのでここでreturnを入れる
 		return;
@@ -546,7 +546,7 @@ void GameScene::CameraStartMove()
 		startCameraAnimIsFinish_ = true;
 		cameraNowFrame_ = 0;
 		//これ一時的だから消してね
-		player_->SetHP(0);
+		//player_->SetHP(0);
 	}
 }
 
@@ -667,26 +667,26 @@ void GameScene::PlayerDieCmaera()
 
 void GameScene::PlayerCamera()
 {
-	// プレイヤーの位置と回転を取得
-	Vector3 playerPosition = player_->GetWorldPos(); // プレイヤーの位置
-	float playerRotationY = player_->GetRotate().y; // プレイヤーのY軸回転（ラジアン）
+	//// プレイヤーの位置と回転を取得
+	//Vector3 playerPosition = player_->GetWorldPos(); // プレイヤーの位置
+	//float playerRotationY = player_->GetRotate().y; // プレイヤーのY軸回転（ラジアン）
 
-	// カメラの距離
-	float cameraDistance = 5.0f; // プレイヤーからの距離
-	float cameraHeight = 2.0f;    // プレイヤーの高さからのオフセット
+	//// カメラの距離
+	//float cameraDistance = 5.0f; // プレイヤーからの距離
+	//float cameraHeight = 2.0f;    // プレイヤーの高さからのオフセット
 
-	// プレイヤーの向きを計算
-	Vector3 forward = {
-		cos(playerRotationY), // X成分
-		0.0f,                 // Y成分（地面に平行）
-		sin(playerRotationY)  // Z成分
-	};
+	//// プレイヤーの向きを計算
+	//Vector3 forward = {
+	//	cos(playerRotationY), // X成分
+	//	0.0f,                 // Y成分（地面に平行）
+	//	sin(playerRotationY)  // Z成分
+	//};
 
-	// カメラの位置を計算
-	Vector3 cameraPosition = playerPosition + forward * cameraDistance + Vector3{ 0.0f, cameraHeight, 0.0f };
+	//// カメラの位置を計算
+	//Vector3 cameraPosition = playerPosition + forward * cameraDistance + Vector3{ 0.0f, cameraHeight, 0.0f };
 
-	// カメラの向きを設定
-	camera_->LookAt(cameraPosition, playerPosition);
+	//// カメラの向きを設定
+	//camera_->LookAt(cameraPosition, playerPosition);
 
 }
 
