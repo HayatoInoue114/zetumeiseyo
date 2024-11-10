@@ -46,7 +46,7 @@ void GameScene::Initialize() {
 	cameraInitPos_ = { 0.0f, 1.5f, -4.0f };
 	camera_->translate = cameraInitPos_;
 	cameraDiffRotate_ = { 0.2f, 0.0f, 0.0f };
-	cameraDiffPos_ = { 0.0f, 30.0f, -100.0f };
+	cameraDiffPos_ = { 0.0f, 6.0f, -30.0f };
 	camera_->UpdateMatrix();
 
 
@@ -672,7 +672,7 @@ void GameScene::PlayerCamera()
 
 	// カメラの設定
 	float cameraDistance = 30.0f; // プレイヤーからの距離
-	float cameraHeight = 5.0f;   // プレイヤーの高さからのオフセット
+	float cameraHeight = cameraDiffPos_.y;   // プレイヤーの高さからのオフセット
 
 	// カメラ位置を前方ベクトルと高さを考慮して計算
 	Vector3 cameraPosition = playerPosition - forwardVec * cameraDistance;
@@ -681,6 +681,7 @@ void GameScene::PlayerCamera()
 	// カメラの位置と向きを設定
 	camera_->SetPosition(cameraPosition);
 	camera_->LookAt(playerPosition, forwardVec, followCamera_->GetRightVec(), { 0.0f, 1.0f, 0.0f }); // 上向きベクトルを指定してプレイヤーを向く
+	
 
 	// ビュー行列を更新
 	camera_->UpdateMatrix();

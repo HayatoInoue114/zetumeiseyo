@@ -147,10 +147,10 @@ void Camera::LookAt(const Vector3& targetPosition, const Vector3& forwardVec, co
 
 	// カメラの回転を計算 (ターゲットと上向きベクトルから回転を計算)
 	float angleY = atan2(forward.x, forward.z); // Y軸回転 (水平方向)
-	float angleX = atan2(forward.y, sqrt(forward.x * forward.x + forward.z * forward.z)); // X軸回転 (垂直方向)
+	//float angleX = atan2(forward.y, sqrt(forward.x * forward.x + forward.z * forward.z)); // X軸回転 (垂直方向)
 
 	// 回転をcamera_->rotateに反映
-	rotate = { angleX, angleY, 0.0f }; // Z軸回転は0に設定 (今回は不要)
+	rotate = { 0.2f, angleY, 0.0f }; // Z軸回転は0に設定 (今回は不要)
 }
 
 

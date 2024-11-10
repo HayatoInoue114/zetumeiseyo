@@ -572,11 +572,13 @@ void Player::IsAttack()
 		SettingNewBullet();
 	}
 	else if (KeysInput::ReleaseKeys(DIK_SPACE)) {
-		// フラグを折る
-		isShooting_ = false;
+		
 		// キーを離したら次の瞬間押してすぐ射撃できるように
 		// １フレームを入れておく
 		AttackTimer_ = 1;
+
+		// フラグを折る
+		isShooting_ = false;
 	}
 
 	// ボタン押下でタイマーを減らし射撃
@@ -589,11 +591,12 @@ void Player::IsAttack()
 		SettingNewBullet();
 	}
 	else if (GamePadInput::ReleaseButton(PadData::RIGHT_SHOULDER)) {
-		// フラグを折る
-		isShooting_ = false;
+		
 		// キーを離したら次の瞬間押してすぐ射撃できるように
 		// １フレームを入れておく
 		AttackTimer_ = 1;
+		// フラグを折る
+		isShooting_ = false;
 	}
 }
 
