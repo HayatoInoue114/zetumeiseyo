@@ -86,6 +86,8 @@ void Player::Initialize()
 	SettingColliderBit();
 
 	isShooting_ = false;
+
+
 }
 
 
@@ -96,6 +98,7 @@ void Player::Update(Camera* camera)
 	bodyWt_.UpdateMatrix();
 
 	// Reticleの更新処理
+	reticle_->SetFollowCamera(followCamera_);
 	reticle_->Update(camera);
 
 	if (!isDead_) {
@@ -319,6 +322,9 @@ void Player::Move() {
 	// velocityに速度を掛けて座標に加算
 	bodyWt_.translate += (velocity_ * moveVector_);*/
 
+	// 移動方向を求める
+	CalcMoveDirection();
+	velocity_ = Vector3::zero;
 	KeyMove();
 	PadMove();
 	// 移動限界
@@ -558,13 +564,16 @@ void Player::IsAttack()
 
 	// キー押下でタイマーを減らし射撃
 	if (KeysInput::PressKeys(DIK_SPACE) && AttackTimer_ <= 0) {
+		// 射撃中のフラグを立てる
+		isShooting_ = true;
 		// 設定し直す
 		AttackTimer_ = AttackInterval_;
 		// バレットの設定をして射撃
 		SettingNewBullet();
 	}
 	else if (KeysInput::ReleaseKeys(DIK_SPACE)) {
-
+		// フラグを折る
+		isShooting_ = false;
 		// キーを離したら次の瞬間押してすぐ射撃できるように
 		// １フレームを入れておく
 		AttackTimer_ = 1;
@@ -572,13 +581,16 @@ void Player::IsAttack()
 
 	// ボタン押下でタイマーを減らし射撃
 	if (GamePadInput::PressButton(PadData::RIGHT_SHOULDER) && AttackTimer_ <= 0) {
+		// 射撃中のフラグを立てる
+		isShooting_ = true;
 		// 設定し直す
 		AttackTimer_ = AttackInterval_;
 		// バレットの設定をして射撃
 		SettingNewBullet();
 	}
 	else if (GamePadInput::ReleaseButton(PadData::RIGHT_SHOULDER)) {
-
+		// フラグを折る
+		isShooting_ = false;
 		// キーを離したら次の瞬間押してすぐ射撃できるように
 		// １フレームを入れておく
 		AttackTimer_ = 1;
@@ -783,3 +795,4 @@ void Player::InputFunc()
 		iKeys_.x = 1.0f;
 	}
 }
+

@@ -4,7 +4,6 @@
 #include "MyMath.h"
 #include "CreateResource.h"
 
-
 // 定数バッファ
 struct TransformationViewMatrix {
 	Matrix4x4 view;
@@ -32,8 +31,8 @@ public:
 	/// ターゲットに向くようにする関数
 	/// </summary>
 	/// <param name="targetPosition"></param>
-	void LookAt(const Vector3& targetPosition);
-	void LookAt(const Vector3& targetPosition, const Vector3& up);
+	/*void LookAt(const Vector3& targetPosition);*/
+	void LookAt(const Vector3& targetPosition, const Vector3& forwardVec , const Vector3& rightVec, const Vector3& up) ;
 
 #pragma region Get 
 
@@ -41,6 +40,10 @@ public:
 	/// ワールド座標の取得
 	/// </summary>
 	Vector3 GetWorldPos();
+
+	void SetPosition(Vector3 pos) { translate = pos; }
+
+	void SetRotate(Vector3 rotetion) { rotate = rotetion; }
 
 #pragma endregion 
 
@@ -92,6 +95,7 @@ public:
 	float aspectRatio = float(WinApp::kWindowWidth) / float(WinApp::kWindowHeight);
 
 	// 深度限界 (手前側)
+
 	float nearZ = 0.1f;
 
 	// 深度限界 (奥側)
@@ -122,6 +126,5 @@ public:
 
 	// マッピング済みアドレス
 	TransformationViewMatrix* constMap = nullptr;
-
 };
 

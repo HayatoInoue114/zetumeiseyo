@@ -98,6 +98,8 @@ public: // プレイヤー本体 : メンバ関数
 
 	//コンテストのために一時的に作った関数
 	void SetHP(int hp) { hp_ = hp; }
+
+	void SetFollowCamera(FollowCamera* camera) { followCamera_ = camera; }
 #pragma endregion
 
 #pragma region Collider 衝突判定
@@ -164,6 +166,7 @@ private:
 	void KeyMove();
 
 	void InputFunc();
+	void ExecuteShot();
 private: // プレイヤー本体 : メンバ変数
 
 	// 本体
@@ -262,6 +265,10 @@ private: // プレイヤー本体 : メンバ変数
 
 	// 移動速度
 	float moveSpeed_ = 0.3f;
+
+	// 射撃ボタン押下フレーム&インターバル
+	int shotPressFrame_ = 0;
+	int kShotInterval_ = 5;
 
 #pragma region Dash
 

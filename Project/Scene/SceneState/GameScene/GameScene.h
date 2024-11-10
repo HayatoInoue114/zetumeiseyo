@@ -23,6 +23,8 @@
 #include "FadeManager.h"
 #include "SaveValue/SaveValue.h"
 
+#include "GameObject/Camera/FollowCamera/FollowCamera.h"
+
 
 
 class GameScene : public IScene {
@@ -150,6 +152,8 @@ private:
 	bool startCameraAnimIsFinish_ = false;
 	uint32_t cameraNowFrame_ = 0;
 	uint32_t cameraEndFrame_ = 180;
+
+	unique_ptr<FollowCamera> followCamera_ = nullptr;
 
 
 	/* ----- GameWave ゲームウェーブ ----- */

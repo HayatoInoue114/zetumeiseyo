@@ -132,11 +132,12 @@ void FollowCamera::CalcRightVec()
 // ImGuiの描画
 void FollowCamera::DrawImGui()
 {
-	/*if (ImGui::TreeNode("FollowCamera")) {
-
-		camera_.DrawImGui();
-
+	if (ImGui::TreeNode("FollowCamera")) {
+		ImGui::Text("Camera");
+		ImGui::DragFloat3("Rotate", &camera_.rotate.x, 0.1f);
+		ImGui::DragFloat3("Translate", &camera_.translate.x, 0.1f);
 		ImGui::TreePop();
-	}*/
+	}
+		
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-
+#include "FollowCamera/FollowCamera.h"
 class Player;
 
 /* PlayerReticleクラス */
@@ -49,6 +49,7 @@ public: // プレイヤーのレティクル : メンバ関数
 	/// Playerの設定
 	/// </summary>
 	void SetPlayer(Player* setPlayer) { this->player_ = setPlayer; }
+	void SetFollowCamera(FollowCamera* camera) { followCamera_ = camera; }
 
 #pragma endregion 
 
@@ -65,6 +66,7 @@ private:
 	void CalcRotateToCamera(Camera* camera);
 
 private:
+	FollowCamera* followCamera_;
 
 	Player* player_ = nullptr;
 

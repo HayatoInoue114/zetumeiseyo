@@ -57,35 +57,47 @@ void PlayerReticle::Draw3D(Camera* camera)
 // 移動処理
 void PlayerReticle::Move()
 {
-	// stickの入力を取得
-	Vector2 rSthickInput = GamePadInput::GetRStick();
+	//// stickの入力を取得
+	//Vector2 rSthickInput = GamePadInput::GetRStick();
 
-	// stick入力が一定範囲を超えている場合、角度を更新
-	if (std::abs(rSthickInput.x) > 0.2f || std::abs(rSthickInput.y) > 0.2f) {
+	//// stick入力が一定範囲を超えている場合、角度を更新
+	//if (std::abs(rSthickInput.x) > 0.2f || std::abs(rSthickInput.y) > 0.2f) {
 
-		// 入力に基づいて角度を更新
-		rethickeAngle_ = std::atan2(rSthickInput.y, rSthickInput.x);
-	}
+	//	// 入力に基づいて角度を更新
+	//	rethickeAngle_ = std::atan2(rSthickInput.y, rSthickInput.x);
+	//}
 
-	// レティクルの位置を計算
-	Vector3 reticlePos = {
-		kRetickeRad_ * std::cosf(rethickeAngle_),
-		0.0f,
-		kRetickeRad_ * std::sinf(rethickeAngle_),
-	};
+	//// レティクルの位置を計算
+	//Vector3 reticlePos = {
+	//	kRetickeRad_ * std::cosf(rethickeAngle_),
+	//	0.0f,
+	//	kRetickeRad_ * std::sinf(rethickeAngle_),
+	//};
 
-	// プレイヤーの位置を取得
-	Vector3 playerPos = player_->GetWorldPos();
+	//// プレイヤーの位置を取得
+	//Vector3 playerPos = player_->GetWorldPos();
 
-	// レティクルの位置を設定
-	reticleWt_.translate = playerPos + reticlePos;
+	//// レティクルの位置を設定
+	//reticleWt_.translate = playerPos + reticlePos;
 }
 
 
 // カメラに向く処理
 void PlayerReticle::CalcRotateToCamera(Camera* camera)
 {
-	// カメラとの差分
+	// カメラの位置と前方ベクトルを取得
+	Vector3 cameraPosition = camera->GetWorldPos();
+	Vector3 cameraForward = followCamera_->GetForwardVec();  // カメラの前方ベクトル
+
+	// カメラから一定の距離だけ前方にオフセット（例えば、10ユニット）
+	float reticleDistance = 50.0f;  // レティクルまでの距離
+	Vector3 reticlePosition = cameraPosition + cameraForward * reticleDistance;
+
+	// レティクルの位置を設定
+	reticleWt_.translate = (reticlePosition);
+	reticleWt_.translate.y = 0;
+
+	// カメラに向ける処理
 	Vector3 diffRotate = Normalize(reticleWt_.GetWorldPos() - camera->GetWorldPos());
 
 	// 姿勢をカメラに向ける
@@ -94,4 +106,6 @@ void PlayerReticle::CalcRotateToCamera(Camera* camera)
 	float height = -diffRotate.y;
 	reticleWt_.rotate.x = atan2(height, vecZ);
 }
+
+
 

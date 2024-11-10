@@ -50,10 +50,13 @@ void GameScene::Initialize() {
 	camera_->UpdateMatrix();
 
 
+	followCamera_ = std::make_unique<FollowCamera>();
+	followCamera_->Init();
 	/* ----- Player プレイヤー ----- */
 	player_ = make_unique<Player>();
 	player_->Initialize();
 	player_->SetGameScene(this);
+	player_->SetFollowCamera(followCamera_.get());
 
 
 	/* ----- GameWave ゲームウェーブ ----- */
@@ -151,6 +154,8 @@ void GameScene::Initialize() {
 	blackSpriteWT_.Initialize();
 	blackSpriteWT_.scale = { 15,15,15 };
 	blackSpriteWT_.translate = { 640,360,0 };
+
+	followCamera_->SetPlayer(player_.get());
 }
 
 
@@ -499,6 +504,7 @@ void GameScene::CameraUpdate()
 {
 	// トランスフォームの更新処理
 	camera_->UpdateMatrix();
+	followCamera_->Update();
 	// プレイヤーの死亡フラグが立っていたら
 	// プレイヤーへのズーム処理へ行く
 	if (player_->GetIsDead()) {
@@ -508,10 +514,11 @@ void GameScene::CameraUpdate()
 
 	// カメラの追従処理
 	if (startCameraAnimIsFinish_ && player_->GetHp() !=0) {
-		camera_->translate = player_->GetWorldPos() + cameraDiffPos_;
+		/*cameraDiffPos_ = followCamera_->GetForwardVec();
+		camera_->translate = player_->GetWorldPos() + cameraDiffPos_;*/
 
-		//PlayerCamera();
-		
+		PlayerCamera();
+
 		// スタート演出の処理に入ってほしくないのでここでreturnを入れる
 		return;
 	}
@@ -659,28 +666,26 @@ void GameScene::PlayerDieCmaera()
 
 void GameScene::PlayerCamera()
 {
-	// プレイヤーの位置と回転を取得
-	Vector3 playerPosition = player_->GetWorldPos(); // プレイヤーの位置
-	float playerRotationY = player_->GetRotate().y; // プレイヤーのY軸回転（ラジアン）
+	// プレイヤーの位置と前方ベクトルを取得
+	Vector3 playerPosition = player_->GetWorldPos();      // プレイヤーの位置
+	Vector3 forwardVec = followCamera_->GetForwardVec();  // プレイヤーの向きに基づいたカメラの前方ベクトル
 
-	// カメラの距離
-	float cameraDistance = 5.0f; // プレイヤーからの距離
-	float cameraHeight = 2.0f;    // プレイヤーの高さからのオフセット
+	// カメラの設定
+	float cameraDistance = 30.0f; // プレイヤーからの距離
+	float cameraHeight = 5.0f;   // プレイヤーの高さからのオフセット
 
-	// プレイヤーの向きを計算
-	Vector3 forward = {
-		cos(playerRotationY), // X成分
-		0.0f,                 // Y成分（地面に平行）
-		sin(playerRotationY)  // Z成分
-	};
+	// カメラ位置を前方ベクトルと高さを考慮して計算
+	Vector3 cameraPosition = playerPosition - forwardVec * cameraDistance;
+	cameraPosition.y += cameraHeight; // 高さのオフセットを加える
 
-	// カメラの位置を計算
-	Vector3 cameraPosition = playerPosition + forward * cameraDistance + Vector3{ 0.0f, cameraHeight, 0.0f };
+	// カメラの位置と向きを設定
+	camera_->SetPosition(cameraPosition);
+	camera_->LookAt(playerPosition, forwardVec, followCamera_->GetRightVec(), { 0.0f, 1.0f, 0.0f }); // 上向きベクトルを指定してプレイヤーを向く
 
-	// カメラの向きを設定
-	camera_->LookAt(cameraPosition, playerPosition);
-
+	// ビュー行列を更新
+	camera_->UpdateMatrix();
 }
+
 
 void GameScene::MarioSprite()
 {
