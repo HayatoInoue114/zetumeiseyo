@@ -58,12 +58,16 @@ private:
 	// ImGuiの描画
 	void DrawImGui();
 
+	void ColorChange();
+
+	float CalculateEuclideanDistance(const Vector3& point1, const Vector3& point2);
 
 private:
 
 	// プレイヤー
 	Player* player_ = nullptr;
 
+	Vector3 enemyPos_{};
 	//本体
 	WorldTransform worldTransform_{};
 	unique_ptr<Model> model_ = nullptr;
@@ -90,5 +94,15 @@ private:
 	// 右方ベクトル
 	Vector3 rightVec_{};
 
+	//色を点滅させるフラグ
+	bool isColorChange_{};
+	//フレームカウント
+	float count_;
+	//色のフラグ
+	bool isColor_;
+	//色の点滅範囲
+	float colorBlinkRange_{};
+	//色
+	Vector4 color_{};
 };
 

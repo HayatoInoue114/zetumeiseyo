@@ -10,10 +10,10 @@ void FollowCamera::Init()
 
 	// カメラリソース
 	camera_.Initialize();
-	camera_.rotate = { 0.2f, 0.0f, 0.0f };
+	camera_.rotate = { 0.3f, 0.0f, 0.0f };
 
 	// 相対位置
-	constOffset_ = { 0.0f, 20.0f, -50.0f };
+	constOffset_ = { 0.0f, 30.0f, -70.0f };
 
 	// オフセットの設定
 	playerOffset_ = constOffset_;

@@ -4,17 +4,24 @@
 void Indicator::Init()
 {
     // 相対位置を設定
-    constOffset_ = { 0.0f, 20.0f, -50.0f };
+    constOffset_ = { 0.0f, 0.0f, 3.0f };
     playerOffset_ = constOffset_;
+
+    colorBlinkRange_ = 20;
+    count_ = -colorBlinkRange_;
 
     worldTransform_.Initialize();
     model_ = std::make_unique<Model>();
     model_->CreateFromObj("ind", "indicator");
+
+    worldTransform_.scale = {};
 }
 
 // 更新処理
 void Indicator::Update(const Vector3& enemyPosition)
 {
+    enemyPos_ = enemyPosition;
+    worldTransform_.scale = { 0.3f,0.3f,0.3f };
     // プレイヤーと敵の位置の差分ベクトルを計算
     Vector3 diff = (enemyPosition - player_->GetWorldPos()).Normalize();
 
@@ -25,12 +32,19 @@ void Indicator::Update(const Vector3& enemyPosition)
     CalcForwardVec();
     CalcRightVec();
 
+    ColorChange();
+
     worldTransform_.UpdateMatrix();
+
+#ifdef _DEBUG
+    // ImGuiの描画
+    DrawImGui();
+#endif // _DEBUG
 }
 
 void Indicator::Draw3D(Camera* camera)
 {
-    //model_->Draw(worldTransform_, camera);
+    model_->Draw(worldTransform_, camera);
 }
 
 // フォロー処理
@@ -69,4 +83,56 @@ void Indicator::CalcRightVec()
     Vector3 defaultRightVec = Vector3::oneX;
     Matrix4x4 rotateYMat = MakeRotateYMatrix(worldTransform_.rotate.y);
     rightVec_ = TransformWithPerspective(defaultRightVec, rotateYMat);
+}
+
+// ImGuiの描画
+void Indicator::DrawImGui()
+{
+    if (ImGui::TreeNode("Indicator")) {
+        ImGui::DragFloat3("Rotate", &worldTransform_.rotate.x, 0.1f);
+        ImGui::DragFloat3("Translate", &worldTransform_.translate.x, 0.1f);
+        ImGui::TreePop();
+    }
+
+}
+
+void Indicator::ColorChange() {
+    float distance = CalculateEuclideanDistance(player_->GetWorldPos(), worldTransform_.GetWorldPos());
+
+    colorBlinkRange_ = distance;
+
+    if (distance <= 20.0f) {
+        count_+= 0.3f;
+        //色を何秒で変化させるか
+        if (count_ < 0) {
+            isColor_ = true;
+        }
+        if (count_ >= 0) {
+            isColor_ = false;
+        }
+
+        if (count_ >= colorBlinkRange_) {
+            count_ = -colorBlinkRange_;
+        }
+
+        if (isColor_) {
+            color_ = { 1,0,0,1 };
+        }
+        else {
+            color_ = { 1,1,1,1 };
+        }
+    }
+    else {
+        color_ = { 1,1,1,1 };
+    }
+
+    model_->SetColor(color_);
+}
+
+float Indicator::CalculateEuclideanDistance(const Vector3& point1, const Vector3& point2) {
+    float deltaX = point2.x - point1.x;
+    float deltaY = point2.y - point1.y;
+    float deltaZ = point2.z - point1.z;
+
+    return std::sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
 }

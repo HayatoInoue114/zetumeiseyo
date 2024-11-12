@@ -45,8 +45,8 @@ void GameScene::Initialize() {
 	camera_->Initialize();
 	cameraInitPos_ = { 0.0f, 1.5f, -4.0f };
 	camera_->translate = cameraInitPos_;
-	cameraDiffRotate_ = { 0.2f, 0.0f, 0.0f };
-	cameraDiffPos_ = { 0.0f, 6.0f, -30.0f };
+	cameraDiffRotate_ = { 0.25f, 0.0f, 0.0f };
+	cameraDiffPos_ = { 0.0f, 7.0f, -40.0f };
 	camera_->UpdateMatrix();
 
 
@@ -269,9 +269,12 @@ void GameScene::ModelDraw() {
 	}
 
 	//インジケーター
-	for (Indicator& indicator : indicators) {
-		indicator.Draw3D(camera_.get());
+	if (startCameraAnimIsFinish_) {
+		for (Indicator& indicator : indicators) {
+			indicator.Draw3D(camera_.get());
+		}
 	}
+	
 	/* ----- ParticleManager パーティクルマネージャー ----- */
 	particleManager_->Draw(camera_.get());
 
@@ -680,13 +683,9 @@ void GameScene::PlayerCamera()
 	Vector3 playerPosition = player_->GetWorldPos();      // プレイヤーの位置
 	Vector3 forwardVec = followCamera_->GetForwardVec();  // プレイヤーの向きに基づいたカメラの前方ベクトル
 
-	// カメラの設定
-	float cameraDistance = 30.0f; // プレイヤーからの距離
-	float cameraHeight = cameraDiffPos_.y;   // プレイヤーの高さからのオフセット
-
 	// カメラ位置を前方ベクトルと高さを考慮して計算
-	Vector3 cameraPosition = playerPosition - forwardVec * cameraDistance;
-	cameraPosition.y += cameraHeight; // 高さのオフセットを加える
+	Vector3 cameraPosition = playerPosition - forwardVec * -cameraDiffPos_.z;
+	cameraPosition.y += cameraDiffPos_.y; // 高さのオフセットを加える
 
 	// カメラの位置と向きを設定
 	camera_->SetPosition(cameraPosition);

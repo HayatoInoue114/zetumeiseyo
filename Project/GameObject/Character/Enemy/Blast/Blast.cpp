@@ -216,7 +216,6 @@ void Blast::Chace() {
 
 		//ベクトルを正規化する
 		toPlayer = Normalize(toPlayer);
-		//velocity_ = Normalize(velocity_);
 
 		velocity_ = SLerp(velocity_, toPlayer, chaseIntensity_) * param.speed;
 
@@ -230,8 +229,6 @@ void Blast::Chace() {
 		worldTransform_.rotate.x = std::atan2(-velocity_.y, velocityXZ_);
 
 		t_ = 0;
-
-		//float dis = ToPlayerDis();
 
 		colorBlinkRange_ = ToPlayerDis();
 	}
@@ -279,8 +276,6 @@ void Blast::Wander() {
 		worldTransform_.rotate.y = CalculateAngle(worldTransform_.translate, tmpPos_);
 
 		velocityXZ_ = std::sqrt(velocity_.x * velocity_.x + velocity_.z * velocity_.z);
-		// X軸周り角度(0x)
-		//worldTransform_.rotate.x = CalculateAngle(worldTransform_.translate, tmpPos_);
 	}
 }
 
