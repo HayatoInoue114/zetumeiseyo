@@ -24,6 +24,7 @@
 #include "SaveValue/SaveValue.h"
 
 #include "GameObject/Camera/FollowCamera/FollowCamera.h"
+#include "Effect/Indicator/Indicator.h"
 
 
 
@@ -140,6 +141,10 @@ private:
 	/// </summary>
 	void MarioSprite();
 
+	void InitIndicators(int enemyCount);
+
+	void UpdateIndicators();
+
 private:
 	FPSCounter fps_;
 
@@ -238,4 +243,7 @@ private:
 	float distanceFromPlayer = 5.0f;                  // プレイヤーからの距離
 	float cameraAngle = 0.0f;                         // カメラの角度
 	float rotationSpeed = 0.05f;                      // 回転速度（スティック入力に基づく）
+
+	std::vector<Indicator> indicators;
+	std::vector<Vector3> enemyPositions; // 敵の位置情報リスト
 };

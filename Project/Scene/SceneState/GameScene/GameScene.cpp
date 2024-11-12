@@ -268,6 +268,10 @@ void GameScene::ModelDraw() {
 		enemyManager_.Draw(camera_.get());
 	}
 
+	//インジケーター
+	for (Indicator& indicator : indicators) {
+		indicator.Draw3D(camera_.get());
+	}
 	/* ----- ParticleManager パーティクルマネージャー ----- */
 	particleManager_->Draw(camera_.get());
 
@@ -310,6 +314,9 @@ void GameScene::WaveInit()
 {
 	enemyManager_.EnemySpawn(player_.get());
 	enemies_ = enemyManager_.GetEnemy();
+
+	//インジケーターの初期化処理
+	InitIndicators(enemies_->size());
 
 	// ウェーブ開始のフラグを折って初期化処理に入らないようにする
 	isWaveStart_ = false;
@@ -357,6 +364,11 @@ void GameScene::WaveUpdate()
 			/* ----- Enemy 敵 ----- */
 			enemyManager_.Update();
 
+			//インジケーターの更新処理
+			for (IEnemy* enemy : *enemies_) {
+				enemyPositions.push_back(enemy->GetPos());
+			}
+			UpdateIndicators();
 
 			/* ----- LevelManager レベルマネージャー ----- */
 			levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
@@ -514,8 +526,6 @@ void GameScene::CameraUpdate()
 
 	// カメラの追従処理
 	if (startCameraAnimIsFinish_ && player_->GetHp() !=0) {
-		/*cameraDiffPos_ = followCamera_->GetForwardVec();
-		camera_->translate = player_->GetWorldPos() + cameraDiffPos_;*/
 
 		PlayerCamera();
 
@@ -722,3 +732,18 @@ void GameScene::MarioSprite()
 	}
 }
 
+// 敵の数に合わせてIndicatorを初期化
+void GameScene::InitIndicators(int enemyCount) {
+	indicators.resize(enemyCount);
+	for (auto& indicator : indicators) {
+		indicator.Init();
+		indicator.SetPlayer(player_.get());
+	}
+}
+
+// 各敵の位置をIndicatorに設定
+void GameScene::UpdateIndicators() {
+	for (size_t i = 0; i < indicators.size(); ++i) {
+		indicators[i].Update(enemyPositions[i]);
+	}
+}
