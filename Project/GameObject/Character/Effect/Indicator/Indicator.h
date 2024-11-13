@@ -14,14 +14,15 @@ class Player;
 class Indicator {
 
 public: // メンバ関数
+	Indicator();
+	~Indicator();
 
-	// 初期化処理　更新処理　描画処理
+	// 初期化処理
 	void Init();
+	// 更新処理
 	void Update(const Vector3& enemyPosition);
+	//描画処理
 	void Draw3D(Camera* camera);
-	void Update();
-	void Draw2DFront();
-	void Draw2DBack();
 
 
 
@@ -40,12 +41,6 @@ public: // メンバ関数
 
 
 private:
-
-	// 回転処理
-	void FuncOrientation();
-
-	// フォロー処理
-	void FuncFollow();
 
 	void FuncFollow(const Vector3& directionToEnemy);
 

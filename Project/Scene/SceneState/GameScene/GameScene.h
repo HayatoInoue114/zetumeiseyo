@@ -244,6 +244,6 @@ private:
 	float cameraAngle = 0.0f;                         // カメラの角度
 	float rotationSpeed = 0.05f;                      // 回転速度（スティック入力に基づく）
 
-	std::vector<Indicator> indicators;
+	std::vector<std::unique_ptr<Indicator>> indicators;
 	std::vector<Vector3> enemyPositions; // 敵の位置情報リスト
 };

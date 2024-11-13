@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include <algorithm>
 
+//こっちたぶん使ってない
 void Blast::Initialize(Player* player, Vector3 position, int level) {
 	player_ = player;
 	worldTransform_.Initialize();
@@ -21,7 +22,7 @@ void Blast::Initialize(Player* player, Vector3 position, int level) {
 	level_ = level;
 	color_ = { 0,0,0,1 };
 	colorW_ = 0.8f;
-	colorBlinkRange_ = 20;
+	colorBlinkRange_ = 15;
 	count_ = -colorBlinkRange_;
 	isBlast_ = false;
 	isDiscover_ = false;
@@ -54,7 +55,7 @@ void Blast::Initialize(Vector3 position, int level) {
 	level_ = level;
 	color_ = { 0,0,0,1 };
 	colorW_ = 0.8f;
-	colorBlinkRange_ = 20;
+	colorBlinkRange_ = 15;
 	count_ = -colorBlinkRange_;
 	isBlast_ = false;
 	isDiscover_ = false;
@@ -173,7 +174,7 @@ void Blast::CalculateDetectionRange() {
 	}
 	else {
 		//isDiscover_ = false;
-		isTrace_ = false;
+		//isTrace_ = false;
 	}
 }
 
@@ -230,7 +231,7 @@ void Blast::Chace() {
 
 		t_ = 0;
 
-		colorBlinkRange_ = ToPlayerDis();
+		//colorBlinkRange_ = ToPlayerDis();
 	}
 }
 
@@ -280,8 +281,10 @@ void Blast::Wander() {
 }
 
 void Blast::ColorChange() {
-	if (isTrace_) {
-		//色を何秒で変化させるか
+	if (isBlink_) {
+		// 経過時間の更新
+		elapsedTime_++;
+
 		if (count_ < 0) {
 			isColor_ = true;
 		}
@@ -289,19 +292,22 @@ void Blast::ColorChange() {
 			isColor_ = false;
 		}
 
+		// カウントリセット
 		if (count_ >= colorBlinkRange_) {
+			colorBlinkRange_--;
 			count_ = -colorBlinkRange_;
 		}
 
+		// 色の変更
 		if (isColor_) {
-			color_ = { 1,0,0,1 };
+			color_ = { 1, 0, 0, 1 };  // 赤に点滅
 		}
 		else {
-			color_ = { 1,1,1,1 };
+			color_ = { 1, 1, 1, 1 };  // 白に点滅
 		}
 	}
 	else {
-		color_ = { 1,1,1,1 };
+		color_ = { 1, 1, 1, 1 };
 	}
 
 	model_.SetColor(color_);
@@ -425,10 +431,10 @@ Vector3 Blast::MoveWithEasing(const Vector3& currentPosition, const Vector3& tar
 
 void Blast::BlastOnNearby()
 {
-	if (ToPlayerDis() <= 1.0f && !isBlast_) {
+	if (colorBlinkRange_ <= 0 && !isBlast_) {
 		isBlast_ = true;
 		isBlastParticle_ = true;
-		player_->SetDamage(param.power);
+		//player_->SetDamage(param.power);
 		for (int i = 0; i < 25; i++) {
 			//blastParticle_->AddParticle(particletex_, this->GetWorldTransform().translate);
 		}
@@ -570,6 +576,7 @@ Vector3 Blast::Jump(const Vector3& initialPosition, float jumpHeight, float jump
 	if (currentTime >= jumpDuration) {
 		isTrace_ = true;
 		isDiscover_ = false;
+		isBlink_ = true;
 		finalPosition.y = initialPosition.y;
 	}
 
@@ -605,6 +612,7 @@ Vector3 Blast::JumpScale(const Vector3& initialScale, float jumpDuration, float 
 		isTrace_ = true;
 		isDiscover_ = false;
 		finalScale = initialScale;
+		isBlink_ = true;
 	}
 
 	return finalScale;

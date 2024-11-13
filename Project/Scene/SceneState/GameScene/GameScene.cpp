@@ -156,6 +156,7 @@ void GameScene::Initialize() {
 	blackSpriteWT_.translate = { 640,360,0 };
 
 	followCamera_->SetPlayer(player_.get());
+
 }
 
 
@@ -270,8 +271,8 @@ void GameScene::ModelDraw() {
 
 	//インジケーター
 	if (startCameraAnimIsFinish_) {
-		for (Indicator& indicator : indicators) {
-			indicator.Draw3D(camera_.get());
+		for (size_t i = 0; i < indicators.size(); i++) {
+			indicators[i]->Draw3D(camera_.get());
 		}
 	}
 	
@@ -734,15 +735,35 @@ void GameScene::MarioSprite()
 // 敵の数に合わせてIndicatorを初期化
 void GameScene::InitIndicators(int enemyCount) {
 	indicators.resize(enemyCount);
-	for (auto& indicator : indicators) {
-		indicator.Init();
-		indicator.SetPlayer(player_.get());
+	for (int i = 0; i < enemyCount; ++i) {
+		auto indicator = std::make_unique<Indicator>();
+		indicator->Init();
+		indicator->SetPlayer(player_.get());  // プレイヤーの設定が必要な場合
+		indicators.push_back(std::move(indicator));
 	}
 }
 
 // 各敵の位置をIndicatorに設定
 void GameScene::UpdateIndicators() {
-	for (size_t i = 0; i < indicators.size(); ++i) {
-		indicators[i].Update(enemyPositions[i]);
+	auto enemyIt = enemies_->begin();
+	for (size_t i = 0; i < indicators.size() && enemyIt != enemies_->end();++i) {
+		IEnemy* enemy = *enemyIt;
+		
+		if (!enemy->IsAlive()) {
+			// 敵が死んでたらインジケータ削除
+			indicators.erase(indicators.begin() + i);
+			enemyPositions.erase(enemyPositions.begin() + i);
+
+			//リスト消してイテレータ更新
+			enemyIt = enemies_->erase(enemyIt);
+		}
+		else {
+			// 敵が生きてたらインジケータ更新
+			indicators[i]->Update(enemyPositions[i]);
+
+			// 次のインジケータと敵へ移動
+			++enemyIt;
+		}
 	}
 }
+

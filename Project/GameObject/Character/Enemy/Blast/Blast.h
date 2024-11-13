@@ -263,6 +263,13 @@ private: ///メンバ変数///
 	float chaseIntensity_ = 0.04f;
 	
 	bool isBlastParticle_ = false;
+
+	//点滅するためのフラグ
+	bool isBlink_ = false;
+	// 初期点滅速度
+	float blinkSpeed = 1.0f;
+	//経過時間
+	float elapsedTime_{};
 private: ///メンバ定数///
 
 	//曲がるまでの間隔

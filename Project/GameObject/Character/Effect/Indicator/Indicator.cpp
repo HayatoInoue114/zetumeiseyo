@@ -1,6 +1,15 @@
 #include "Indicator.h"
 #include "Player/Player.h"
 
+Indicator::Indicator()
+{
+}
+
+Indicator::~Indicator()
+{
+}
+
+
 void Indicator::Init()
 {
     // 相対位置を設定
@@ -46,6 +55,7 @@ void Indicator::Draw3D(Camera* camera)
 {
     model_->Draw(worldTransform_, camera);
 }
+
 
 // フォロー処理
 void Indicator::FuncFollow(const Vector3& directionToEnemy)
