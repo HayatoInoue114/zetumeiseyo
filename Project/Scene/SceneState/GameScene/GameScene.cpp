@@ -164,6 +164,8 @@ void GameScene::Initialize() {
 /// </summary>
 void GameScene::Update(GameManager* state) {
 
+	state->ChangeSceneState(new ClearScene);
+
 	fps_.Update();
 
 	/* ----- Skydome 天球 ----- */
