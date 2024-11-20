@@ -29,9 +29,9 @@ void Player::Initialize()
 
 
 	// Reticleの初期化処理
-	reticle_ = make_unique<PlayerReticle>();
+	/*reticle_ = make_unique<PlayerReticle>();
 	reticle_->Initialize();
-	reticle_->SetPlayer(this);
+	reticle_->SetPlayer(this);*/
 
 
 	// エネルギーの初期設定
@@ -98,8 +98,8 @@ void Player::Update(Camera* camera)
 	bodyWt_.UpdateMatrix();
 
 	// Reticleの更新処理
-	reticle_->SetFollowCamera(followCamera_);
-	reticle_->Update(camera);
+	//reticle_->SetFollowCamera(followCamera_);
+	//reticle_->Update(camera);
 
 	if (!isDead_) {
 		//入力の受け取り
@@ -183,7 +183,7 @@ void Player::Draw3D(Camera* camera)
 	bodyModel_->Draw(bodyWt_, camera);
 
 	// Reticleの初期化
-	reticle_->Draw3D(camera);
+	//reticle_->Draw3D(camera);
 }
 void Player::Draw2DBack(Camera* camera)
 {
@@ -343,7 +343,7 @@ void Player::CalcBodyRotate()
 
 	if (GamePadInput::PressButton(PadData::RIGHT_SHOULDER)) {
 
-		addRotate = Normalize(reticle_->GetWorldPos() - bodyWt_.GetWorldPos());
+		//addRotate = Normalize(reticle_->GetWorldPos() - bodyWt_.GetWorldPos());
 	}
 	else {
 
@@ -652,22 +652,22 @@ void Player::SettingNewBullet()
 // バレットの進行方向の計算
 Vector3 Player::CalcBulletDirection()
 {
-	Vector3 ReticlePos{};
+	Vector3 cameraForward = followCamera_->GetForwardVec();
 	if (bulletType_ == TypeNormal || bulletType_ == TypePenetration) {
 
-		ReticlePos = reticle_->GetWorldPos();
+		//ReticlePos = reticle_->GetWorldPos();
 	}
 	else if (bulletType_ == TypeShotgun) {
 
 		if (GamePadInput::GetRStick().y <= 0.3f && GamePadInput::GetRStick().y >= -0.3f) {
-			ReticlePos = reticle_->GetWorldPos() + RandomGenerator::getRandom({ { -0.05f, 0.05f, }, { 0.0f, 0.0f }, { 0.0f, 0.0f } });
+			//ReticlePos = reticle_->GetWorldPos() + RandomGenerator::getRandom({ { -0.05f, 0.05f, }, { 0.0f, 0.0f }, { 0.0f, 0.0f } });
 		}
 		else {
-			ReticlePos = reticle_->GetWorldPos() + RandomGenerator::getRandom({ { -2.0f, 2.0f, }, { 0.0f, 0.0f }, { -2.0f, 2.0f } });
+			//ReticlePos = reticle_->GetWorldPos() + RandomGenerator::getRandom({ { -2.0f, 2.0f, }, { 0.0f, 0.0f }, { -2.0f, 2.0f } });
 		}
 
 	}
-	Vector3 PlaToRet = Normalize(ReticlePos - bodyWt_.GetWorldPos());
+	Vector3 PlaToRet = Normalize(cameraForward);
 	return PlaToRet * bulletVelocity_;
 }
 

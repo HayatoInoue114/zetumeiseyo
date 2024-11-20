@@ -143,6 +143,10 @@ private:
 
 	void InitIndicators(int enemyCount);
 
+	void InitEnemyPositions();
+
+	void UpdateEnemyPositions();
+
 	void UpdateIndicators();
 
 private:

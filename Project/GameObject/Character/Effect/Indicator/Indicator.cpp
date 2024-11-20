@@ -24,12 +24,17 @@ void Indicator::Init()
     model_->CreateFromObj("ind", "indicator");
 
     worldTransform_.scale = {};
+
+    isAlive_ = true;
 }
 
 // 更新処理
 void Indicator::Update(const Vector3& enemyPosition)
 {
     enemyPos_ = enemyPosition;
+    if (!isAlive_) {
+        return;
+    }
     worldTransform_.scale = { 0.3f,0.3f,0.3f };
     // プレイヤーと敵の位置の差分ベクトルを計算
     Vector3 diff = (enemyPosition - player_->GetWorldPos()).Normalize();
@@ -53,6 +58,9 @@ void Indicator::Update(const Vector3& enemyPosition)
 
 void Indicator::Draw3D(Camera* camera)
 {
+    if (!isAlive_) {
+        return;
+    }
     model_->Draw(worldTransform_, camera);
 }
 
@@ -107,7 +115,7 @@ void Indicator::DrawImGui()
 }
 
 void Indicator::ColorChange() {
-    float distance = CalculateEuclideanDistance(player_->GetWorldPos(), worldTransform_.GetWorldPos());
+    float distance = CalculateEuclideanDistance(player_->GetWorldPos(), enemyPos_);
 
     colorBlinkRange_ = distance;
 
@@ -137,6 +145,10 @@ void Indicator::ColorChange() {
     }
 
     model_->SetColor(color_);
+
+    ImGui::Begin("dis");
+    ImGui::Text("%f", distance);
+    ImGui::End();
 }
 
 float Indicator::CalculateEuclideanDistance(const Vector3& point1, const Vector3& point2) {

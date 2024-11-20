@@ -270,11 +270,25 @@ void GameScene::ModelDraw() {
 	}
 
 	//インジケーター
+	/*for (IEnemy* enemy : *enemies_) {
+		for (size_t i = 0; i < enemies_->size(); i++) {
+			if (startCameraAnimIsFinish_ || enemy->IsFeed()) {
+				indicators[i]->Draw3D(camera_.get());
+			}
+		}
+	}*/
 	if (startCameraAnimIsFinish_) {
+		for (const auto& indicator : indicators) {
+			//indicator->Draw3D(camera_.get());
+		}
+	}
+	
+
+	/*if (startCameraAnimIsFinish_) {
 		for (size_t i = 0; i < indicators.size(); i++) {
 			indicators[i]->Draw3D(camera_.get());
 		}
-	}
+	}*/
 	
 	/* ----- ParticleManager パーティクルマネージャー ----- */
 	particleManager_->Draw(camera_.get());
@@ -319,6 +333,7 @@ void GameScene::WaveInit()
 	enemyManager_.EnemySpawn(player_.get());
 	enemies_ = enemyManager_.GetEnemy();
 
+	InitEnemyPositions();
 	//インジケーターの初期化処理
 	InitIndicators(enemies_->size());
 
@@ -369,9 +384,7 @@ void GameScene::WaveUpdate()
 			enemyManager_.Update();
 
 			//インジケーターの更新処理
-			for (IEnemy* enemy : *enemies_) {
-				enemyPositions.push_back(enemy->GetPos());
-			}
+			UpdateEnemyPositions();
 			UpdateIndicators();
 
 			/* ----- LevelManager レベルマネージャー ----- */
@@ -734,7 +747,6 @@ void GameScene::MarioSprite()
 
 // 敵の数に合わせてIndicatorを初期化
 void GameScene::InitIndicators(int enemyCount) {
-	indicators.resize(enemyCount);
 	for (int i = 0; i < enemyCount; ++i) {
 		auto indicator = std::make_unique<Indicator>();
 		indicator->Init();
@@ -743,27 +755,45 @@ void GameScene::InitIndicators(int enemyCount) {
 	}
 }
 
+void GameScene::InitEnemyPositions() {
+	enemyPositions.clear();
+	for (const auto& enemy : *enemies_) {
+		enemyPositions.push_back(enemy->GetPos());
+	}
+}
+
+void GameScene::UpdateEnemyPositions() {
+	// enemies_ のすべての敵位置を enemyPositions に追加
+	enemyPositions.clear();
+	for (IEnemy* enemy : *enemies_) {
+		enemyPositions.push_back(enemy->GetPos());
+	}
+}
+
 // 各敵の位置をIndicatorに設定
 void GameScene::UpdateIndicators() {
 	auto enemyIt = enemies_->begin();
-	for (size_t i = 0; i < indicators.size() && enemyIt != enemies_->end();++i) {
+	for (size_t i = 0; i < indicators.size() && enemyIt != enemies_->end(); ++i) {
 		IEnemy* enemy = *enemyIt;
-		
+
 		if (!enemy->IsAlive()) {
-			// 敵が死んでたらインジケータ削除
+			// 敵が死亡したらインジケーター削除
 			indicators.erase(indicators.begin() + i);
 			enemyPositions.erase(enemyPositions.begin() + i);
 
-			//リスト消してイテレータ更新
+			// リストから敵を削除
 			enemyIt = enemies_->erase(enemyIt);
+
+			// 削除したのでインジケーターと敵のインデックスを一つ戻す
+			--i;
 		}
 		else {
-			// 敵が生きてたらインジケータ更新
+			// 生きている敵に対してインジケーター更新
 			indicators[i]->Update(enemyPositions[i]);
+			indicators[i]->Draw3D(camera_.get());
 
-			// 次のインジケータと敵へ移動
+			// 次のインジケーターと敵へ移動
 			++enemyIt;
 		}
 	}
 }
-

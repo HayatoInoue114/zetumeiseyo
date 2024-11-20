@@ -32,8 +32,8 @@ class Player : public OBBCollider {
 public: // プレイヤー本体 : メンバ関数
 
 	// コンストラクタとデストラクタ
-	Player() {};
-	~Player() {};
+	//Player() {};
+	//~Player() {};
 
 	// 初期化処理　更新処理　描画処理
 	void Initialize();
@@ -326,7 +326,7 @@ private: // バレット : メンバ変数
 private: // レティクル : メンバ変数
 
 	// Reticle
-	unique_ptr<PlayerReticle> reticle_;
+	//unique_ptr<PlayerReticle> reticle_;
 
 
 

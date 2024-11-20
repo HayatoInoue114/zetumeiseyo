@@ -37,6 +37,10 @@ public: // メンバ関数
 	// RightVec
 	Vector3& GetRightVec() { return this->rightVec_; }
 
+	void SetIsAlive(bool isAlive) { this->isAlive_ = isAlive; }
+
+	bool IsAlive() { return this->isAlive_; }
+
 #pragma endregion 
 
 
@@ -99,5 +103,7 @@ private:
 	float colorBlinkRange_{};
 	//色
 	Vector4 color_{};
+	//モデルを消すためのフラグ
+	bool isAlive_{};
 };
 
