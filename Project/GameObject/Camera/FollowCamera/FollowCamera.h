@@ -26,7 +26,7 @@ public: // メンバ関数
 	void Draw2DFront();
 	void Draw2DBack();
 	
-
+	void Shake();
 
 #pragma region Accessor アクセッサ
 
@@ -58,8 +58,6 @@ private:
 
 	// ImGuiの描画
 	void DrawImGui();
-
-
 private:
 
 	// プレイヤー
@@ -83,7 +81,7 @@ private:
 	float orientationLerpSpeed_ = 0.5f;
 
 	// 相対位置
-	Vector3 constOffset_{};
+	Vector3 offset_{};
 	// プレイヤーからのオフセット
 	Vector3 playerOffset_{};
 
@@ -91,6 +89,12 @@ private:
 	Vector3 forwardVec_{};
 	// 右方ベクトル
 	Vector3 rightVec_{};
+
+	//カメラシェイクのための変数
+	float scopeRange_;
+
+	int count_;
+private:
 
 
 };

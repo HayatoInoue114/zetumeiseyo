@@ -145,10 +145,6 @@ void Indicator::ColorChange() {
     }
 
     model_->SetColor(color_);
-
-    ImGui::Begin("dis");
-    ImGui::Text("%f", distance);
-    ImGui::End();
 }
 
 float Indicator::CalculateEuclideanDistance(const Vector3& point1, const Vector3& point2) {

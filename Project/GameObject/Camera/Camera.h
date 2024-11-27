@@ -34,6 +34,8 @@ public:
 	/*void LookAt(const Vector3& targetPosition);*/
 	void LookAt(const Vector3& targetPosition, const Vector3& forwardVec , const Vector3& rightVec, const Vector3& up) ;
 
+	void Shake();
+
 #pragma region Get 
 
 	/// <summary>
@@ -126,5 +128,6 @@ public:
 
 	// マッピング済みアドレス
 	TransformationViewMatrix* constMap = nullptr;
+
 };
 

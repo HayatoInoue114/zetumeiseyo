@@ -13,10 +13,12 @@ void FollowCamera::Init()
 	camera_.rotate = { 0.3f, 0.0f, 0.0f };
 
 	// 相対位置
-	constOffset_ = { 0.0f, 30.0f, -70.0f };
+	offset_ = { 0.0f, 30.0f, -70.0f };
 
 	// オフセットの設定
-	playerOffset_ = constOffset_;
+	playerOffset_ = offset_;
+
+	scopeRange_ = 5.0f;
 }
 
 
@@ -80,7 +82,7 @@ void FollowCamera::FuncOrientation()
 void FollowCamera::FuncFollow()
 {
 	// オフセットの設定
-	playerOffset_ = constOffset_;
+	playerOffset_ = offset_;
 
 	// カメラの前方方向に基づいてカメラのオフセットを回転させる
 	Matrix4x4 rotateMat = Matrix4x4::identity;
@@ -93,7 +95,7 @@ void FollowCamera::FuncFollow()
 	camera_.translate = player_->GetWorldPos() + playerOffset_;
 
 	// Yの位置だけ固定
-	camera_.translate.y = constOffset_.y;
+	camera_.translate.y = offset_.y;
 }
 
 
@@ -139,5 +141,17 @@ void FollowCamera::DrawImGui()
 		ImGui::TreePop();
 	}
 		
+}
+
+void FollowCamera::Shake()
+{
+	if (scopeRange_ > 0.0f) {
+		scopeRange_ -= 0.5f;
+	}
+	Scope scope{-scopeRange_,scopeRange_};
+	ScopeVec2 scopeVec = { scope, scope };
+
+	playerOffset_.x += RandomGenerator::getRandom(scopeVec.X);
+	offset_.y += RandomGenerator::getRandom(scopeVec.Y);
 }
 

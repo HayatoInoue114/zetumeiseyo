@@ -464,7 +464,6 @@ void GameScene::CheckAllCollision()
 				continue;
 			}
 			if (CollisionManager::CheckOBBxOBB(player_.get(), enemy->GetOBBCollider())) {
-
 				player_->OnCollisionWithEnemy(enemy);
 				enemy->OnCollisionWithPlayer(player_.get());
 			}
@@ -491,7 +490,7 @@ void GameScene::CheckAllCollision()
 		}
 	}
 
-	// これ何？
+	// プレイヤーとEnemyの弾の判定
 	for (IEnemy* enemy : *enemies_) {
 		for (EnemyBullet* bullet : *enemy->GetEnemyBullets()) {
 
@@ -501,7 +500,6 @@ void GameScene::CheckAllCollision()
 				continue;
 			}
 			if (CollisionManager::CheckOBBxOBB(player_.get(), bullet)) {
-
 				player_->OnCollisionWithEnemyBullet();
 				bullet->OnCollisionWithPlayer();
 			}

@@ -213,6 +213,7 @@
     <ClCompile Include="Project\GameObject\Character\Enemy\None\None.cpp" />
     <ClCompile Include="Project\GameObject\Camera\FollowCamera\FollowCamera.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\Indicator\Indicator.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\CameraShake\CameraShake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\GameObject\Character\Enemy\EnemyManager\EnemyManager.h" />
@@ -445,6 +446,7 @@
     <ClInclude Include="Project\GameObject\Others\WaveCountUI\WaveCountUI.h" />
     <ClInclude Include="Project\GameObject\Camera\FollowCamera\FollowCamera.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\Indicator\Indicator.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\CameraShake\CameraShake.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\LambertObject.hlsli" />
