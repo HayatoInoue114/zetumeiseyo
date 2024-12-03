@@ -115,7 +115,7 @@ void Player::Update(Camera* camera)
 		//CalcBodyRotate();
 
 		// ダッシュの処理
-		DashFunc();
+		//DashFunc();
 
 		// OBBColliderのセッティング
 		SettingCollider();
@@ -217,8 +217,12 @@ void Player::OnCollision(uint32_t id)
 void Player::OnCollisionWithEnemy(IEnemy* enemy)
 {
 	if (!isDead_) {
-		if(!enemy->IsFeed())
-		hp_ -= 2;
+		if (!enemy->IsFeed() && !isInvincible_) {
+			isInvincible_ = true;
+			hp_ -= 2;
+			color_.w = 0.1f;
+			sound_->Play("damage", 1.0f);
+		}
 	}
 }
 

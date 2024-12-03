@@ -35,9 +35,12 @@ void Mortar::ParameterInitialize() {
 
 void Mortar::Update() {
 	if (!isFeed_) {
+		
 		Shoot();
 		worldTransform_.UpdateMatrix();
 		model_.SetColor(Vector4(0, 1, 0, 1));
+		
+		HitReaction(2);
 
 		if (param.hp <= 0) {
 			worldTransform_.scale *= 1.3f;
@@ -128,6 +131,8 @@ void Mortar::OnCollisionWithPlayerBullet(IPlayerBullet* bullet)
 		Log("Hit!!\n");
 		param.hp -= bullet->GetDamage();
 		param.speed -= 0.02f;
+
+		isHit = true;
 
 		/*float color = 0;
 

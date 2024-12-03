@@ -17,56 +17,57 @@ void EnemyManager::EnemySpawn(Player* player) {
 	flame_++;
 	waveCount_++;
 
-	for (int i = 0; i < MAX_ENEMY; i++) {
-		float rad = 60;
+	//for (int i = 0; i < MAX_ENEMY; i++) {
+	//	float rad = 60;
 
-		Scope scope = { rad / 2,rad };
+	//	Scope scope = { rad / 2,rad };
 
-		for (int j = 0; j < 4; j++) {
-			rad_[j] = RandomGenerator::getRandom(scope);
-			tmpPos_[j] = CalculateNextPosition(player->GetWorldPos(), rad_[j]);
-			tmpPos_[j].y = -30.0f;
-			// 位置の限界
-			const float kMit = 100.0f;
-			tmpPos_[j].x = max(tmpPos_[j].x, -kMit);
-			tmpPos_[j].x = min(tmpPos_[j].x, +kMit);
-			tmpPos_[j].z = max(tmpPos_[j].z, -kMit);
-			tmpPos_[j].z = min(tmpPos_[j].z, +kMit);
-		}
-		////////////////////////////////////////////////  * Blast *
-		Blast* newBlast = new Blast();
-		newBlast->SetGameScene(gameScene);
-		newBlast->Initialize(player, tmpPos_[3], level_);
-		enemies_.push_back(newBlast);
+	//	for (int j = 0; j < 4; j++) {
+	//		rad_[j] = RandomGenerator::getRandom(scope);
+	//		tmpPos_[j] = CalculateNextPosition(player->GetWorldPos(), rad_[j]);
+	//		tmpPos_[j].y = -30.0f;
+	//		// 位置の限界
+	//		const float kMit = 100.0f;
+	//		tmpPos_[j].x = max(tmpPos_[j].x, -kMit);
+	//		tmpPos_[j].x = min(tmpPos_[j].x, +kMit);
+	//		tmpPos_[j].z = max(tmpPos_[j].z, -kMit);
+	//		tmpPos_[j].z = min(tmpPos_[j].z, +kMit);
+	//	}
+	//	////////////////////////////////////////////////  * Blast *
+	//	Blast* newBlast = new Blast();
+	//	newBlast->SetGameScene(gameScene);
+	//	newBlast->Initialize(player, tmpPos_[3], level_);
+	//	enemies_.push_back(newBlast);
 
-		///////////////////////////////////////////////   * Fire *
-		Fire* newFire = new Fire();
-		newFire->SetGameScene(gameScene);
-		newFire->Initialize(player, tmpPos_[0], level_);
-		enemies_.push_back(newFire);
-
-
-		////////////////////////////////////////////////  * Trace * 
-		/*Trace* newTrace = new Trace();
-		newTrace->SetGameScene(gameScene);
-		newTrace->Initialize(player, tmpPos_[1], level_);
-		enemies_.push_back(newTrace);*/
+	//	///////////////////////////////////////////////   * Fire *
+	//	Fire* newFire = new Fire();
+	//	newFire->SetGameScene(gameScene);
+	//	newFire->Initialize(player, tmpPos_[0], level_);
+	//	enemies_.push_back(newFire);
 
 
-		////////////////////////////////////////////////  * Mortar *
-		Mortar* newMortar = new Mortar();
-		newMortar->SetGameScene(gameScene);
-		newMortar->Initialize(player, tmpPos_[2], level_);
-		enemies_.push_back(newMortar);
+	//	////////////////////////////////////////////////  * Trace * 
+	//	/*Trace* newTrace = new Trace();
+	//	newTrace->SetGameScene(gameScene);
+	//	newTrace->Initialize(player, tmpPos_[1], level_);
+	//	enemies_.push_back(newTrace);*/
 
-	}
+
+	//	////////////////////////////////////////////////  * Mortar *
+	//	Mortar* newMortar = new Mortar();
+	//	newMortar->SetGameScene(gameScene);
+	//	newMortar->Initialize(player, tmpPos_[2], level_);
+	//	enemies_.push_back(newMortar);
+
+	//}
 		////////////////////////////////////////////////  * Boss * 一体だけ
 	if (waveCount_ == 6) {
-		Boss* newBoss = new Boss();
-		newBoss->SetGameScene(gameScene);
-		newBoss->Initialize(player, tmpPos_[3], level_);
-		enemies_.push_back(newBoss);
+		
 	}
+	Boss* newBoss = new Boss();
+	newBoss->SetGameScene(gameScene);
+	newBoss->Initialize(player, tmpPos_[3], level_);
+	enemies_.push_back(newBoss);
 		
 	for (int i = 0; i < MAX_ENEMY; i++) {
 		

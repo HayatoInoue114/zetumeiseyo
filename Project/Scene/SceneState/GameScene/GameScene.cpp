@@ -468,6 +468,9 @@ void GameScene::CheckAllCollision()
 			if (CollisionManager::CheckOBBxOBB(player_.get(), enemy->GetOBBCollider())) {
 				player_->OnCollisionWithEnemy(enemy);
 				enemy->OnCollisionWithPlayer(player_.get());
+				if (!enemy->IsFeed()) {
+					isShake_ = true;
+				}
 			}
 		}
 	}
@@ -487,6 +490,10 @@ void GameScene::CheckAllCollision()
 
 					bullet->onCollisionWithEnemy(enemy);
 					enemy->OnCollisionWithPlayerBullet(bullet.get());
+					enemy->isHit = true;
+				}
+				else {
+					enemy->isHit = false;
 				}
 			}
 		}

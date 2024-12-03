@@ -32,6 +32,14 @@ void Fire::ParameterInitialize() {
 
 void Fire::Update() {
 	if (!isFeed_) {
+		if (param.hp <= 0) {
+			worldTransform_.scale *= 1.3f;
+			model_.SetColor({ 0.0f,0.0f,255.0f,255.0f });
+			isFeed_ = true;
+		}
+		else {
+			model_.SetColor(Vector4(1, 1, 0, 1));
+		}
 		Chase();
 		Shoot();
 
@@ -42,14 +50,7 @@ void Fire::Update() {
 
 		worldTransform_.UpdateMatrix();
 
-		if (param.hp <= 0) {
-			worldTransform_.scale *= 1.3f;
-			model_.SetColor({ 0.0f,0.0f,255.0f,255.0f });
-			isFeed_ = true;
-		}
-		else {
-			model_.SetColor(Vector4(1, 0, 0, 1));
-		}
+		HitReaction(2);
 	}
 	else {
 		FeedMove();
@@ -182,6 +183,7 @@ void Fire::OnCollisionWithPlayerBullet(IPlayerBullet* bullet)
 		param.hp -= bullet->GetDamage();
 		param.speed -= 0.02f;
 
+		isHit = true;
 		/*float color = 0;
 
 		color += 30.0f;

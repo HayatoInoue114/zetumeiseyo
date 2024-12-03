@@ -75,7 +75,7 @@ void Blast::ParameterInitialize() {
 	//パラメーター
 	param.speed = 0.7f + level_ / 25.0f;
 	param.hp = 15 + level_ * 2;
-	param.power = level_ * 3;
+	param.power = level_ * 5;
 	param.searchDistance = 20.0f + (float)level_ * 3;
 	//worldTransform_.scale = { (float)level_ / 2 + 1,(float)level_ / 2 + 1,(float)level_ / 2 + 1 };
 
@@ -100,6 +100,8 @@ void Blast::Update() {
 		BlastOnNearby();
 
 		//param.speed = std::clamp(param.speed, 0.0f, 1.0f);
+
+		HitReaction(2);
 
 		worldTransform_.UpdateMatrix();
 
@@ -140,6 +142,10 @@ void Blast::OnCollisionWithPlayer(Player* player)
 		player->AddEnergy(10);
 		isAlive_ = false;
 	}
+	else {
+		player->SetDamage(param.power);
+		isBlast_ = true;
+	}
 
 }
 
@@ -155,7 +161,7 @@ void Blast::OnCollisionWithPlayerBullet(IPlayerBullet* bullet)
 
 		model_.SetColor(hitColor_);
 
-		
+		isHit = true;
 
 		//param.hp -= player_->GetAttackLevel();
 	}

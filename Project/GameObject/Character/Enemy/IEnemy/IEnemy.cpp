@@ -152,6 +152,17 @@ Vector3 IEnemy::FloatingAnimation(float time, float amplitude, float frequency) 
 }
 
 
+void IEnemy::HitReaction(int num)
+{
+	if (isHit) {
+		num--;
+		model_.SetColor({ 1,0,0,1 });
+	}
+	if (num == 0) {
+		isHit = false;
+	}
+}
+
 Vector3 IEnemy::Jump(const Vector3& initialPosition, float jumpHeight, float jumpDuration, float currentTime) {
 	// ジャンプの高さが0以下なら初期位置を返す
 	if (jumpHeight <= 0) {

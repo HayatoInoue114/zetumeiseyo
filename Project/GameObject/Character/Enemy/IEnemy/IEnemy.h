@@ -79,6 +79,11 @@ public:
 
     const Vector3& GetPos() { return worldTransform_.translate; }
 
+    //プレイヤーの弾が当たった時のリアクション
+    void HitReaction(int num);
+
+    bool isHit = false;
+
 private:
     Vector3 Jump(const Vector3& initialPosition, float jumpHeight, float jumpDuration, float currentTime);
 

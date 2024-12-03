@@ -54,6 +54,7 @@ void Boss::Update() {
 			model_.SetColor({ 0.0f,0.0f,255.0f,255.0f });
 			isFeed_ = true;
 		}
+		HitReaction(2);
 	}
 	else {
 		worldTransform_.UpdateMatrix();
@@ -249,7 +250,7 @@ void Boss::Chase() {
 		}
 	}
 	if (isMove) {//移動中
-		worldTransform_.translate += velocity_;
+		//worldTransform_.translate += velocity_;
 		velocity_.y = 0;
 
 		//目標地点にたどり着いたとき
@@ -293,6 +294,8 @@ void Boss::OnCollisionWithPlayerBullet(IPlayerBullet* bullet)
 
 		isFind = true;
 		findFrame = 0;
+
+		isHit = true;
 		/*float color = 0;
 
 		color += 30.0f;

@@ -255,7 +255,6 @@ private:
 
 	float scopeRange_;
 	bool isShake_ = false;
-
 private:
 	const float kShakeRange_ = 2.0f;
 
