@@ -129,5 +129,7 @@ public:
 	// マッピング済みアドレス
 	TransformationViewMatrix* constMap = nullptr;
 
+	float scopeRange_;
+
 };
 

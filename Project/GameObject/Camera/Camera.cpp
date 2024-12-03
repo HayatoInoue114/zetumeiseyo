@@ -153,4 +153,16 @@ void Camera::LookAt(const Vector3& targetPosition, const Vector3& forwardVec, co
 	rotate = { 0.2f, angleY, 0.0f }; // Z軸回転は0に設定 (今回は不要)
 }
 
+void Camera::Shake()
+{
+	if (scopeRange_ > 0.0f) {
+		scopeRange_ -= 0.5f;
+	}
+	Scope scope{ -scopeRange_,scopeRange_ };
+	ScopeVec2 scopeVec = { scope, scope };
+
+	translate.x += RandomGenerator::getRandom(scopeVec.X);
+	translate.y += RandomGenerator::getRandom(scopeVec.Y);
+}
+
 

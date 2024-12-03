@@ -149,6 +149,8 @@ private:
 
 	void UpdateIndicators();
 
+	void Shake();
+
 private:
 	FPSCounter fps_;
 
@@ -250,4 +252,12 @@ private:
 
 	std::vector<std::unique_ptr<Indicator>> indicators;
 	std::vector<Vector3> enemyPositions; // 敵の位置情報リスト
+
+	float scopeRange_;
+	bool isShake_ = false;
+
+private:
+	const float kShakeRange_ = 2.0f;
+
+	const Vector3 kDiffPos_ = { 0.0f, 7.0f, -40.0f };
 };

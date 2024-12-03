@@ -45,8 +45,8 @@ void GameScene::Initialize() {
 	camera_->Initialize();
 	cameraInitPos_ = { 0.0f, 1.5f, -4.0f };
 	camera_->translate = cameraInitPos_;
-	cameraDiffRotate_ = { 0.25f, 0.0f, 0.0f };
-	cameraDiffPos_ = { 0.0f, 7.0f, -40.0f };
+	cameraDiffRotate_ = { 0.20f, 0.0f, 0.0f };
+	cameraDiffPos_ = kDiffPos_;
 	camera_->UpdateMatrix();
 
 
@@ -157,6 +157,8 @@ void GameScene::Initialize() {
 
 	followCamera_->SetPlayer(player_.get());
 
+	scopeRange_ = kShakeRange_;
+	isShake_ = false;
 }
 
 
@@ -502,6 +504,7 @@ void GameScene::CheckAllCollision()
 			if (CollisionManager::CheckOBBxOBB(player_.get(), bullet)) {
 				player_->OnCollisionWithEnemyBullet();
 				bullet->OnCollisionWithPlayer();
+				isShake_ = true;
 			}
 		}
 	}
@@ -703,7 +706,7 @@ void GameScene::PlayerCamera()
 	camera_->SetPosition(cameraPosition);
 	camera_->LookAt(playerPosition, forwardVec, followCamera_->GetRightVec(), { 0.0f, 1.0f, 0.0f }); // 上向きベクトルを指定してプレイヤーを向く
 	
-
+	Shake();
 	// ビュー行列を更新
 	camera_->UpdateMatrix();
 }
@@ -793,5 +796,26 @@ void GameScene::UpdateIndicators() {
 			// 次のインジケーターと敵へ移動
 			++enemyIt;
 		}
+	}
+}
+
+void GameScene::Shake()
+{
+	if (isShake_) {
+		if (scopeRange_ > 0.0f) {
+			scopeRange_ -= 0.5f;
+		}
+		else {
+			isShake_ = false;
+			scopeRange_ = kShakeRange_;
+		}
+		Scope scope{ -scopeRange_,scopeRange_ };
+		ScopeVec2 scopeVec = { scope, scope };
+
+		cameraDiffPos_.x += RandomGenerator::getRandom(scopeVec.X);
+		cameraDiffPos_.y += RandomGenerator::getRandom(scopeVec.Y);
+	}
+	else {
+		cameraDiffPos_ = kDiffPos_;
 	}
 }
