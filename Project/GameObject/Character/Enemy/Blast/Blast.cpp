@@ -101,7 +101,7 @@ void Blast::Update() {
 
 		//param.speed = std::clamp(param.speed, 0.0f, 1.0f);
 
-		HitReaction(2);
+		HitReaction();
 
 		worldTransform_.UpdateMatrix();
 

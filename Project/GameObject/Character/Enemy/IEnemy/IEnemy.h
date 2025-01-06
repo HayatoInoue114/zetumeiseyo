@@ -80,7 +80,7 @@ public:
     const Vector3& GetPos() { return worldTransform_.translate; }
 
     //プレイヤーの弾が当たった時のリアクション
-    void HitReaction(int num);
+    void HitReaction();
 
     bool isHit = false;
 
@@ -148,4 +148,6 @@ protected:
     bool isAnime_ = false;
 
     bool isFeedAnimetionEnd_ = false;
+
+    int num = 2;
 };

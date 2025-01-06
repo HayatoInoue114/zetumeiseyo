@@ -152,13 +152,14 @@ Vector3 IEnemy::FloatingAnimation(float time, float amplitude, float frequency) 
 }
 
 
-void IEnemy::HitReaction(int num)
+void IEnemy::HitReaction()
 {
 	if (isHit) {
 		num--;
 		model_.SetColor({ 1,0,0,1 });
 	}
 	if (num == 0) {
+		num = 2;
 		isHit = false;
 	}
 }

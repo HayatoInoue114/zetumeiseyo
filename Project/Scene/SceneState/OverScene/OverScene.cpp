@@ -95,7 +95,7 @@ void OverScene::Update(GameManager* state)
 
 			// ここでストップしておく
 			Audio::StopOnSound(gameBGM_);
-			state->ChangeSceneState(new SelectScene());
+			state->ChangeSceneState(new TitleScene());
 			return;
 		}
 	}

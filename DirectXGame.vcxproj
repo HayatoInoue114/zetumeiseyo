@@ -144,6 +144,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModel.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\IParticleModel.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\CameraShake\CameraShake.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\Indicator\Indicator.cpp" />
     <ClCompile Include="Project\GameObject\Camera\FollowCamera\FollowCamera.cpp" />
@@ -271,6 +274,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Tsumi\Utilities\Timer\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModel.h" />
+    <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\IParticleModel.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\CameraShake\CameraShake.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\Indicator\Indicator.h" />
     <ClInclude Include="Project\GameObject\Camera\FollowCamera\FollowCamera.h" />

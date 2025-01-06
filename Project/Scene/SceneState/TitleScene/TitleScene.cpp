@@ -112,7 +112,7 @@ void TitleScene::Update(GameManager* state)
 
 		if (FadeManager::IsFadeIn()) {
 			Audio::StopOnSound(BGM_);
-			state->ChangeSceneState(new SelectScene());
+			state->ChangeSceneState(new GameScene());
 		}
 	}
 

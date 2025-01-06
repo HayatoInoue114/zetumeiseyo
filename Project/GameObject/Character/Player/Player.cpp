@@ -237,7 +237,7 @@ void Player::OnCollisionWithEnemyBullet()
 			isInvincible_ = true;
 
 			// 体力を減らす
-			//hp_ -= 2;
+			hp_ -= 2;
 
 			// alpha値を下げて無敵時間を分かりやすくする
 			color_.w = 0.1f;

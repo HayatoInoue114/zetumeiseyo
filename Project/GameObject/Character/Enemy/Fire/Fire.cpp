@@ -50,7 +50,7 @@ void Fire::Update() {
 
 		worldTransform_.UpdateMatrix();
 
-		HitReaction(2);
+		HitReaction();
 	}
 	else {
 		FeedMove();

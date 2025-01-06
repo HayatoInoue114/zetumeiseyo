@@ -40,7 +40,7 @@ void Mortar::Update() {
 		worldTransform_.UpdateMatrix();
 		model_.SetColor(Vector4(0, 1, 0, 1));
 		
-		HitReaction(2);
+		HitReaction();
 
 		if (param.hp <= 0) {
 			worldTransform_.scale *= 1.3f;

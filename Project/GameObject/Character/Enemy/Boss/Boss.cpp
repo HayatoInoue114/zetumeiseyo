@@ -54,7 +54,7 @@ void Boss::Update() {
 			model_.SetColor({ 0.0f,0.0f,255.0f,255.0f });
 			isFeed_ = true;
 		}
-		HitReaction(2);
+		HitReaction();
 	}
 	else {
 		worldTransform_.UpdateMatrix();
