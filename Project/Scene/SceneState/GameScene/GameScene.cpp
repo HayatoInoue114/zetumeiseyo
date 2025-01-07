@@ -159,6 +159,8 @@ void GameScene::Initialize() {
 
 	scopeRange_ = kShakeRange_;
 	isShake_ = false;
+
+	shakeDecrement_ = 0.1f;
 }
 
 
@@ -167,6 +169,7 @@ void GameScene::Initialize() {
 /// </summary>
 void GameScene::Update(GameManager* state) {
 
+	DeltaTime();
 	fps_.Update();
 
 	/* ----- Skydome 天球 ----- */
@@ -391,6 +394,8 @@ void GameScene::WaveUpdate()
 
 			/* ----- LevelManager レベルマネージャー ----- */
 			levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
+
+			MorterShake();
 		}
 	}
 
@@ -810,11 +815,14 @@ void GameScene::Shake()
 {
 	if (isShake_) {
 		if (scopeRange_ > 0.0f) {
-			scopeRange_ -= 0.5f;
+			scopeRange_ -= shakeDecrement_;
 		}
 		else {
 			isShake_ = false;
 			scopeRange_ = kShakeRange_;
+		}
+		if (scopeRange_ <= 0.0f) {
+			scopeRange_ = 0.0f;
 		}
 		Scope scope{ -scopeRange_,scopeRange_ };
 		ScopeVec2 scopeVec = { scope, scope };
@@ -825,4 +833,28 @@ void GameScene::Shake()
 	else {
 		cameraDiffPos_ = kDiffPos_;
 	}
+}
+
+
+
+void GameScene::MorterShake()
+{
+	for (IEnemy* enemy : *enemies_) {
+		for (EnemyBullet* bullet : *enemy->GetEnemyBullets()) {
+			if (bullet->isShake) {
+				isShake_ = true;
+				scopeRange_ = kShakeRangeMorter_;
+				bullet->isShake = false;
+			}
+		}
+	}
+}
+
+void GameScene::DeltaTime()
+{
+	// 現在の時刻を取得して deltaTime_ を計算
+	auto currentTime = std::chrono::steady_clock::now();
+	std::chrono::duration<float> elapsedTime = currentTime - previousTime_;
+	deltaTime_ = elapsedTime.count(); // 経過時間を秒単位で計算
+	previousTime_ = currentTime;
 }

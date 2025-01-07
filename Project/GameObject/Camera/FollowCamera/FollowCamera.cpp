@@ -151,7 +151,7 @@ void FollowCamera::Shake()
 	Scope scope{-scopeRange_,scopeRange_};
 	ScopeVec2 scopeVec = { scope, scope };
 
-	playerOffset_.x += RandomGenerator::getRandom(scopeVec.X);
+	offset_.x += RandomGenerator::getRandom(scopeVec.X);
 	offset_.y += RandomGenerator::getRandom(scopeVec.Y);
 }
 

@@ -65,7 +65,7 @@ void Mortar::Update() {
 			return true;
 		}
 		return false;
-		});
+	});
 }
 
 void Mortar::Draw(Camera* camera) {

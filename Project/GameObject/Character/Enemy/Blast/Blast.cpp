@@ -85,13 +85,14 @@ void Blast::ParameterInitialize() {
 void Blast::Update() {
 	flame_++;
 	if (!isFeed_) {
-		//Wander();
-
+		Wander();
+		
 		CalculateDetectionRange();
 
 		DiscoverPlayer();
 
 		Chace();
+		//ChaceForStreight();
 
 		SettingCollider();
 
@@ -241,7 +242,52 @@ void Blast::Chace() {
 	}
 }
 
+void Blast::ChaceForStreight()
+{
+	if (isTrace_ && !isBlast_) {
+		worldTransform_.rotate = {};
 
+		count_++;
+		blastCount_++;
+		// 座標を移動させる（1フレーム分の移動量を足しこむ)
+		Vector3 toPlayer = player_->GetWorldPos() - worldTransform_.translate;
+
+		//ベクトルを正規化する
+		toPlayer = Normalize(toPlayer);
+
+		velocity_ = SLerp(velocity_, toPlayer, chaseIntensity_) * param.speed;
+
+		// Y軸周り角度(0y)
+		worldTransform_.rotate.y = std::atan2(velocity_.x, velocity_.z);
+
+		velocityXZ_ = std::sqrt(velocity_.x * velocity_.x + velocity_.z * velocity_.z);
+		// X軸周り角度(0x)
+		worldTransform_.rotate.x = std::atan2(-velocity_.y, velocityXZ_);
+
+		t_ = 0;
+		
+		isStreight_ = true;
+	}
+	if (isStreight_) {
+		
+		streightCount_++;
+		if (streightCount_ == 30) {
+			streightVel_ = velocity_ * 10;
+		}
+		if (streightCount_ >= 30) {
+			worldTransform_.translate = worldTransform_.translate + streightVel_;
+		}
+		if (streightCount_ >= 60) {
+			streightCount_ = 0;
+			isStreight_ = false;
+		}
+
+	}
+}
+
+/// <summary>
+/// プレイヤーを見つけていないときに自由に動く関数
+/// </summary>
 void Blast::Wander() {
 	if (!isTrace_ && !isBlast_) {
 		blastCount_ = 0;

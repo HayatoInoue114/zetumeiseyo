@@ -80,6 +80,8 @@ public: // メンバ関数
 	Vector3 GetSize() override { return this->size_; }
 
 	bool isMortor = false;
+
+	bool isShake = false;
 #pragma endregion
 
 
@@ -100,7 +102,7 @@ private: // メンバ関数
 	/// 寿命の処理
 	/// </summary>
 	void UpdateLifeTimer();
-
+	void UpdateLifeTimerForMorter();
 
 private: // メンバ変数
 
@@ -148,6 +150,9 @@ private: // メンバ変数
 	//std::unique_ptr<MorterShadow> morterShadow_{};
 
 	uint32_t morterShadowTex_;
+
+	float morterBounce_;
+	Vector3 horizontalVel_;
 };
 
 float easeOutCubic(float x);

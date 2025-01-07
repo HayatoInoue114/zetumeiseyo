@@ -83,6 +83,7 @@ void EnemyBullet::InitializeMortar(Vector3 fromPos, Vector3 toPos)
 	bombTimer_ = 30;
 	kLifeTimer_ = 60 * 2 + bombTimer_;
 	lifeTimer_ = kLifeTimer_;
+	morterBounce_ = 10.0f;
 
 	particletex_ = TextureManager::LoadTexture("", "black2x2.png");
 
@@ -100,6 +101,9 @@ void EnemyBullet::InitializeMortar(Vector3 fromPos, Vector3 toPos)
 	OBBCollider::SetID(ObjectId::EnemyBullet);
 	OBBCollider::SetCollosionAttribute(ObjectAttribute::Enemy);
 	OBBCollider::SetCollisionMask(ObjectMask::Player);
+
+	isShake = false;
+	horizontalVel_ = { 1,1,1 };
 }
 
 
@@ -128,7 +132,7 @@ void EnemyBullet::UpdateMortar() {
 	MoveMortar();
 
 	// 寿命の処理
-	UpdateLifeTimer();
+	UpdateLifeTimerForMorter();
 
 	// ワールド座標の更新
 	worldTransform_.UpdateMatrix();
@@ -185,37 +189,33 @@ void EnemyBullet::MoveMortar()
 {
 	//水平方面は等速直線運動
 	if (flame <= 120) {
-		worldTransform_.translate.x += distance_.x / float(kLifeTimer_ - bombTimer_);
-		worldTransform_.translate.z += distance_.z / float(kLifeTimer_ - bombTimer_);
+		worldTransform_.translate.x += distance_.x / float(kLifeTimer_ - bombTimer_) * horizontalVel_.x;
+		worldTransform_.translate.z += distance_.z / float(kLifeTimer_ - bombTimer_) * horizontalVel_.z;
 	}
 
 	//Y方面は垂直投射の処理
 	//worldTransform_.translate.y = (9.8f * (float(flame) / 60.0f)) - (0.5f * 9.8f * ((float(flame) / 60.0f)) * ((float(flame) / 60.0f)));
 	//worldTransform_.translate.y = 9.8f * (float(flame) / 60.0f) - (0.5f * 9.8f * float(pow(flame / 60.0, 2)));
 	if (flame <= 60) {
-		worldTransform_.translate.y = easeOutCubic(float(flame) / 60.0f) * 10.0f;
+		worldTransform_.translate.y = easeOutCubic(float(flame) / 60.0f) * morterBounce_;
 		isMorterHit_ = 0;
 	}
 	else if (flame <= 120) {
-	worldTransform_.translate.y = easeOutCubic(1.0f - float(flame - 60) / 60.0f) * 10.0f;
+		worldTransform_.translate.y = easeOutCubic(1.0f - float(flame - 60) / 60.0f) * morterBounce_;
 	}
 	else {//着弾時に爆風を発生
+		flame = 0;
+		morterBounce_ -= 5.0f;
+		horizontalVel_ *= 0.9f;
+		isShake = true;
+	}
+	if (morterBounce_ <= 0) {
 		float bombSize = 3.0f;
 
 		worldTransform_.scale.x = bombSize;
 		worldTransform_.scale.y = bombSize;
 		worldTransform_.scale.z = bombSize;
-
-		isMorterHit_++;
 	}
-
-	if (isMorterHit_ == 1) {
-		for (int i = 0; i < 30; i++) {
-			//morterParticle_->AddParticle(particletex_, worldTransform_.translate);
-		}
-		isMorterHit_ = 2;
-	}
-
 	//flameの加算
 	flame++;
 }
@@ -241,6 +241,17 @@ void EnemyBullet::UpdateLifeTimer()
 {
 	lifeTimer_--;
 
+	if (lifeTimer_ <= 0.0f) {
+		lifeTimer_ = 0;
+		isDead_ = true;
+	}
+}
+
+void EnemyBullet::UpdateLifeTimerForMorter()
+{
+	if (morterBounce_ <= 5) {
+		lifeTimer_--;
+	}
 	if (lifeTimer_ <= 0.0f) {
 		lifeTimer_ = 0;
 		isDead_ = true;

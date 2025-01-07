@@ -147,6 +147,11 @@ private: ///メンバ関数///
 	/// </summary>
 	void FeedMove();
 
+	/// <summary>
+	/// 直線で追いかける処理
+	/// </summary>
+	void ChaceForStreight();
+
 	Vector3 Multiply(const Vector3& v, const Matrix4x4& m);
 
 	float ToPlayerDot() { return Dot(player_->GetWorldPos(), worldTransform_.translate); }
@@ -270,6 +275,10 @@ private: ///メンバ変数///
 	float blinkSpeed = 1.0f;
 	//経過時間
 	float elapsedTime_{};
+	//フワッティー挙動のためのフラグ
+	bool isStreight_ = false;
+	int streightCount_ = 0;
+	Vector3 streightVel_{};
 private: ///メンバ定数///
 
 	//曲がるまでの間隔

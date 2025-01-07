@@ -26,6 +26,7 @@
 #include "GameObject/Camera/FollowCamera/FollowCamera.h"
 #include "Effect/Indicator/Indicator.h"
 
+#include <chrono>
 
 
 class GameScene : public IScene {
@@ -151,6 +152,9 @@ private:
 
 	void Shake();
 
+	void MorterShake();
+
+	void DeltaTime();
 private:
 	FPSCounter fps_;
 
@@ -255,8 +259,20 @@ private:
 
 	float scopeRange_;
 	bool isShake_ = false;
+	float shakeDecrement_;
+
+	float shakeDecayRate_ = 0.9f;           // 減衰率 (1秒間に減少する割合)
+	float shakeThreshold_ = 0.01f;          // 停止判定の振動範囲
+	float shakeFrequency_ = 10.0f;          // 振動の速さ（サイン波用）
+	float shakeTime_ = 0.0f;                // 振動の経過時間（サイン波用）
+
+	float deltaTime_;          // 経過時間（秒）
+	std::chrono::steady_clock::time_point previousTime_; // 前回のフレーム時刻
 private:
+	//カメラシェイクの強度(2.0f)
 	const float kShakeRange_ = 2.0f;
+	//迫撃砲のシェイク強度(1.0f)
+	const float kShakeRangeMorter_ = 1.0f;
 
 	const Vector3 kDiffPos_ = { 0.0f, 7.0f, -40.0f };
 };
