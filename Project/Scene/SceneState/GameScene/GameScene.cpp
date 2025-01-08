@@ -356,47 +356,40 @@ void GameScene::WaveUpdate()
 	if (!startCameraAnimIsFinish_) {
 		return;
 	}
+	
+	if (!isFade_) {
 
-	// フラグがたっていたら入らない
-	if (!gameTimeCount_->IsTimeUp()) {
+		/* ----- CollisionManager コリジョンマネージャー ----- */
+		CheckAllCollision();
 
-		/* ----- GameTimeCount ゲームカウント ----- */
-		gameTimeCount_->Update();
-
-		if (!isFade_) {
-
-			/* ----- CollisionManager コリジョンマネージャー ----- */
-			CheckAllCollision();
-
-			/* ----- ParticleManager パーティクルマネージャー ----- */
-			particleManager_->Update();
+		/* ----- ParticleManager パーティクルマネージャー ----- */
+		particleManager_->Update();
 
 
-			/* ----- Player プレイヤー ----- */
-			PlayerUpdate();
-			// 死んでいたら処理を抜ける
-			if (player_->GetDeadFuncIsFinish()) {
+		/* ----- Player プレイヤー ----- */
+		PlayerUpdate();
+		// 死んでいたら処理を抜ける
+		if (player_->GetDeadFuncIsFinish()) {
 
-				// シーン遷移のフラグを立てる
-				isSceneChange_ = true;
-			}
-			if (player_->GetIsDead()) {
-				return;
-			}
-
-
-			/* ----- Enemy 敵 ----- */
-			//enemyManager_.Update();
-
-			//インジケーターの更新処理
-			UpdateEnemyPositions();
-			UpdateIndicators();
-
-			/* ----- LevelManager レベルマネージャー ----- */
-			levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
-
-			MorterShake();
+			// シーン遷移のフラグを立てる
+			isSceneChange_ = true;
 		}
+		if (player_->GetIsDead()) {
+			return;
+		}
+
+
+		/* ----- Enemy 敵 ----- */
+		enemyManager_.Update();
+
+		//インジケーターの更新処理
+		UpdateEnemyPositions();
+		UpdateIndicators();
+
+		/* ----- LevelManager レベルマネージャー ----- */
+		levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
+
+		MorterShake();
 	}
 
 	// タイマーが既定値になっていたら終了処理に入る
