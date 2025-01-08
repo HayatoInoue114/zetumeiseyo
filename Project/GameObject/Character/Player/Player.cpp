@@ -2,7 +2,7 @@
 //#include "GameScene/GameScene.h"
 #include "Enemy/IEnemy/IEnemy.h"
 #include "GameManager.h"
-
+#include <DirectXMath.h>
 
 // 初期化処理
 void Player::Initialize()
@@ -115,7 +115,7 @@ void Player::Update(Camera* camera)
 		//CalcBodyRotate();
 
 		// ダッシュの処理
-		//DashFunc();
+		DashFunc();
 
 		// OBBColliderのセッティング
 		SettingCollider();
@@ -379,7 +379,7 @@ void Player::DashFunc()
 			isDash_ = true;
 
 			// 移動先の座標の計算
-			toDashPosition_ = CalcToDashPos() + bodyWt_.GetWorldPos();
+			toDashPosition_ = CalcToDashPos();
 
 			// ダッシュ処理開始時の座標
 			toInitDashPosition_ = bodyWt_.GetWorldPos();
@@ -428,23 +428,48 @@ void Player::DashFunc()
 // ダッシュ先の座標の計算
 Vector3 Player::CalcToDashPos()
 {
-	Vector2 LStick{};
-	if (GamePadInput::GetLStick().x <= 0.05f && GamePadInput::GetLStick().x >= -0.05f &&
-		GamePadInput::GetLStick().y <= 0.05f && GamePadInput::GetLStick().y >= -0.05f) {
-		LStick = { 0.0f, 1.0f };
+	// デフォルトのダッシュ方向（前方方向）を初期化
+	Vector3 direction = stickMoveDirection_;
+
+	// 移動方向がゼロベクトルの場合、プレイヤーの向きから方向を取得
+	if (direction.LengthSquared() <= 0.0001f) {
+		// プレイヤーの向き（bodyWt_.rotate.y）を基に計算
+		float radians = DirectX::XMConvertToRadians(bodyWt_.rotate.y);
+		direction = { std::sin(radians), 0.0f, std::cos(radians) };
 	}
-	else {
-		LStick = GamePadInput::GetLStick();
-	}
-	Vector3 toDash = {
-		bodyWt_.GetWorldPos().x + LStick.x,
-		bodyWt_.GetWorldPos().y,
-		bodyWt_.GetWorldPos().z + LStick.y,
-	};
-	
-	Vector3 result = Normalize(toDash - bodyWt_.GetWorldPos());
-	return result * toDash_;
+
+	// 正規化して方向ベクトルを取得
+	direction = Normalize(direction);
+
+	// ダッシュ先の座標を計算
+	Vector3 toDash = bodyWt_.GetWorldPos() + (direction * toDash_);
+
+	return toDash;
 }
+
+
+
+//// ダッシュ先の座標を計算
+//Vector3 Player::CalcToDashPos()
+//{
+//	// カメラの前方と右方ベクトルを取得
+//	Vector3 forward = followCamera_->GetForwardVec(); // カメラの前方ベクトル
+//	Vector3 right = followCamera_->GetRightVec();     // カメラの右方ベクトル
+//
+//	// プレイヤーの移動方向を計算（スティック入力）
+//	Vector3 moveDirection = {
+//		(iLStick_.x * right.x) + (iLStick_.y * forward.x),
+//		0.0f,
+//		(iLStick_.x * right.z) + (iLStick_.y * forward.z),
+//	};
+//
+//	// ダッシュ先を計算
+//	Vector3 toDash = Normalize(moveDirection - bodyWt_.GetWorldPos());
+//
+//	return toDash * toDash_;
+//}
+
+
 
 
 // レベルチェック

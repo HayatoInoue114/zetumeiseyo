@@ -386,7 +386,7 @@ void GameScene::WaveUpdate()
 
 
 			/* ----- Enemy 敵 ----- */
-			enemyManager_.Update();
+			//enemyManager_.Update();
 
 			//インジケーターの更新処理
 			UpdateEnemyPositions();

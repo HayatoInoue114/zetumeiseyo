@@ -190,7 +190,20 @@ bool GamePadInput::PressButton(PadData button)
 // 離された瞬間
 bool GamePadInput::ReleaseButton(PadData button)
 {
-	button;
+	bool preFlag = false;
+
+	// 前回の状態でボタンが押されていたかを確認
+	if (GamePadInput::GetInstance()->preJoyState_.Gamepad.wButtons & (WORD)button)
+	{
+		preFlag = true;
+	}
+
+	// 現在の状態でボタンが押されていないことを確認
+	if (preFlag && !(GamePadInput::GetInstance()->joyState_.Gamepad.wButtons & (WORD)button))
+	{
+		return true;
+	}
+
 	return false;
 }
 

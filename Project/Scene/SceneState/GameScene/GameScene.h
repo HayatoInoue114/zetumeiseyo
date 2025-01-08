@@ -274,5 +274,5 @@ private:
 	//迫撃砲のシェイク強度(1.0f)
 	const float kShakeRangeMorter_ = 1.0f;
 
-	const Vector3 kDiffPos_ = { 0.0f, 7.0f, -40.0f };
+	const Vector3 kDiffPos_ = { 0.0f, 10.0f, -60.0f };
 };

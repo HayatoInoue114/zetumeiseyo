@@ -92,6 +92,10 @@ struct Vector3 final {
 		os << "Vector3(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
 		return os;
 	}
+	// LengthSquaredの実装
+	float LengthSquared() const {
+		return (x * x) + (y * y) + (z * z);
+	}
 };
 
 
