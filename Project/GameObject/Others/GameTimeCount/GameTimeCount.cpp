@@ -6,7 +6,7 @@
 void GameTimeCount::Initialize()
 {
 	// ゲームの制限時間 45秒
-	gameTime_ = 30 * 60;
+	gameTime_ = 1 * 60;
 	gameFrame_ = gameTime_;
 	nowGameTimer_ = ConvertToSecond();
 
