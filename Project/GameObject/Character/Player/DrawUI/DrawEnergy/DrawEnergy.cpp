@@ -20,6 +20,7 @@ void DrawEnergy::Initialize()
 	};
 
 
+
 	// 数字
 	numberTexHD_ = TextureManager::LoadTexture("GameScene/UI", "Number.png");
 
@@ -65,6 +66,7 @@ void DrawEnergy::Draw(uint32_t energy, Camera* camera)
 {
 	// ラベル
 	lavelTransform_.UpdateMatrix();
+	lavelTransform_.translate += translate_;
 	lavelSprite_->Draw(lavelTexHD_, lavelTransform_, camera);
 
 	// 数字
@@ -72,6 +74,7 @@ void DrawEnergy::Draw(uint32_t energy, Camera* camera)
 	SetSrc();
 	for (size_t i = 0; i < numberSprite_.size(); i++) {
 		numberTransform_[i].UpdateMatrix();
+		numberTransform_[i].translate += translate_;
 		numberSprite_[i]->Draw(numberTexHD_, numberTransform_[i], camera);
 	}
 }

@@ -18,6 +18,7 @@ void BackScreen::Initialize()
 void BackScreen::Draw2DFront(Camera* camera)
 {
 	transform_.UpdateMatrix();
+	transform_.translate += translate_;
 
 	sprite_->Draw(texHD_, transform_, camera);
 }

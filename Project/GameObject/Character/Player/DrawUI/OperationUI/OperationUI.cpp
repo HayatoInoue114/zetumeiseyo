@@ -36,6 +36,8 @@ void OperationUI::Draw2DFront(Camera* camera)
 
 		transform_[i].UpdateMatrix();
 
+		transform_[i].translate += translate_;
+
 		sprite_[i]->Draw(texHD_[i], transform_[i], camera);
 	}
 }

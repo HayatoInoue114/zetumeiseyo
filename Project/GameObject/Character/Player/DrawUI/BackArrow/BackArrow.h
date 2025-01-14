@@ -15,15 +15,17 @@ public:
 	void Initialize();
 	void Draw2DFront(int nowPage, Camera* camera);
 
+	void SetTranslate(Vector3 translate) { translate_ = translate; }
 private:
 
 	size_t size_ = 0;
-	vector<uint32_t> texHD_;
-	vector<unique_ptr<Sprite>> sprite_;
-	vector<WorldTransform> transform_;
+	std::vector<uint32_t> texHD_;
+	std::vector<std::unique_ptr<Sprite>> sprite_;
+	std::vector<WorldTransform> transform_;
+	Vector3 translate_;
 
 	uint32_t labelTexHD_ = 0;
-	unique_ptr<Sprite> labelSprite_;
+	std::unique_ptr<Sprite> labelSprite_;
 	WorldTransform labelWt_{};
 };
 

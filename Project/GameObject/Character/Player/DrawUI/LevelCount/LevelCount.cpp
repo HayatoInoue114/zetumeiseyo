@@ -56,6 +56,7 @@ void LevelCount::Initialize(int prope, Vector2 pos)
 
 void LevelCount::Draw2DFront(uint32_t num, Camera* camera)
 {
+	lavelTransform_.translate += translate_;
 	// ラベル
 	lavelTransform_.UpdateMatrix();
 	lavelSprite_->Draw(lavelTexHD_, lavelTransform_, camera);
@@ -65,6 +66,7 @@ void LevelCount::Draw2DFront(uint32_t num, Camera* camera)
 		countSprite_[i]->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
 	}
 	for (size_t i = 0; i < size_; ++i) {
+		countTransform_[i].translate += translate_;
 
 		countTransform_[i].UpdateMatrix();
 

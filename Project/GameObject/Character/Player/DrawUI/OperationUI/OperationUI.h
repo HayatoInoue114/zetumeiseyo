@@ -15,7 +15,9 @@ public:
 	void Initialize();
 	void Draw2DFront(Camera* camera);
 
+	void SetTranslate(Vector3 translate) { translate_ = translate; }
 private:
+	Vector3 translate_;
 
 	// 操作ＵＩ
 	vector<uint32_t> texHD_;

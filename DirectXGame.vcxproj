@@ -272,6 +272,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Tsumi\Utilities\ImGuiManager\ImGuiManager.cpp" />
     <ClCompile Include="Tsumi\Utilities\TimedCall\TimedCall.cpp" />
     <ClCompile Include="Tsumi\Utilities\Timer\Timer.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\UIMove\UIMove.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.h" />
@@ -421,6 +422,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Tsumi\Utilities\TextLog\TextLog.h" />
     <ClInclude Include="Tsumi\Utilities\TimedCall\TimedCall.h" />
     <ClInclude Include="Tsumi\Utilities\Timer\Timer.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\UIMove\UIMove.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\LambertObject.PS.hlsl">

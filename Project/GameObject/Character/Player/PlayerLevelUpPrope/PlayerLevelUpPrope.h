@@ -17,6 +17,7 @@
 #include <string>
 #include <map>
 
+#include "Player/UIMove/UIMove.h"
 
 enum DrawPage {
 	One,
@@ -130,7 +131,7 @@ private:
 	int selectLevelType_ = 0;
 
 	// レベルアップに必要なエネルギー消費量
-	int costLevelUpEnergy_ = 20;
+	int levelUpEnergy_ = 1;
 
 	// トータルレベル
 	int totalLevel_ = 0;
@@ -149,5 +150,8 @@ private:
 	// Audio SE
 	uint32_t selectSE_ = 0;
 	uint32_t decisionSE_ = 0;
+
+	//UIに動きを足す
+	UIMove uiMove_;
 };
 

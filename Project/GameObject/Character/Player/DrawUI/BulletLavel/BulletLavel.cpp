@@ -28,6 +28,7 @@ void BulletLavel::Initialize(int num, Vector2 pos)
 void BulletLavel::Draw2DFront(int nowPage, Camera* camera)
 {
 	if (nowPage == 1) {
+		transform_.translate += translate_;
 		transform_.UpdateMatrix();
 		sprite_->Draw(texHD_, transform_, camera);
 	}

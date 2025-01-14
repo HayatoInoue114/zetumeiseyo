@@ -16,13 +16,14 @@ public:
 	void Initialize(uint32_t cost);
 	void Draw(Camera* camera);
 
-
+	void SetTranslate(Vector3 translate) { translate_ = translate; }
 private:
 
 	void SetSrc();
 
 
 private:
+	Vector3 translate_;
 
 	// ラベル
 	uint32_t lavelTexHD_ = 0;

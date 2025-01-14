@@ -16,7 +16,9 @@ public:
 	void Initialize(int prope, Vector2 pos);
 	void Draw2DFront(uint32_t num, Camera* camera);
 
+	void SetTranslate(Vector3 translate) { translate_ = translate; }
 private:
+	Vector3 translate_;
 
 	// ラベル
 	uint32_t lavelTexHD_ = 0;

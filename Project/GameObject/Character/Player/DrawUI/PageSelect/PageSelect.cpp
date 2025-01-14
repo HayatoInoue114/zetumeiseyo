@@ -38,7 +38,7 @@ void PageSelect::Draw2DFront(int nowPage, Camera* camera)
 		sprite_[1]->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
 	}
 	for (size_t i = 0; i < size_; ++i) {
-
+		transform_[i].translate += translate_;
 		transform_[i].UpdateMatrix();
 		sprite_[i]->Draw(texHD_, transform_[i], camera);
 	}

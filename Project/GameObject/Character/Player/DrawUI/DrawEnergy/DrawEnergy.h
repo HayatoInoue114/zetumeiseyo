@@ -16,6 +16,7 @@ public:
 	void Initialize();
 	void Draw(uint32_t energy, Camera* camera);
 
+	void SetTranslate(Vector3 translate) { translate_ = translate; }
 private:
 
 	// 制限時間の各位を求める
@@ -25,6 +26,7 @@ private:
 	void SetSrc();
 
 private:
+	Vector3 translate_;
 
 	// ラベル
 	uint32_t lavelTexHD_ = 0;

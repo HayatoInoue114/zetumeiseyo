@@ -15,11 +15,13 @@ public:
 	void Initialize();
 	void Draw2DFront(int nowPage, Camera* camera);
 
+	void SetTranslate(Vector3 translate) { translate_ = translate; }
 private:
 
 	size_t size_ = 0;
 	uint32_t texHD_ = 0;
 	vector<unique_ptr<Sprite>> sprite_;
 	vector<WorldTransform> transform_;
+	Vector3 translate_;
 };
 

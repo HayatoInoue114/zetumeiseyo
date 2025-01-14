@@ -66,6 +66,7 @@ void DrawCost::Initialize(uint32_t cost)
 
 void DrawCost::Draw(Camera* camera)
 {
+	lavelTransform_.translate += translate_;
 	// ラベル
 	lavelTransform_.UpdateMatrix();
 	lavelSprite_->Draw(lavelTexHD_, lavelTransform_, camera);
@@ -73,6 +74,7 @@ void DrawCost::Draw(Camera* camera)
 	// 数字
 	SetSrc();
 	for (size_t i = 0; i < numberSprite_.size(); i++) {
+		numberTransform_[i].translate += translate_;
 		numberTransform_[i].UpdateMatrix();
 		numberSprite_[i]->Draw(numberTexHD_, numberTransform_[i], camera);
 	}

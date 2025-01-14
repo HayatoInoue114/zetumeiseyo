@@ -38,16 +38,21 @@ void BackArrow::Initialize()
 		520.0f,
 		0.0f,
 	};
+	
 }
 
 
 void BackArrow::Draw2DFront(int nowPage, Camera* camera)
 {
+	for (size_t i = 0; i < size_; ++i) {
+		transform_[i].translate += translate_;
+	}
 	transform_[nowPage].UpdateMatrix();
 	sprite_[nowPage]->Draw(texHD_[nowPage], transform_[nowPage], camera);
 
 	if (nowPage == 1) {
 		labelWt_.UpdateMatrix();
+		labelWt_.translate += translate_;
 		labelSprite_->Draw(labelTexHD_, labelWt_, camera);
 	}
 }

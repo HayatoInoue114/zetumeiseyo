@@ -68,12 +68,18 @@ void PlayerLevelUpPrope::Initialize()
 	// オーディオ
 	selectSE_ = Audio::LoadSound("SE/idou.wav");
 	decisionSE_ = Audio::LoadSound("SE/kettei.wav");
+
+	//UIに動きを足す
+	uiMove_.Init();
 }
 
 
 // 更新処理
 void PlayerLevelUpPrope::Update()
 {
+	//UIに動きを足す
+	uiMove_.Update();
+
 	// ページの変更
 	ChangePage();
 
@@ -259,7 +265,7 @@ void PlayerLevelUpPrope::LevelUpFunc()
 	if (GamePadInput::TriggerButton(PadData::A) || KeysInput::TriggerKey(DIK_RETURN)) {
 
 		// エネルギー残量チェック
-		if (player_->GetEnergy() < costLevelUpEnergy_) {
+		if (player_->GetEnergy() < levelUpEnergy_) {
 			return; // 消費エネルギー以下しか所持していなかったら早期return
 		}
 		// レベルチェック
@@ -297,7 +303,7 @@ void PlayerLevelUpPrope::LevelUpFunc()
 		}
 
 		// エネルギーを消費
-		player_->SubEnergy(costLevelUpEnergy_);
+		player_->SubEnergy(levelUpEnergy_);
 
 		Audio::PlayOnSound(decisionSE_, false, 0.2f);
 
