@@ -39,7 +39,7 @@ void GameScene::Initialize() {
 	/* ----- Field フィールド ----- */
 	Field::GetInstance()->Initialize();
 
-	
+
 	/* ----- Camera カメラ ----- */
 	camera_ = make_unique<Camera>();
 	camera_->Initialize();
@@ -120,10 +120,10 @@ void GameScene::Initialize() {
 	endFrame_ = 20;
 	animTime_ = 0;
 	goColor_ = { 1,1,1,1 };
-	
+
 	readyTex_ = TextureManager::LoadTexture("GameScene/UI", "ready.png");
 	readySp_ = std::make_unique<Sprite>();
-	readySp_->Initialize({512,512});
+	readySp_->Initialize({ 512,512 });
 	readySp_->SetSpriteOrigin(SpriteOrigin::Center);
 	readyWT_.Initialize();
 	readyWT_.scale = {};
@@ -262,7 +262,7 @@ void GameScene::ModelDraw() {
 
 	/* ----- Ground 床 ----- */
 	Ground::GetInstance()->Draw(camera_.get());
-	
+
 	/* ----- Player プレイヤー ----- */
 	player_->Draw3D(camera_.get());
 	for (shared_ptr<IPlayerBullet> bullet : playerBullets_) {
@@ -287,14 +287,14 @@ void GameScene::ModelDraw() {
 			//indicator->Draw3D(camera_.get());
 		}
 	}
-	
+
 
 	/*if (startCameraAnimIsFinish_) {
 		for (size_t i = 0; i < indicators.size(); i++) {
 			indicators[i]->Draw3D(camera_.get());
 		}
 	}*/
-	
+
 	/* ----- ParticleManager パーティクルマネージャー ----- */
 	particleManager_->Draw(camera_.get());
 
@@ -356,40 +356,68 @@ void GameScene::WaveUpdate()
 	if (!startCameraAnimIsFinish_) {
 		return;
 	}
-	
-	if (!isFade_) {
 
-		/* ----- CollisionManager コリジョンマネージャー ----- */
-		CheckAllCollision();
+	// フラグがたっていたら入らない
+	if (!gameTimeCount_->IsTimeUp()) {
 
-		/* ----- ParticleManager パーティクルマネージャー ----- */
-		particleManager_->Update();
+		/* ----- GameTimeCount ゲームカウント ----- */
+		gameTimeCount_->Update();
 
+		if (!isFade_) {
 
-		/* ----- Player プレイヤー ----- */
-		PlayerUpdate();
-		// 死んでいたら処理を抜ける
-		if (player_->GetDeadFuncIsFinish()) {
+			/* ----- CollisionManager コリジョンマネージャー ----- */
+			CheckAllCollision();
+			/* ----- CollisionManager コリジョンマネージャー ----- */
+			CheckAllCollision();
 
-			// シーン遷移のフラグを立てる
-			isSceneChange_ = true;
-		}
-		if (player_->GetIsDead()) {
-			return;
-		}
+			/* ----- ParticleManager パーティクルマネージャー ----- */
+			particleManager_->Update();
+			/* ----- ParticleManager パーティクルマネージャー ----- */
+			particleManager_->Update();
 
 
+			/* ----- Player プレイヤー ----- */
+			PlayerUpdate();
+			// 死んでいたら処理を抜ける
+			if (player_->GetDeadFuncIsFinish()) {
+				/* ----- Player プレイヤー ----- */
+				PlayerUpdate();
+				// 死んでいたら処理を抜ける
+				if (player_->GetDeadFuncIsFinish()) {
+
+					// シーン遷移のフラグを立てる
+					isSceneChange_ = true;
+				}
+				if (player_->GetIsDead()) {
+					return;
+				}
+				// シーン遷移のフラグを立てる
+				isSceneChange_ = true;
+			}
+			if (player_->GetIsDead()) {
+				return;
+			}
+
+
+			/* ----- Enemy 敵 ----- */
+			//enemyManager_.Update();
 		/* ----- Enemy 敵 ----- */
-		enemyManager_.Update();
+			enemyManager_.Update();
 
-		//インジケーターの更新処理
-		UpdateEnemyPositions();
-		UpdateIndicators();
+			//インジケーターの更新処理
+			UpdateEnemyPositions();
+			UpdateIndicators();
+			//インジケーターの更新処理
+			UpdateEnemyPositions();
+			UpdateIndicators();
 
-		/* ----- LevelManager レベルマネージャー ----- */
-		levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
+			/* ----- LevelManager レベルマネージャー ----- */
+			levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
+			/* ----- LevelManager レベルマネージャー ----- */
+			levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
 
-		MorterShake();
+			MorterShake();
+		}
 	}
 
 	// タイマーが既定値になっていたら終了処理に入る
@@ -548,15 +576,15 @@ void GameScene::CameraUpdate()
 	}
 
 	// カメラの追従処理
-	if (startCameraAnimIsFinish_ && player_->GetHp() !=0) {
+	if (startCameraAnimIsFinish_ && player_->GetHp() != 0) {
 
 		PlayerCamera();
 
 		// スタート演出の処理に入ってほしくないのでここでreturnを入れる
 		return;
 	}
-	
-	
+
+
 	// スタート時のカメラ演出
 	CameraStartMove();
 }
@@ -672,7 +700,7 @@ void GameScene::StartTexture()
 
 		goWT_.UpdateMatrix();
 	}
-	
+
 }
 
 //プレイヤーが死んだときのカメラ演出
@@ -710,7 +738,7 @@ void GameScene::PlayerCamera()
 	// カメラの位置と向きを設定
 	camera_->SetPosition(cameraPosition);
 	camera_->LookAt(playerPosition, forwardVec, followCamera_->GetRightVec(), { 0.0f, 1.0f, 0.0f }); // 上向きベクトルを指定してプレイヤーを向く
-	
+
 	Shake();
 	// ビュー行列を更新
 	camera_->UpdateMatrix();
