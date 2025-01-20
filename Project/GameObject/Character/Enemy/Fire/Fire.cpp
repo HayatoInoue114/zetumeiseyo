@@ -171,7 +171,7 @@ void Fire::OnCollision(uint32_t id)
 void Fire::OnCollisionWithPlayer(Player* player)
 {
 	if (isFeed_) {
-		player->AddEnergy(10);
+		player->AddEnergy(1);
 		isAlive_ = false;
 	}
 }

@@ -13,7 +13,7 @@ void DrawEnergy::Initialize()
 	lavelSprite_->Initialize(lavelSize_);
 
 	lavelTransform_.Initialize();
-	lavelTransform_.translate = {
+	tTranslate_ = {
 		180.0f,
 		80.0f,
 		0.0f,
@@ -33,11 +33,13 @@ void DrawEnergy::Initialize()
 	}
 
 	numberTransform_.resize(3);
+	tNumberTransform_.resize(3);
 	for (size_t i = 0; i < numberTransform_.size(); ++i) {
 		numberTransform_[i].Initialize();
-		numberTransform_[i].translate = {
-			lavelTransform_.translate.x + lavelSize_.x + (i * 56.0f),
-			lavelTransform_.translate.y + (lavelSize_.y / 2.0f) - (numberSize_.y / 2.0f),
+		tNumberTransform_[i].Initialize();
+		tNumberTransform_[i].translate = {
+			tTranslate_.x + lavelSize_.x + (i * 56.0f),
+			tTranslate_.y + (lavelSize_.y / 2.0f) - (numberSize_.y / 2.0f),
 			0.0f,
 		};
 	}
@@ -66,7 +68,7 @@ void DrawEnergy::Draw(uint32_t energy, Camera* camera)
 {
 	// ラベル
 	lavelTransform_.UpdateMatrix();
-	lavelTransform_.translate += translate_;
+	lavelTransform_.translate = tTranslate_ + translate_;
 	lavelSprite_->Draw(lavelTexHD_, lavelTransform_, camera);
 
 	// 数字
@@ -74,7 +76,7 @@ void DrawEnergy::Draw(uint32_t energy, Camera* camera)
 	SetSrc();
 	for (size_t i = 0; i < numberSprite_.size(); i++) {
 		numberTransform_[i].UpdateMatrix();
-		numberTransform_[i].translate += translate_;
+		numberTransform_[i].translate = tNumberTransform_[i].translate + translate_;
 		numberSprite_[i]->Draw(numberTexHD_, numberTransform_[i], camera);
 	}
 }

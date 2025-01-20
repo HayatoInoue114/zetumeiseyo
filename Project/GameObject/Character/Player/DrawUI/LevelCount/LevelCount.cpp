@@ -28,7 +28,7 @@ void LevelCount::Initialize(int prope, Vector2 pos)
 	lavelSprite_->SetSpriteOrigin(SpriteOrigin::Center);
 
 	lavelTransform_.Initialize();
-	lavelTransform_.translate = { pos.x, pos.y,	0.0f, };
+	tTranslate_ = { pos.x, pos.y,	0.0f, };
 
 
 	// レベルカウント
@@ -38,6 +38,7 @@ void LevelCount::Initialize(int prope, Vector2 pos)
 
 	countSprite_.resize(size_);
 	countTransform_.resize(size_);
+	tCountTransform_.resize(size_);
 
 	for (size_t i = 0; i < size_; ++i) {
 		countSprite_[i] = make_unique<Sprite>();
@@ -45,9 +46,10 @@ void LevelCount::Initialize(int prope, Vector2 pos)
 		countSprite_[i]->SetSpriteOrigin(SpriteOrigin::Center);
 
 		countTransform_[i].Initialize();
-		countTransform_[i].translate = {
-			lavelTransform_.translate.x + lavelSpriteSize_.x + (i * 72.0f),
-			lavelTransform_.translate.y,
+		tCountTransform_[i].Initialize();
+		tCountTransform_[i].translate = {
+			tTranslate_.x + lavelSpriteSize_.x + (i * 72.0f),
+			tTranslate_.y,
 			0.0f,
 		};
 	}
@@ -56,7 +58,7 @@ void LevelCount::Initialize(int prope, Vector2 pos)
 
 void LevelCount::Draw2DFront(uint32_t num, Camera* camera)
 {
-	lavelTransform_.translate += translate_;
+	lavelTransform_.translate = tTranslate_ + translate_;
 	// ラベル
 	lavelTransform_.UpdateMatrix();
 	lavelSprite_->Draw(lavelTexHD_, lavelTransform_, camera);
@@ -66,7 +68,7 @@ void LevelCount::Draw2DFront(uint32_t num, Camera* camera)
 		countSprite_[i]->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
 	}
 	for (size_t i = 0; i < size_; ++i) {
-		countTransform_[i].translate += translate_;
+		countTransform_[i].translate = tCountTransform_[i].translate + translate_;
 
 		countTransform_[i].UpdateMatrix();
 

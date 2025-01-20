@@ -28,32 +28,33 @@ void SelectFrame::Initialize()
 void SelectFrame::Draw2DFront(uint32_t page, uint32_t num, Camera* camera)
 {
 	if (page == 0) {
-		transform_.translate += translate_;
-		Atransform_.translate += translate_;
-		transform_.translate = {
+		
+		tTranslate_ = {
 			levelVectors_[num].x,
 			levelVectors_[num].y,
 			0.0f,
 		};
-		Atransform_.translate = {
+		tTranslate_ = {
 			levelVectors_[num].x,
 			levelVectors_[num].y,
 			0.0f,
 		};
+		transform_.translate = tTranslate_ + translate_;
+		Atransform_.translate = tTranslate_ + translate_;
 	}
 	else if (page == 1) {
-		transform_.translate += translate_;
-		Atransform_.translate += translate_;
-		transform_.translate = {
+		tTranslate_ = {
 			bulletVectors_[num].x,
 			bulletVectors_[num].y,
 			0.0f,
 		};
-		Atransform_.translate = {
+		tTranslate_ = {
 			bulletVectors_[num].x,
 			bulletVectors_[num].y,
 			0.0f,
 		};
+		transform_.translate = transform_.translate + translate_;
+		Atransform_.translate = Atransform_.translate + translate_;
 	}
 	
 	transform_.UpdateMatrix();

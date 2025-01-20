@@ -15,9 +15,10 @@ public:
 	void Initialize(int num, Vector2 pos);
 	void Draw2DFront(int nowPage, Camera* camera);
 
-	void SetTranslate(Vector3 translate) { translate_ = translate; }
+	void SetTranslate(const Vector3& translate) { translate_ = translate; }
 private:
 	Vector3 translate_;
+	Vector3 tTranslate_;
 
 	uint32_t texHD_;
 	unique_ptr<Sprite> sprite_;

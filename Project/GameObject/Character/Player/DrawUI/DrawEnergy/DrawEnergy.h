@@ -16,7 +16,7 @@ public:
 	void Initialize();
 	void Draw(uint32_t energy, Camera* camera);
 
-	void SetTranslate(Vector3 translate) { translate_ = translate; }
+	void SetTranslate(const Vector3& translate) { translate_ = translate; }
 private:
 
 	// 制限時間の各位を求める
@@ -27,6 +27,7 @@ private:
 
 private:
 	Vector3 translate_;
+	Vector3 tTranslate_;
 
 	// ラベル
 	uint32_t lavelTexHD_ = 0;
@@ -38,6 +39,7 @@ private:
 	uint32_t numberTexHD_ = 0;
 	vector<unique_ptr<Sprite>> numberSprite_;
 	vector<WorldTransform> numberTransform_;
+	vector<WorldTransform> tNumberTransform_;
 	vector<QuadVertex2> src_;
 	Vector2 numberSize_{};
 	uint32_t eachTimes_[3]{};

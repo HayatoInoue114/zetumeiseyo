@@ -35,7 +35,7 @@ void Player::Initialize()
 
 
 	// エネルギーの初期設定
-	energy_ = 100;
+	energy_ = 0;
 
 
 	// 死亡フラグ
@@ -447,31 +447,6 @@ Vector3 Player::CalcToDashPos()
 	return toDash;
 }
 
-
-
-//// ダッシュ先の座標を計算
-//Vector3 Player::CalcToDashPos()
-//{
-//	// カメラの前方と右方ベクトルを取得
-//	Vector3 forward = followCamera_->GetForwardVec(); // カメラの前方ベクトル
-//	Vector3 right = followCamera_->GetRightVec();     // カメラの右方ベクトル
-//
-//	// プレイヤーの移動方向を計算（スティック入力）
-//	Vector3 moveDirection = {
-//		(iLStick_.x * right.x) + (iLStick_.y * forward.x),
-//		0.0f,
-//		(iLStick_.x * right.z) + (iLStick_.y * forward.z),
-//	};
-//
-//	// ダッシュ先を計算
-//	Vector3 toDash = Normalize(moveDirection - bodyWt_.GetWorldPos());
-//
-//	return toDash * toDash_;
-//}
-
-
-
-
 // レベルチェック
 void Player::LevelCheck()
 {
@@ -495,6 +470,9 @@ void Player::LevelCheck()
 	bulletType_ = levelUpPrope_->SetBulletType();
 
 	levelUpPrope_->CalcTotalLevel();
+
+	//UIMoveのX値を初期化
+	levelUpPrope_->SetUiMovePosInit(1000);
 }
 
 

@@ -33,6 +33,9 @@ public: // メンバ関数
 	// 時間切れのフラグ
 	bool IsTimeUp() const { return this->isTimeUp_; }
 
+	//名前紛らわしいけどレベルアップ処理に入るためのセッター
+	void SetIsTimeUp(bool isTime) { this->isTimeUp_ = isTime; }
+
 #pragma endregion 
 
 

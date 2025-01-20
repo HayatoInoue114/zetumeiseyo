@@ -9,6 +9,7 @@ void BackArrow::Initialize()
 	texHD_.resize(size_);
 	sprite_.resize(size_);
 	transform_.resize(size_);
+	tTransform_.resize(size_);
 
 	texHD_[0] = TextureManager::LoadTexture("GameScene/Player", "backArrwo_toRight.png");
 	texHD_[1] = TextureManager::LoadTexture("GameScene/Player", "backArrwo_toLeft.png");
@@ -19,7 +20,8 @@ void BackArrow::Initialize()
 		sprite_[i]->Initialize({ 32.0f, 32.0f });
 
 		transform_[i].Initialize();
-		transform_[i].translate = {
+		tTransform_[i].Initialize();
+		tTransform_[i].translate = {
 			1056.0f - (i * 868.0f),
 			630.0f - 48.0f,
 			0.0f,
@@ -33,7 +35,7 @@ void BackArrow::Initialize()
 	labelSprite_->Initialize({ 240.0f, 120.0f });
 
 	labelWt_.Initialize();
-	labelWt_.translate = {
+	tTranslate_ = {
 		860.0f,
 		520.0f,
 		0.0f,
@@ -44,15 +46,13 @@ void BackArrow::Initialize()
 
 void BackArrow::Draw2DFront(int nowPage, Camera* camera)
 {
-	for (size_t i = 0; i < size_; ++i) {
-		transform_[i].translate += translate_;
-	}
-	transform_[nowPage].UpdateMatrix();
+	transform_[nowPage].translate = tTransform_[nowPage].translate + translate_;
 	sprite_[nowPage]->Draw(texHD_[nowPage], transform_[nowPage], camera);
+	transform_[nowPage].UpdateMatrix();
 
 	if (nowPage == 1) {
 		labelWt_.UpdateMatrix();
-		labelWt_.translate += translate_;
+		labelWt_.translate = tTranslate_ + translate_;
 		labelSprite_->Draw(labelTexHD_, labelWt_, camera);
 	}
 }

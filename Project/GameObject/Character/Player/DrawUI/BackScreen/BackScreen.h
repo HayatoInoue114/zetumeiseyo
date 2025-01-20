@@ -16,10 +16,11 @@ public:
 	void Initialize();
 	void Draw2DFront(Camera* camera);
 
-	void SetTranslate(Vector3 translate) { translate_ = translate; }
+	void SetTranslate(const Vector3& translate) { translate_ = translate; }
 
 private:
 	Vector3 translate_;
+	Vector3 tTranslate_;
 
 	uint32_t texHD_ = 0;
 	unique_ptr<Sprite> sprite_;

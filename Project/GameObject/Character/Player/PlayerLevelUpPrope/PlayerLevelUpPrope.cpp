@@ -70,16 +70,13 @@ void PlayerLevelUpPrope::Initialize()
 	decisionSE_ = Audio::LoadSound("SE/kettei.wav");
 
 	//UIに動きを足す
-	uiMove_.Init();
+	translate_.x = 1000;
 }
 
 
 // 更新処理
 void PlayerLevelUpPrope::Update()
 {
-	//UIに動きを足す
-	uiMove_.Update();
-
 	// ページの変更
 	ChangePage();
 
@@ -134,7 +131,8 @@ void PlayerLevelUpPrope::Draw2DBack(Camera* camera)
 void PlayerLevelUpPrope::Draw2DFront(Camera* camera)
 {
 	if (player_->GetNowLevelUp()) {
-
+		//UIに動きを足す
+		UIMove();
 		// バックスクリーン
 		backScreen_->Draw2DFront(camera);
 
@@ -370,4 +368,31 @@ void PlayerLevelUpPrope::BulletTypeFunc()
 			Audio::PlayOnSound(selectSE_, false, 0.5f);
 		}
 	}
+}
+
+void PlayerLevelUpPrope::UIMove()
+{
+	float pointX = 50.0f;
+	if (translate_.x > 0.0f) {
+		translate_.x -= pointX;
+	}
+
+	backScreen_->SetTranslate(translate_);
+	backArrow_->SetTranslate(translate_);
+	pageSelect_->SetTranslate(translate_);
+	for (int i = 0; i < levels_.size(); ++i) {
+		levelCounts_[i]->SetTranslate(translate_);
+	}
+	selectFrame_->SetTranslate(translate_);
+	drawEnergy_->SetTranslate(translate_);
+	drawCostOne_->SetTranslate(translate_);
+	drawCostTwo_->SetTranslate(translate_);
+	for (size_t i = 0; i < 3; ++i) {
+		bulletLavel_[i]->SetTranslate(translate_);
+	}
+	//operationUI_->SetTranslate(translate_);
+
+	ImGui::Begin("wtranslate");
+	ImGui::Text("%f", translate_.x);
+	ImGui::End();
 }

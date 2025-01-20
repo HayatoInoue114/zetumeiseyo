@@ -16,9 +16,10 @@ public:
 	void Initialize(int prope, Vector2 pos);
 	void Draw2DFront(uint32_t num, Camera* camera);
 
-	void SetTranslate(Vector3 translate) { translate_ = translate; }
+	void SetTranslate(const Vector3& translate) { translate_ = translate; }
 private:
 	Vector3 translate_;
+	Vector3 tTranslate_;
 
 	// ラベル
 	uint32_t lavelTexHD_ = 0;
@@ -31,4 +32,5 @@ private:
 	uint32_t countTexHD_ = 0;
 	vector<unique_ptr<Sprite>> countSprite_;
 	vector<WorldTransform> countTransform_;
+	vector<WorldTransform> tCountTransform_;
 }; 

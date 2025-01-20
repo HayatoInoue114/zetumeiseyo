@@ -145,7 +145,8 @@ void GameTimeCount::SubTimer()
 	if (!isTimeUp_) {
 
 		// フレームをデクリメント
-		gameFrame_--;
+		// ここでWave制を廃止にしています
+		//gameFrame_--;
 		nowGameTimer_ = ConvertToSecond();
 
 		// 秒針の前進に使うフレームもインクリメント

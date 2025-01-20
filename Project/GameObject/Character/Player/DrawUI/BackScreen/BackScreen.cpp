@@ -1,7 +1,5 @@
 #include "BackScreen.h"
 
-
-
 void BackScreen::Initialize()
 {
 	texHD_ = TextureManager::LoadTexture("GameScene/Player", "LevelUpBack.png");
@@ -11,14 +9,14 @@ void BackScreen::Initialize()
 	sprite_->SetSpriteOrigin(SpriteOrigin::Center);
 
 	transform_.Initialize();
-	transform_.translate = { WinApp::kHalfWindowWidth, WinApp::kHalfWindowHeight, 0.0f };
+	tTranslate_ = { WinApp::kHalfWindowWidth, WinApp::kHalfWindowHeight, 0.0f };
 }
 
 
 void BackScreen::Draw2DFront(Camera* camera)
 {
-	transform_.UpdateMatrix();
-	transform_.translate += translate_;
+	transform_.translate = tTranslate_ + translate_;
 
 	sprite_->Draw(texHD_, transform_, camera);
+	transform_.UpdateMatrix();
 }

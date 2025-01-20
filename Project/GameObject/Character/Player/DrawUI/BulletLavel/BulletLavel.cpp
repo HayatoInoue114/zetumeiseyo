@@ -21,14 +21,14 @@ void BulletLavel::Initialize(int num, Vector2 pos)
 	sprite_->SetSpriteOrigin(SpriteOrigin::Center);
 
 	transform_.Initialize();
-	transform_.translate = { pos.x, pos.y, 0.0f };
+	tTranslate_ = { pos.x, pos.y, 0.0f };
 }
 
 
 void BulletLavel::Draw2DFront(int nowPage, Camera* camera)
 {
 	if (nowPage == 1) {
-		transform_.translate += translate_;
+		transform_.translate = tTranslate_ + translate_;
 		transform_.UpdateMatrix();
 		sprite_->Draw(texHD_, transform_, camera);
 	}

@@ -167,6 +167,9 @@ private:
 
 	void InputFunc();
 	void ExecuteShot();
+
+	//持ってるエネルギー量に応じてレベルアップ処理に入る
+	void LevelUpFunc();
 private: // プレイヤー本体 : メンバ変数
 
 	// 本体

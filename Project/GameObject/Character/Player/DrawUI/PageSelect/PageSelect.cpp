@@ -8,6 +8,7 @@ void PageSelect::Initialize()
 
 	sprite_.resize(size_);
 	transform_.resize(size_);
+	tTransform_.resize(size_);
 
 	texHD_ = TextureManager::LoadTexture("GameScene/Player", "pageSelect.png");
 
@@ -18,7 +19,8 @@ void PageSelect::Initialize()
 		sprite_[i]->SetSpriteOrigin(SpriteOrigin::Center);
 
 		transform_[i].Initialize();
-		transform_[i].translate = {
+		tTransform_[i].Initialize();
+		tTransform_[i].translate = {
 			612.0f + (i * 56.0f),
 			656.0f - 48.0f,
 			0.0f,
@@ -38,7 +40,7 @@ void PageSelect::Draw2DFront(int nowPage, Camera* camera)
 		sprite_[1]->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
 	}
 	for (size_t i = 0; i < size_; ++i) {
-		transform_[i].translate += translate_;
+		transform_[i].translate = tTransform_[i].translate + translate_;
 		transform_[i].UpdateMatrix();
 		sprite_[i]->Draw(texHD_, transform_[i], camera);
 	}

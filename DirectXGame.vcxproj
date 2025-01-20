@@ -144,6 +144,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Project\GameObject\Character\Player\LevelUp\LevelUp.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModel.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\IParticleModel.cpp" />
@@ -275,6 +276,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\GameObject\Character\Player\UIMove\UIMove.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Project\GameObject\Character\Player\LevelUp\LevelUp.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModel.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\IParticleModel.h" />

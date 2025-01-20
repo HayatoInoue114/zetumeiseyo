@@ -11,7 +11,7 @@ void Mortar::Initialize(Player* player, Vector3 position, int level) {
 	worldTransform_.scale *= 2;
 
 	nowCT = bulletCoolTime;
-	param.searchDistance = 15.0f;
+	param.searchDistance = 30.0f;
 
 	texture_ = TextureManager::LoadTexture("", "black2x2.png");
 
@@ -28,7 +28,7 @@ void Mortar::ParameterInitialize() {
 	param.speed = 0.5f + level_ / 15.0f;
 	param.hp = 15 + level_ * 2;
 	param.power = level_ + 1;
-	param.searchDistance = 15.0f + (float)level_ * 3;
+	param.searchDistance = 30.0f + (float)level_ * 3;
 
 	worldTransform_.scale = { (float)level_ / 2 + 1,(float)level_ / 2 + 1,(float)level_ / 2 + 1 };
 }
@@ -120,7 +120,7 @@ void Mortar::OnCollision(uint32_t id)
 void Mortar::OnCollisionWithPlayer(Player* player)
 {
 	if (isFeed_) {
-		player->AddEnergy(10);
+		player->AddEnergy(1);
 		isAlive_ = false;
 	}
 }

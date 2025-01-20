@@ -19,9 +19,10 @@ public:
 	void levelVectors_push_back(Vector2 vector) { levelVectors_.push_back(vector); }
 	void bulletVectors_push_back(Vector2 vector) { bulletVectors_.push_back(vector); }
 
-	void SetTranslate(Vector3 translate) { translate_ = translate; }
+	void SetTranslate(const Vector3& translate) { translate_ = translate; }
 private:
 	Vector3 translate_;
+	Vector3 tTranslate_;
 
 	uint32_t texHD_ = 0;
 	unique_ptr<Sprite> sprite_;

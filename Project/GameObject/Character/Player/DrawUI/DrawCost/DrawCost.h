@@ -16,7 +16,7 @@ public:
 	void Initialize(uint32_t cost);
 	void Draw(Camera* camera);
 
-	void SetTranslate(Vector3 translate) { translate_ = translate; }
+	void SetTranslate(const Vector3& translate) { translate_ = translate; }
 private:
 
 	void SetSrc();
@@ -24,6 +24,7 @@ private:
 
 private:
 	Vector3 translate_;
+	Vector3 tTranslate_;
 
 	// ラベル
 	uint32_t lavelTexHD_ = 0;
@@ -35,6 +36,7 @@ private:
 	uint32_t numberTexHD_ = 0;
 	vector<unique_ptr<Sprite>> numberSprite_;
 	vector<WorldTransform> numberTransform_;
+	vector<WorldTransform> tNumberTransform_;
 	vector<QuadVertex2> src_;
 	Vector2 numberSize_{};
 	uint32_t eachTimes_[2]{};

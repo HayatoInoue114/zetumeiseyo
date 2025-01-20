@@ -91,8 +91,8 @@ void Blast::Update() {
 
 		DiscoverPlayer();
 
-		Chace();
-		//ChaceForStreight();
+		//Chace();
+		ChaceForStreight();
 
 		SettingCollider();
 
@@ -140,7 +140,7 @@ std::unique_ptr<Blast> Blast::Spawn(Player* player, Vector3 position, int level)
 void Blast::OnCollisionWithPlayer(Player* player)
 {
 	if (isFeed_) {
-		player->AddEnergy(10);
+		player->AddEnergy(1);
 		isAlive_ = false;
 	}
 	else {

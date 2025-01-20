@@ -172,6 +172,9 @@ void GameScene::Update(GameManager* state) {
 	DeltaTime();
 	fps_.Update();
 
+	//ウェーブ制の廃止のための関数
+	levelUp_.LevelUpFunc(player_.get(), gameTimeCount_.get());
+
 	/* ----- Skydome 天球 ----- */
 	Skydome::GetInstance()->Update();
 
@@ -367,30 +370,16 @@ void GameScene::WaveUpdate()
 
 			/* ----- CollisionManager コリジョンマネージャー ----- */
 			CheckAllCollision();
-			/* ----- CollisionManager コリジョンマネージャー ----- */
-			CheckAllCollision();
 
 			/* ----- ParticleManager パーティクルマネージャー ----- */
 			particleManager_->Update();
-			/* ----- ParticleManager パーティクルマネージャー ----- */
-			particleManager_->Update();
+
 
 
 			/* ----- Player プレイヤー ----- */
 			PlayerUpdate();
 			// 死んでいたら処理を抜ける
 			if (player_->GetDeadFuncIsFinish()) {
-				/* ----- Player プレイヤー ----- */
-				PlayerUpdate();
-				// 死んでいたら処理を抜ける
-				if (player_->GetDeadFuncIsFinish()) {
-
-					// シーン遷移のフラグを立てる
-					isSceneChange_ = true;
-				}
-				if (player_->GetIsDead()) {
-					return;
-				}
 				// シーン遷移のフラグを立てる
 				isSceneChange_ = true;
 			}
@@ -407,12 +396,7 @@ void GameScene::WaveUpdate()
 			//インジケーターの更新処理
 			UpdateEnemyPositions();
 			UpdateIndicators();
-			//インジケーターの更新処理
-			UpdateEnemyPositions();
-			UpdateIndicators();
 
-			/* ----- LevelManager レベルマネージャー ----- */
-			levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
 			/* ----- LevelManager レベルマネージャー ----- */
 			levelManager_.Update(&enemyManager_, player_.get(), waveCount_);
 

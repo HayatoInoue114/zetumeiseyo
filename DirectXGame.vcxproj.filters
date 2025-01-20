@@ -218,6 +218,7 @@
     <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModel.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.cpp" />
     <ClCompile Include="Project\GameObject\Character\Player\UIMove\UIMove.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Player\LevelUp\LevelUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\GameObject\Character\Enemy\EnemyManager\EnemyManager.h" />
@@ -455,6 +456,7 @@
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModel.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.h" />
     <ClInclude Include="Project\GameObject\Character\Player\UIMove\UIMove.h" />
+    <ClInclude Include="Project\GameObject\Character\Player\LevelUp\LevelUp.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\LambertObject.hlsli" />

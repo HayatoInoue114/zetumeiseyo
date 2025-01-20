@@ -27,6 +27,7 @@
 #include "Effect/Indicator/Indicator.h"
 
 #include <chrono>
+#include "Player/LevelUp/LevelUp.h"
 
 
 class GameScene : public IScene {
@@ -199,6 +200,7 @@ private:
 
 	/* ----- GameTimeCount ゲームカウント ----- */
 	unique_ptr<GameTimeCount> gameTimeCount_;
+	LevelUp levelUp_;
 
 	/* ----- WaveCountUI ウェーブカウント ----- */
 	unique_ptr<WaveCountUI> waveCountUI_;

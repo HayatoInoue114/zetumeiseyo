@@ -64,6 +64,7 @@ public:
 #pragma region Set
 
 	void SetPlayer(Player* setPlayer) { this->player_ = setPlayer; }
+	void SetUiMovePosInit(float pos) { this->translate_.x = pos; }
 
 #pragma endregion 
 
@@ -85,7 +86,7 @@ private:
 	// バレットタイプ処理
 	void BulletTypeFunc();
 
-
+	void UIMove();
 private:
 
 	// Player
@@ -131,7 +132,7 @@ private:
 	int selectLevelType_ = 0;
 
 	// レベルアップに必要なエネルギー消費量
-	int levelUpEnergy_ = 1;
+	const int levelUpEnergy_ = 1;
 
 	// トータルレベル
 	int totalLevel_ = 0;
@@ -143,8 +144,8 @@ private:
 	// 今選択しているバレットのタイプ
 	int selectBulletType_ = 0;
 
-	// バレットタイプ変更に必要なエネルギー
-	int costBulletTypeEnergy_ = 50;
+	// バレットタイプ変更に必要なエネルギー(50)
+	const int costBulletTypeEnergy_ = 50;
 
 
 	// Audio SE
@@ -152,6 +153,8 @@ private:
 	uint32_t decisionSE_ = 0;
 
 	//UIに動きを足す
-	UIMove uiMove_;
+	Vector3 translate_{};
+
+	
 };
 
