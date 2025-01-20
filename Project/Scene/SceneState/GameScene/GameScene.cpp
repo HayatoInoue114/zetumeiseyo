@@ -387,9 +387,6 @@ void GameScene::WaveUpdate()
 				return;
 			}
 
-
-			/* ----- Enemy 敵 ----- */
-			//enemyManager_.Update();
 		/* ----- Enemy 敵 ----- */
 			enemyManager_.Update();
 
