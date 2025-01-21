@@ -18,6 +18,7 @@ public: // メンバ関数
 
 	// タイマーを減らす
 	void SubTimer();
+	void SubTimeForSpawnEnemy();
 
 	// 時間の追加処理
 	void AddTimer(uint32_t addTime);
@@ -35,6 +36,9 @@ public: // メンバ関数
 
 	//名前紛らわしいけどレベルアップ処理に入るためのセッター
 	void SetIsTimeUp(bool isTime) { this->isTimeUp_ = isTime; }
+
+	//時間経過でEnemy沸くためのフラグ
+	bool IsTimeSpawn() const { return this->isTimeSpawn_; }
 
 #pragma endregion 
 
@@ -98,5 +102,9 @@ private: // メンバ変数
 	uint32_t backTex_ = 0;
 	unique_ptr<Sprite> backSp_;
 	WorldTransform backWt_{};
+
+	//時間経過でEnemyが沸くようにする
+	bool isTimeSpawn_;
+	int spawnTimer_;
 };
 

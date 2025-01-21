@@ -219,6 +219,10 @@
     <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.cpp" />
     <ClCompile Include="Project\GameObject\Character\Player\UIMove\UIMove.cpp" />
     <ClCompile Include="Project\GameObject\Character\Player\LevelUp\LevelUp.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\State\BlastState\BlastState.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\State\FireState\FireState.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\State\MortarState\MortarState.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\State\IEnemyState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\GameObject\Character\Enemy\EnemyManager\EnemyManager.h" />
@@ -457,6 +461,10 @@
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.h" />
     <ClInclude Include="Project\GameObject\Character\Player\UIMove\UIMove.h" />
     <ClInclude Include="Project\GameObject\Character\Player\LevelUp\LevelUp.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\State\BlastState\BlastState.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\State\FireState\FireState.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\State\MortarState\MortarState.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\State\IEnemyState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\LambertObject.hlsli" />

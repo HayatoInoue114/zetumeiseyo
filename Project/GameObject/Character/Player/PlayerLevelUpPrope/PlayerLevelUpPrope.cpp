@@ -391,8 +391,4 @@ void PlayerLevelUpPrope::UIMove()
 		bulletLavel_[i]->SetTranslate(translate_);
 	}
 	//operationUI_->SetTranslate(translate_);
-
-	ImGui::Begin("wtranslate");
-	ImGui::Text("%f", translate_.x);
-	ImGui::End();
 }

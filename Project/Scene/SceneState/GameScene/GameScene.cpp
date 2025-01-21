@@ -202,6 +202,10 @@ void GameScene::Update(GameManager* state) {
 	if (isWaveStart_) {
 		WaveInit();
 	}
+	if (gameTimeCount_->IsTimeSpawn()) {
+		EnemySpawnTiemr();
+		
+	}
 	// ウェーブの更新処理
 	WaveUpdate();
 
@@ -347,6 +351,19 @@ void GameScene::WaveInit()
 
 	// ウェーブ開始のフラグを折って初期化処理に入らないようにする
 	isWaveStart_ = false;
+}
+
+/// <summary>
+/// 時間経過で敵が沸く
+/// </summary>
+void GameScene::EnemySpawnTiemr()
+{
+	enemyManager_.EnemySpawn(player_.get());
+	enemies_ = enemyManager_.GetEnemy();
+
+	InitEnemyPositions();
+	//インジケーターの初期化処理
+	InitIndicators(enemies_->size());
 }
 
 
@@ -860,3 +877,5 @@ void GameScene::DeltaTime()
 	deltaTime_ = elapsedTime.count(); // 経過時間を秒単位で計算
 	previousTime_ = currentTime;
 }
+
+

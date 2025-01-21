@@ -6,8 +6,9 @@
 void GameTimeCount::Initialize()
 {
 	// ゲームの制限時間 45秒
-	gameTime_ = 1 * 60;
+	gameTime_ = 10 * 60;
 	gameFrame_ = gameTime_;
+	spawnTimer_ = gameTime_;
 	nowGameTimer_ = ConvertToSecond();
 
 
@@ -68,6 +69,8 @@ void GameTimeCount::Initialize()
 		WinApp::kHalfWindowHeight,
 		0.0f,
 	};
+
+	isTimeSpawn_ = false;
 }
 
 
@@ -90,6 +93,8 @@ void GameTimeCount::Update()
 
 	// 制限時間の減算処理
 	SubTimer();
+
+	SubTimeForSpawnEnemy();
 
 	// 秒針の回転の処理
 	AdvanceClockHand();
@@ -153,7 +158,7 @@ void GameTimeCount::SubTimer()
 		advanceNowFrame_++;
 
 		// タイムバーの縮小に使うフレームもインクリメント
-		reductNowFrame_++;
+		//reductNowFrame_++;
 	}
 
 	// 制限時間が0になったら
@@ -165,6 +170,20 @@ void GameTimeCount::SubTimer()
 
 		// 制限時間切れのフラグを立てる
 		isTimeUp_ = true;
+	}
+}
+
+void GameTimeCount::SubTimeForSpawnEnemy()
+{
+	if (!isTimeSpawn_) {
+		spawnTimer_--;
+	}
+	if (spawnTimer_ == 0) {
+		isTimeSpawn_ = true;
+		spawnTimer_ = gameTime_;
+	}
+	else {
+		isTimeSpawn_ = false;
 	}
 }
 

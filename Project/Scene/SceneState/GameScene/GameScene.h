@@ -156,6 +156,9 @@ private:
 	void MorterShake();
 
 	void DeltaTime();
+
+	//時間経過でEnemyが沸くようにする
+	void EnemySpawnTiemr();
 private:
 	FPSCounter fps_;
 
