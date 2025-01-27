@@ -144,10 +144,11 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Project\GameObject\Character\Enemy\State\Blast\IBlastState.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\State\Blast\ChaceForStreightState\ChaceForStreightState.cpp" />
     <ClCompile Include="Project\GameObject\Character\Enemy\State\IEnemyState.cpp" />
-    <ClCompile Include="Project\GameObject\Character\Enemy\State\BlastState\BlastState.cpp" />
-    <ClCompile Include="Project\GameObject\Character\Enemy\State\FireState\FireState.cpp" />
-    <ClCompile Include="Project\GameObject\Character\Enemy\State\MortarState\MortarState.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\State\Fire\FireState.cpp" />
+    <ClCompile Include="Project\GameObject\Character\Enemy\State\Mortar\MortarState.cpp" />
     <ClCompile Include="Project\GameObject\Character\Player\LevelUp\LevelUp.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.cpp" />
     <ClCompile Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModel.cpp" />
@@ -280,10 +281,11 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\GameObject\Character\Player\UIMove\UIMove.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Project\GameObject\Character\Enemy\State\Blast\IBlastState.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\State\Blast\ChaceForStreightState\ChaceForStreightState.h" />
     <ClInclude Include="Project\GameObject\Character\Enemy\State\IEnemyState.h" />
-    <ClInclude Include="Project\GameObject\Character\Enemy\State\BlastState\BlastState.h" />
-    <ClInclude Include="Project\GameObject\Character\Enemy\State\FireState\FireState.h" />
-    <ClInclude Include="Project\GameObject\Character\Enemy\State\MortarState\MortarState.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\State\Fire\FireState.h" />
+    <ClInclude Include="Project\GameObject\Character\Enemy\State\Mortar\MortarState.h" />
     <ClInclude Include="Project\GameObject\Character\Player\LevelUp\LevelUp.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModelManager.h" />
     <ClInclude Include="Project\GameObject\Character\Effect\ParticleModel\ParticleModel.h" />

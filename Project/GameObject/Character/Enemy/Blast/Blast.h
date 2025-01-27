@@ -2,6 +2,7 @@
 #include "../IEnemy/IEnemy.h"
 #include "OBBCollider.h"
 #include "Effect/BlastParticle/BlastParticle.h"
+#include "../State/Blast/ChaceForStreightState/ChaceForStreightState.h"
 
 class Blast : public IEnemy, public OBBCollider
 {
@@ -152,6 +153,10 @@ private: ///メンバ関数///
 	/// </summary>
 	void ChaceForStreight();
 
+	//
+	void ChangeState(std::unique_ptr<IBlastState> newState);
+
+
 	Vector3 Multiply(const Vector3& v, const Matrix4x4& m);
 
 	float ToPlayerDot() { return Dot(player_->GetWorldPos(), worldTransform_.translate); }
@@ -184,7 +189,48 @@ private: ///イージング///
 
 	double easeInCirc(double x);
 
-	
+public:
+	// 新しいゲッターとセッター
+	bool IsTrace() const { return isTrace_; }
+	void SetTrace(bool isTrace) { isTrace_ = isTrace; }
+
+	bool IsBlast() const { return isBlast_; }
+	void SetBlast(bool isBlast) { isBlast_ = isBlast; }
+
+	Vector3 GetVelocity() const { return velocity_; }
+	void SetVelocity(const Vector3& velocity) { velocity_ = velocity; }
+
+	int GetCount() const { return count_; }
+	void SetCount(int count) { count_ = count; }
+
+	int GetBlastCount() const { return blastCount_; }
+	void SetBlastCount(int blastCount) { blastCount_ = blastCount; }
+
+	float GetVelocityXZ() const { return velocityXZ_; }
+	void SetVelocityXZ(float velocityXZ) { velocityXZ_ = velocityXZ; }
+
+	float GetT() const { return t_; }
+	void SetT(float t) { t_ = t; }
+
+	bool IsStreight() const { return isStreight_; }
+	void SetStreight(bool isStreight) { isStreight_ = isStreight; }
+
+	int GetStreightCount() const { return streightCount_; }
+	void SetStreightCount(int streightCount) { streightCount_ = streightCount; }
+
+	Vector3 GetStreightVel() const { return streightVel_; }
+	void SetStreightVel(const Vector3& streightVel) { streightVel_ = streightVel; }
+
+	Player* GetPlayer() const { return player_; }
+	void SetPlayer(Player* player) { player_ = player; }
+
+	float GetChaseIntensity() const { return chaseIntensity_; }
+	void SetChaseIntensity(float chaseIntensity) { chaseIntensity_ = chaseIntensity; }
+
+	const Parameter& GetParam() const { return param; }
+	void SetParam(const Parameter& param) { this->param = param; }
+
+
 
 private: ///メンバ変数///
 
